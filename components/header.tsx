@@ -599,8 +599,8 @@ export function Header() {
                 <Link href="/login" className="text-sm font-medium">
                   Login
                 </Link>
-                <Link href="/test-kits">
-                  <Button className="bg-black hover:bg-gray-800 text-white rounded-md">Personalise my test</Button>
+                <Link href="/screening">
+                  <Button className="bg-black hover:bg-gray-800 text-white rounded-md">Start now</Button>
                 </Link>
               </div>
             )}
@@ -1269,8 +1269,8 @@ export function Header() {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/test-kits" onClick={toggleMobileMenu}>
-                    <Button className="w-full bg-black text-white">Personalise my test</Button>
+                  <Link href="/screening" onClick={toggleMobileMenu}>
+                    <Button className="w-full bg-black text-white">Start now</Button>
                   </Link>
                 </>
               )}
