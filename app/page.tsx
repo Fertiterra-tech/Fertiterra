@@ -216,14 +216,13 @@ export default function HomePage() {
               <div className="relative mx-auto max-w-lg lg:max-w-none">
                 <div className="relative">
                   <Image
-                    src="/images/woman-with-test-kit.png"
-                    alt="Happy woman holding FertiTerra test kit at home - comfortable and easy fertility testing"
+                    src="/images/fertiterra-product-suite.png"
+                    alt="FertiTerra complete product suite - including test device, kit packaging, test strips, and all components"
                     width={600}
                     height={600}
                     className="rounded-2xl shadow-2xl"
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                    alt="Fertility App Africa"
                   />
 
                   {/* Floating care elements */}
