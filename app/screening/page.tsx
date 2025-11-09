@@ -4,9 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Header } from "@/components/header"
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Card } from "@/components/ui/card"
+import { Plus } from "lucide-react"
 
 const screeningOptions = [
   "I am just curious",
@@ -22,14 +20,18 @@ const screeningOptions = [
 
 export default function ScreeningPage() {
   const router = useRouter()
-  const [selectedOption, setSelectedOption] = useState<string>("")
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+
+  const toggleOption = (option: string) => {
+    setSelectedOptions((prev) => (prev.includes(option) ? prev.filter((item) => item !== option) : [...prev, option]))
+  }
 
   const handleNext = () => {
-    if (selectedOption) {
+    if (selectedOptions.length > 0) {
       // Save to session storage for persistence
-      sessionStorage.setItem("screeningSelection", selectedOption)
+      sessionStorage.setItem("screeningSelections", JSON.stringify(selectedOptions))
 
-      // Navigate to next step (to be implemented with detailed questions)
+      // Navigate to next step
       router.push("/screening/questions")
     }
   }
@@ -37,48 +39,56 @@ export default function ScreeningPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 py-12 md:py-20 bg-gradient-to-br from-rose-50 via-purple-50 to-pink-50">
-        <div className="container max-w-3xl">
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4 text-gray-900">
-              Quick screening — tell us who you are
-            </h1>
-            <p className="text-lg text-gray-600">Which of the following best describes you?</p>
+      <main className="flex-1 py-12 md:py-20 bg-white">
+        <div className="container max-w-4xl px-4">
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-serif mb-6 text-gray-900">So, what brings you here?</h1>
+            <p className="text-base md:text-lg text-gray-700 mb-2">
+              This helps our doctors tailor which hormones to test you for as well as creating your care plan and
+              report.
+            </p>
+            <p className="text-base font-semibold text-gray-900">Please select one or more options</p>
           </div>
 
-          <Card className="p-6 md:p-8 bg-white shadow-lg">
-            <RadioGroup value={selectedOption} onValueChange={setSelectedOption} className="space-y-4">
-              {screeningOptions.map((option, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-3 p-4 rounded-lg border border-gray-200 hover:border-rose-300 hover:bg-rose-50/50 transition-all cursor-pointer group"
-                  onClick={() => setSelectedOption(option)}
-                >
-                  <RadioGroupItem value={option} id={`option-${index}`} className="shrink-0" />
-                  <Label
-                    htmlFor={`option-${index}`}
-                    className="flex-1 text-base cursor-pointer font-medium text-gray-900 group-hover:text-rose-600 transition-colors"
-                  >
-                    {option}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-
-            <div className="mt-8 flex justify-center">
-              <Button
-                onClick={handleNext}
-                disabled={!selectedOption}
-                size="lg"
-                className="w-full md:w-auto min-w-[200px] bg-rose-600 hover:bg-rose-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-lg py-6"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {screeningOptions.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => toggleOption(option)}
+                className={`
+                  flex items-center gap-3 px-5 py-4 rounded-lg text-left transition-all
+                  ${
+                    selectedOptions.includes(option)
+                      ? "bg-[#e8d5c4] border-2 border-[#d4b5a0]"
+                      : "bg-[#f5ebe1] border-2 border-transparent hover:border-[#e8d5c4]"
+                  }
+                `}
               >
-                Next
-              </Button>
-            </div>
-          </Card>
+                <Plus
+                  className={`w-5 h-5 shrink-0 transition-transform ${
+                    selectedOptions.includes(option) ? "rotate-45 text-gray-700" : "text-gray-600"
+                  }`}
+                />
+                <span className="text-base text-gray-900 font-medium">{option}</span>
+              </button>
+            ))}
+          </div>
 
-          <div className="mt-6 text-center text-sm text-gray-500">
-            <p>Your responses are private and will help us personalize your experience.</p>
+          <div className="flex justify-start">
+            <Button
+              onClick={handleNext}
+              disabled={selectedOptions.length === 0}
+              size="lg"
+              className="
+                rounded-full px-8 py-6 text-base font-medium
+                disabled:bg-[#d1d5db] disabled:text-gray-600 disabled:cursor-not-allowed disabled:opacity-100
+                bg-gray-900 hover:bg-gray-800 text-white
+                transition-colors
+              "
+            >
+              Next
+              <span className="ml-2">⊙</span>
+            </Button>
           </div>
         </div>
       </main>
