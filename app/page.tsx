@@ -32,7 +32,18 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         {/* Hero Section with New Message */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-rose-50 via-purple-50 to-pink-50 py-20 md:py-32">
+        <section className="relative overflow-hidden py-20 md:py-32">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/images/fertiterra-product-suite.png"
+              alt="FertiTerra product suite with test device and kit"
+              fill
+              className="object-cover"
+              priority
+              quality={90}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/95 via-purple-50/90 to-pink-50/95"></div>
+          </div>
           <div className="container relative z-10">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
               <div className="flex flex-col space-y-8 lg:pl-8">
@@ -94,7 +105,7 @@ export default function HomePage() {
                         asChild
                         className="w-full bg-black hover:bg-gray-800 text-white py-3 text-lg font-semibold"
                       >
-                        <Link href="/plans/basic-fertility-checkup">Personalise my test</Link>
+                        <Link href="/screening">Start now</Link>
                       </Button>
                     </div>
 
