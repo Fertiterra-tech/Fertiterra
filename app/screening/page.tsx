@@ -31,8 +31,7 @@ export default function ScreeningPage() {
       // Save to session storage for persistence
       sessionStorage.setItem("screeningSelections", JSON.stringify(selectedOptions))
 
-      // Navigate to next step
-      router.push("/screening/questions")
+      router.push("/screening/contact")
     }
   }
 
