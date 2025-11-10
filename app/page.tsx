@@ -517,21 +517,23 @@ export default function HomePage() {
               <p className="text-lg text-gray-600">Choose the plan that best fits your fertility journey</p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
               {/* Free / Access Tier */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="space-y-1">
+              <Card className="flex flex-col overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-shadow bg-white">
+                <CardHeader className="space-y-3 pb-6">
                   <div className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-blue-500" />
-                    <CardTitle className="text-lg">Free / Access Tier</CardTitle>
+                    <Heart className="h-6 w-6 text-blue-500" />
+                    <CardTitle className="text-xl">Free / Access Tier</CardTitle>
                   </div>
-                  <CardDescription>Fertility Awareness & Tracking</CardDescription>
-                  <div className="text-3xl font-bold text-blue-600 mt-2">
-                    $0<span className="text-base font-normal text-gray-500">/month</span>
+                  <CardDescription className="text-sm">Fertility Awareness & Tracking</CardDescription>
+                  <div className="pt-2">
+                    <div className="text-4xl font-bold text-blue-600">
+                      $0<span className="text-lg font-normal text-gray-500">/month</span>
+                    </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                <CardContent className="flex-1 space-y-3 pb-6">
+                  <ul className="space-y-3">
                     {[
                       "Cycle and ovulation tracking",
                       "Hormone education & webinars",
@@ -540,15 +542,15 @@ export default function HomePage() {
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                        <span className="text-sm">{item}</span>
+                        <span className="text-sm text-gray-700">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="pt-0 pb-6">
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                    className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white"
                   >
                     <Link href="/plans/free-access">
                       Get Started <ArrowRight className="ml-2 h-4 w-4" />
@@ -558,19 +560,21 @@ export default function HomePage() {
               </Card>
 
               {/* Self-Assessment Tier */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="space-y-1">
+              <Card className="flex flex-col overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-shadow bg-white">
+                <CardHeader className="space-y-3 pb-6">
                   <div className="flex items-center gap-2">
-                    <TestTube className="h-5 w-5 text-teal-500" />
-                    <CardTitle className="text-lg">Self-Assessment Tier</CardTitle>
+                    <TestTube className="h-6 w-6 text-teal-500" />
+                    <CardTitle className="text-xl">Self-Assessment Tier</CardTitle>
                   </div>
-                  <CardDescription>Know Your Fertility Status</CardDescription>
-                  <div className="text-3xl font-bold text-teal-600 mt-2">
-                    $35–$200<span className="text-base font-normal text-gray-500">/one-time</span>
+                  <CardDescription className="text-sm">Know Your Fertility Status</CardDescription>
+                  <div className="pt-2">
+                    <div className="text-4xl font-bold text-teal-600">
+                      $35–$200<span className="text-lg font-normal text-gray-500">/one-time</span>
+                    </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                <CardContent className="flex-1 space-y-3 pb-6">
+                  <ul className="space-y-3">
                     {[
                       "At-home fertility test kit (hormone, ovarian reserve, sperm)",
                       "AI-powered fertility score & personalized health report",
@@ -578,15 +582,15 @@ export default function HomePage() {
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                        <span className="text-sm">{item}</span>
+                        <span className="text-sm text-gray-700">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="pt-0 pb-6">
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700"
+                    className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
                   >
                     <Link href="/plans/self-assessment">
                       Get Started <ArrowRight className="ml-2 h-4 w-4" />
@@ -596,22 +600,24 @@ export default function HomePage() {
               </Card>
 
               {/* Guided Support Tier */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="bg-rose-50 p-2">
-                  <Badge className="bg-rose-500 hover:bg-rose-600">Most Popular</Badge>
+              <Card className="flex flex-col overflow-hidden border-2 border-rose-200 shadow-md hover:shadow-lg transition-shadow bg-white relative">
+                <div className="absolute top-0 left-0 right-0">
+                  <div className="bg-rose-500 text-white text-xs font-semibold py-2 px-4 text-center">Most Popular</div>
                 </div>
-                <CardHeader className="space-y-1">
+                <CardHeader className="space-y-3 pb-6 pt-12">
                   <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-rose-500" />
-                    <CardTitle className="text-lg">Guided Support Tier</CardTitle>
+                    <Users className="h-6 w-6 text-rose-500" />
+                    <CardTitle className="text-xl">Guided Support Tier</CardTitle>
                   </div>
-                  <CardDescription>Improve & Take Action</CardDescription>
-                  <div className="text-3xl font-bold text-rose-600 mt-2">
-                    $20<span className="text-base font-normal text-gray-500">/month</span>
+                  <CardDescription className="text-sm">Improve & Take Action</CardDescription>
+                  <div className="pt-2">
+                    <div className="text-4xl font-bold text-rose-600">
+                      $20<span className="text-lg font-normal text-gray-500">/month</span>
+                    </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                <CardContent className="flex-1 space-y-3 pb-6">
+                  <ul className="space-y-3">
                     {[
                       "Personalized digital plans (diet, supplements, habits)",
                       "AI-driven progress tracking",
@@ -620,15 +626,15 @@ export default function HomePage() {
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                        <span className="text-sm">{item}</span>
+                        <span className="text-sm text-gray-700">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="pt-0 pb-6">
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700"
+                    className="w-full bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white"
                   >
                     <Link href="/plans/guided-support">
                       Get Started <ArrowRight className="ml-2 h-4 w-4" />
@@ -638,18 +644,20 @@ export default function HomePage() {
               </Card>
 
               {/* Partner & Referral Tier */}
-              <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="space-y-1">
+              <Card className="flex flex-col overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-shadow bg-white">
+                <CardHeader className="space-y-3 pb-6">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-purple-500" />
-                    <CardTitle className="text-lg">Partner & Referral Tier</CardTitle>
+                    <Shield className="h-6 w-6 text-purple-500" />
+                    <CardTitle className="text-xl">Partner & Referral Tier</CardTitle>
                   </div>
-                  <CardDescription>Clinical & Specialist Escalation</CardDescription>
-                  <div className="text-3xl font-bold text-purple-600 mt-2">Pay-as-you-go</div>
-                  <p className="text-xs text-gray-500">(referral-based)</p>
+                  <CardDescription className="text-sm">Clinical & Specialist Escalation</CardDescription>
+                  <div className="pt-2">
+                    <div className="text-4xl font-bold text-purple-600">Pay-as-you-go</div>
+                    <p className="text-sm text-gray-500 mt-1">(referral-based)</p>
+                  </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-2">
+                <CardContent className="flex-1 space-y-3 pb-6">
+                  <ul className="space-y-3">
                     {[
                       "Referral to vetted fertility clinics & labs",
                       "Priority scheduling with partner specialists",
@@ -658,15 +666,15 @@ export default function HomePage() {
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <CheckCircle className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                        <span className="text-sm">{item}</span>
+                        <span className="text-sm text-gray-700">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="pt-0 pb-6">
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700"
+                    className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white"
                   >
                     <Link href="/plans/partner-referral">
                       Learn More <ArrowRight className="ml-2 h-4 w-4" />
