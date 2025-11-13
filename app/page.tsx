@@ -33,26 +33,51 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section with New Message */}
         <section className="relative overflow-hidden py-20 md:py-32">
-          {/* CHANGE: Added abstract fertility background illustration with sperm and egg motifs */}
           <div className="absolute inset-0 z-0">
-            {/* Abstract fertility background SVG */}
             <svg
               className="absolute inset-0 w-full h-full"
-              viewBox="0 0 1200 800"
+              viewBox="0 0 1400 900"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid slice"
             >
               <defs>
-                <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                {/* Gradient backgrounds */}
+                <linearGradient id="bg-main" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#fdf2f8" />
-                  <stop offset="50%" stopColor="#fae8ff" />
+                  <stop offset="40%" stopColor="#fae8ff" />
                   <stop offset="100%" stopColor="#fce7f3" />
                 </linearGradient>
 
-                {/* Soft glow filters */}
-                <filter id="glow">
-                  <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                {/* Egg cell gradient */}
+                <radialGradient id="egg-gradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#fce7f3" stopOpacity="0.9" />
+                  <stop offset="40%" stopColor="#fbcfe8" stopOpacity="0.7" />
+                  <stop offset="70%" stopColor="#f9a8d4" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="#f472b6" stopOpacity="0.3" />
+                </radialGradient>
+
+                {/* Sperm head gradient (pink-lavender) */}
+                <radialGradient id="sperm-head-1" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#f9a8d4" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#ec4899" stopOpacity="0.5" />
+                </radialGradient>
+
+                {/* Sperm head gradient (lavender) */}
+                <radialGradient id="sperm-head-2" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#e9d5ff" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#c084fc" stopOpacity="0.5" />
+                </radialGradient>
+
+                {/* Sperm head gradient (rose) */}
+                <radialGradient id="sperm-head-3" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#fda4af" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="#fb7185" stopOpacity="0.5" />
+                </radialGradient>
+
+                {/* Soft glow filter */}
+                <filter id="soft-glow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                   <feMerge>
                     <feMergeNode in="coloredBlur" />
                     <feMergeNode in="SourceGraphic" />
@@ -60,21 +85,34 @@ export default function HomePage() {
                 </filter>
               </defs>
 
-              {/* Base gradient background */}
-              <rect width="1200" height="800" fill="url(#bg-gradient)" />
+              {/* Background */}
+              <rect width="1400" height="900" fill="url(#bg-main)" />
 
-              {/* Central egg-like shape (larger circle) */}
-              <circle cx="700" cy="400" r="120" fill="#fce7f3" opacity="0.6" filter="url(#glow)" />
-              <circle cx="700" cy="400" r="100" fill="#fae8ff" opacity="0.4" />
-              <circle cx="700" cy="400" r="70" fill="#f5d0fe" opacity="0.3" />
+              {/* Central EGG CELL - Large and prominent */}
+              <g filter="url(#soft-glow)">
+                <circle cx="800" cy="450" r="140" fill="url(#egg-gradient)" opacity="0.8" />
+                <circle cx="800" cy="450" r="120" fill="#fce7f3" opacity="0.6" />
+                <circle cx="800" cy="450" r="90" fill="#fbcfe8" opacity="0.4" />
+                {/* Nucleus hint */}
+                <circle cx="820" cy="430" r="35" fill="#f9a8d4" opacity="0.3" />
+              </g>
 
-              {/* Abstract sperm-like flowing shapes moving toward the egg */}
-              {/* Sperm 1 - coming from bottom left */}
-              <g opacity="0.5">
-                <ellipse cx="300" cy="600" rx="15" ry="20" fill="#f9a8d4" opacity="0.6" />
+              {/* SPERM CELL 1 - Coming from bottom left */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head (oval) */}
+                <ellipse cx="280" cy="720" rx="18" ry="28" fill="url(#sperm-head-1)" transform="rotate(-35 280 720)" />
+                {/* Sperm tail (curved path with varying width) */}
                 <path
-                  d="M 300 620 Q 350 580, 400 550 T 500 480 T 600 420"
+                  d="M 285 735 Q 340 680, 400 630 T 520 540 T 640 480 T 720 450"
                   stroke="#f9a8d4"
+                  strokeWidth="6"
+                  fill="none"
+                  opacity="0.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 285 735 Q 340 680, 400 630 T 520 540 T 640 480 T 720 450"
+                  stroke="#ec4899"
                   strokeWidth="3"
                   fill="none"
                   opacity="0.4"
@@ -82,12 +120,22 @@ export default function HomePage() {
                 />
               </g>
 
-              {/* Sperm 2 - coming from left */}
-              <g opacity="0.5">
-                <ellipse cx="200" cy="350" rx="12" ry="18" fill="#e9d5ff" opacity="0.6" />
+              {/* SPERM CELL 2 - Coming from left side */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head */}
+                <ellipse cx="150" cy="420" rx="16" ry="26" fill="url(#sperm-head-2)" transform="rotate(-10 150 420)" />
+                {/* Sperm tail */}
                 <path
-                  d="M 212 350 Q 300 360, 400 370 T 550 390"
+                  d="M 168 420 Q 280 430, 400 440 T 580 455 T 680 458"
                   stroke="#e9d5ff"
+                  strokeWidth="5"
+                  fill="none"
+                  opacity="0.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 168 420 Q 280 430, 400 440 T 580 455 T 680 458"
+                  stroke="#c084fc"
                   strokeWidth="2.5"
                   fill="none"
                   opacity="0.4"
@@ -95,38 +143,45 @@ export default function HomePage() {
                 />
               </g>
 
-              {/* Sperm 3 - coming from top left */}
-              <g opacity="0.5">
-                <ellipse cx="350" cy="150" rx="14" ry="19" fill="#fbcfe8" opacity="0.6" />
+              {/* SPERM CELL 3 - Coming from top left */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head */}
+                <ellipse cx="350" cy="120" rx="17" ry="27" fill="url(#sperm-head-3)" transform="rotate(25 350 120)" />
+                {/* Sperm tail */}
                 <path
-                  d="M 350 169 Q 420 200, 490 250 T 600 330"
-                  stroke="#fbcfe8"
-                  strokeWidth="3"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* Sperm 4 - coming from bottom */}
-              <g opacity="0.5">
-                <ellipse cx="650" cy="700" rx="13" ry="17" fill="#fda4af" opacity="0.6" />
-                <path
-                  d="M 650 683 Q 660 620, 670 560 T 685 480"
+                  d="M 360 145 Q 430 200, 500 260 T 620 350 T 700 410 T 750 440"
                   stroke="#fda4af"
-                  strokeWidth="2.5"
+                  strokeWidth="5.5"
                   fill="none"
-                  opacity="0.4"
+                  opacity="0.6"
                   strokeLinecap="round"
                 />
-              </g>
-
-              {/* Sperm 5 - coming from right */}
-              <g opacity="0.5">
-                <ellipse cx="1050" cy="420" rx="12" ry="18" fill="#e9d5ff" opacity="0.6" />
                 <path
-                  d="M 1038 420 Q 950 415, 850 410 T 760 405"
-                  stroke="#e9d5ff"
+                  d="M 360 145 Q 430 200, 500 260 T 620 350 T 700 410 T 750 440"
+                  stroke="#fb7185"
+                  strokeWidth="3"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* SPERM CELL 4 - Coming from bottom center */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head */}
+                <ellipse cx="750" cy="800" rx="17" ry="26" fill="url(#sperm-head-1)" transform="rotate(-75 750 800)" />
+                {/* Sperm tail */}
+                <path
+                  d="M 760 775 Q 770 700, 775 630 T 785 540 T 790 490"
+                  stroke="#f9a8d4"
+                  strokeWidth="5"
+                  fill="none"
+                  opacity="0.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 760 775 Q 770 700, 775 630 T 785 540 T 790 490"
+                  stroke="#ec4899"
                   strokeWidth="2.5"
                   fill="none"
                   opacity="0.4"
@@ -134,18 +189,70 @@ export default function HomePage() {
                 />
               </g>
 
-              {/* Additional flowing organic shapes for visual interest */}
-              <ellipse cx="150" cy="200" rx="60" ry="80" fill="#fae8ff" opacity="0.2" transform="rotate(-20 150 200)" />
-              <ellipse cx="950" cy="600" rx="70" ry="90" fill="#fce7f3" opacity="0.2" transform="rotate(15 950 600)" />
-              <ellipse
-                cx="1100"
-                cy="200"
-                rx="50"
-                ry="70"
-                fill="#f5d0fe"
-                opacity="0.2"
-                transform="rotate(-30 1100 200)"
-              />
+              {/* SPERM CELL 5 - Coming from right side */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head */}
+                <ellipse
+                  cx="1200"
+                  cy="480"
+                  rx="16"
+                  ry="25"
+                  fill="url(#sperm-head-2)"
+                  transform="rotate(170 1200 480)"
+                />
+                {/* Sperm tail */}
+                <path
+                  d="M 1182 480 Q 1080 475, 980 470 T 880 465"
+                  stroke="#e9d5ff"
+                  strokeWidth="5"
+                  fill="none"
+                  opacity="0.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 1182 480 Q 1080 475, 980 470 T 880 465"
+                  stroke="#c084fc"
+                  strokeWidth="2.5"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* SPERM CELL 6 - Coming from top right */}
+              <g opacity="0.85" filter="url(#soft-glow)">
+                {/* Sperm head */}
+                <ellipse
+                  cx="1100"
+                  cy="180"
+                  rx="18"
+                  ry="27"
+                  fill="url(#sperm-head-3)"
+                  transform="rotate(130 1100 180)"
+                />
+                {/* Sperm tail */}
+                <path
+                  d="M 1085 195 Q 1020 250, 950 310 T 850 390 T 800 430"
+                  stroke="#fda4af"
+                  strokeWidth="5.5"
+                  fill="none"
+                  opacity="0.6"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 1085 195 Q 1020 250, 950 310 T 850 390 T 800 430"
+                  stroke="#fb7185"
+                  strokeWidth="3"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Additional ambient background elements for depth */}
+              <circle cx="200" cy="250" r="80" fill="#fae8ff" opacity="0.15" />
+              <circle cx="1150" cy="700" r="100" fill="#fce7f3" opacity="0.15" />
+              <circle cx="450" cy="850" r="70" fill="#f5d0fe" opacity="0.12" />
             </svg>
 
             <Image
