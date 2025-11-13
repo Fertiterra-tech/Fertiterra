@@ -33,7 +33,121 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section with New Message */}
         <section className="relative overflow-hidden py-20 md:py-32">
+          {/* CHANGE: Added abstract fertility background illustration with sperm and egg motifs */}
           <div className="absolute inset-0 z-0">
+            {/* Abstract fertility background SVG */}
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 1200 800"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid slice"
+            >
+              <defs>
+                <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#fdf2f8" />
+                  <stop offset="50%" stopColor="#fae8ff" />
+                  <stop offset="100%" stopColor="#fce7f3" />
+                </linearGradient>
+
+                {/* Soft glow filters */}
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Base gradient background */}
+              <rect width="1200" height="800" fill="url(#bg-gradient)" />
+
+              {/* Central egg-like shape (larger circle) */}
+              <circle cx="700" cy="400" r="120" fill="#fce7f3" opacity="0.6" filter="url(#glow)" />
+              <circle cx="700" cy="400" r="100" fill="#fae8ff" opacity="0.4" />
+              <circle cx="700" cy="400" r="70" fill="#f5d0fe" opacity="0.3" />
+
+              {/* Abstract sperm-like flowing shapes moving toward the egg */}
+              {/* Sperm 1 - coming from bottom left */}
+              <g opacity="0.5">
+                <ellipse cx="300" cy="600" rx="15" ry="20" fill="#f9a8d4" opacity="0.6" />
+                <path
+                  d="M 300 620 Q 350 580, 400 550 T 500 480 T 600 420"
+                  stroke="#f9a8d4"
+                  strokeWidth="3"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Sperm 2 - coming from left */}
+              <g opacity="0.5">
+                <ellipse cx="200" cy="350" rx="12" ry="18" fill="#e9d5ff" opacity="0.6" />
+                <path
+                  d="M 212 350 Q 300 360, 400 370 T 550 390"
+                  stroke="#e9d5ff"
+                  strokeWidth="2.5"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Sperm 3 - coming from top left */}
+              <g opacity="0.5">
+                <ellipse cx="350" cy="150" rx="14" ry="19" fill="#fbcfe8" opacity="0.6" />
+                <path
+                  d="M 350 169 Q 420 200, 490 250 T 600 330"
+                  stroke="#fbcfe8"
+                  strokeWidth="3"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Sperm 4 - coming from bottom */}
+              <g opacity="0.5">
+                <ellipse cx="650" cy="700" rx="13" ry="17" fill="#fda4af" opacity="0.6" />
+                <path
+                  d="M 650 683 Q 660 620, 670 560 T 685 480"
+                  stroke="#fda4af"
+                  strokeWidth="2.5"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Sperm 5 - coming from right */}
+              <g opacity="0.5">
+                <ellipse cx="1050" cy="420" rx="12" ry="18" fill="#e9d5ff" opacity="0.6" />
+                <path
+                  d="M 1038 420 Q 950 415, 850 410 T 760 405"
+                  stroke="#e9d5ff"
+                  strokeWidth="2.5"
+                  fill="none"
+                  opacity="0.4"
+                  strokeLinecap="round"
+                />
+              </g>
+
+              {/* Additional flowing organic shapes for visual interest */}
+              <ellipse cx="150" cy="200" rx="60" ry="80" fill="#fae8ff" opacity="0.2" transform="rotate(-20 150 200)" />
+              <ellipse cx="950" cy="600" rx="70" ry="90" fill="#fce7f3" opacity="0.2" transform="rotate(15 950 600)" />
+              <ellipse
+                cx="1100"
+                cy="200"
+                rx="50"
+                ry="70"
+                fill="#f5d0fe"
+                opacity="0.2"
+                transform="rotate(-30 1100 200)"
+              />
+            </svg>
+
             <Image
               src="/images/fertiterra-product-suite.png"
               alt="FertiTerra product suite with test device and kit"
@@ -44,6 +158,7 @@ export default function HomePage() {
             />
             <div className="absolute inset-0 bg-gradient-to-br from-rose-50/95 via-purple-50/90 to-pink-50/95"></div>
           </div>
+          {/* </CHANGE> */}
           <div className="container relative z-10">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
               <div className="flex flex-col space-y-8 lg:pl-8">
