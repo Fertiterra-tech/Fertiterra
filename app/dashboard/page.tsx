@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import Image from "next/image"
+import { Activity, TrendingUp, Bell, Heart, Calendar, Users, BookOpen, TestTube2, User } from "lucide-react"
 
-export default function DashboardPage() {
-  const [user, setUser] = useState<{ email: string } | null>(null)
+export default function WombsDashboard() {
+  const [user, setUser] = useState<{ email: string; firstName: string } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [cycleDay, setCycleDay] = useState(14)
+  const [fertileWindow, setFertileWindow] = useState(3)
+  const [nextPeriod, setNextPeriod] = useState(14)
   const router = useRouter()
 
   useEffect(() => {
-    // Check if user is logged in
     const isLoggedIn = localStorage.getItem("isLoggedIn")
     const userEmail = localStorage.getItem("userEmail")
 
@@ -20,7 +22,10 @@ export default function DashboardPage() {
       return
     }
 
-    setUser({ email: userEmail })
+    // Extract first name from email
+    const firstName = userEmail.split("@")[0].charAt(0).toUpperCase() + userEmail.split("@")[0].slice(1)
+
+    setUser({ email: userEmail, firstName })
     setIsLoading(false)
   }, [router])
 
@@ -32,333 +37,190 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#f9fafb",
-        }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              width: "40px",
-              height: "40px",
-              border: "4px solid #e5e7eb",
-              borderTop: "4px solid #e11d48",
-              borderRadius: "50%",
-              animation: "spin 1s linear infinite",
-              margin: "0 auto 1rem",
-            }}
-          ></div>
-          <p style={{ color: "#6b7280" }}>Loading your dashboard...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-gray-200 border-t-[#e11d48] rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading your dashboard...</p>
         </div>
       </div>
     )
   }
 
-  if (!user) {
-    return null // Will redirect in useEffect
-  }
+  if (!user) return null
+
+  const cycleProgress = (cycleDay / 28) * 100
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f9fafb" }}>
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header
-        style={{
-          backgroundColor: "white",
-          borderBottom: "1px solid #e5e7eb",
-          padding: "1rem 0",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 1rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-            <Image
-              src="/placeholder.svg?height=40&width=140&text=FertiTerra"
-              alt="FertiTerra Logo"
-              width={140}
-              height={40}
-              style={{ height: "40px", width: "auto" }}
-            />
-          </Link>
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Wombs</h1>
+            <p className="text-sm text-gray-600">by FertiTerra</p>
+          </div>
 
-          <nav style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-            <Link
-              href="/dashboard"
-              style={{ color: "#e11d48", textDecoration: "none", fontWeight: "500", fontSize: "0.875rem" }}
-            >
-              Dashboard
-            </Link>
-            <Link href="/cycle-tracking" style={{ color: "#6b7280", textDecoration: "none", fontSize: "0.875rem" }}>
-              Track Cycle
-            </Link>
-            <Link href="/consultation" style={{ color: "#6b7280", textDecoration: "none", fontSize: "0.875rem" }}>
-              Consultations
-            </Link>
-            <Link href="/blog" style={{ color: "#6b7280", textDecoration: "none", fontSize: "0.875rem" }}>
-              Learn
-            </Link>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-              <div
-                style={{
-                  width: "32px",
-                  height: "32px",
-                  backgroundColor: "#e11d48",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "white",
-                  fontSize: "0.875rem",
-                  fontWeight: "500",
-                }}
-              >
-                {user.email.charAt(0).toUpperCase()}
-              </div>
-              <button
-                onClick={handleLogout}
-                style={{
-                  background: "none",
-                  border: "1px solid #d1d5db",
-                  padding: "0.5rem 1rem",
-                  borderRadius: "6px",
-                  fontSize: "0.875rem",
-                  cursor: "pointer",
-                  color: "#6b7280",
-                }}
-              >
-                Logout
-              </button>
+          <div className="flex items-center gap-4">
+            <div className="text-right hidden sm:block">
+              <p className="text-sm text-gray-600">Good morning,</p>
+              <p className="text-lg font-semibold text-gray-900">{user.firstName}</p>
             </div>
-          </nav>
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors">
+              <Bell className="w-6 h-6" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full"></span>
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1rem" }}>
-        {/* Welcome Section */}
-        <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontSize: "2rem", fontWeight: "700", color: "#111827", marginBottom: "0.5rem" }}>
-            Welcome back, {user.email.split("@")[0]}! 🌸
-          </h1>
-          <p style={{ color: "#6b7280", fontSize: "1.125rem" }}>
-            Track your fertility journey and connect with healthcare professionals.
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
+        {/* Fertility Insights Card */}
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-6 sm:p-8 text-white mb-6 relative overflow-hidden">
+          <div className="absolute top-4 right-4">
+            <Heart className="w-8 h-8 opacity-20" />
+          </div>
+          <h2 className="text-xl sm:text-2xl font-bold mb-3">Your Fertility Insights</h2>
+          <p className="text-blue-100 mb-6 max-w-2xl">
+            Based on your recent tracking, your fertile window is approaching in {fertileWindow} days. Consider
+            scheduling intimacy and monitoring ovulation signs.
           </p>
+          <button className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-2.5 rounded-xl font-medium transition-all">
+            View Details
+          </button>
         </div>
 
         {/* Quick Actions */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "1.5rem",
-            marginBottom: "2rem",
-          }}
-        >
-          {/* Cycle Tracking Card */}
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "1.5rem",
-              borderRadius: "12px",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-              border: "1px solid #e5e7eb",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "#fef2f2",
-                  borderRadius: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "1rem",
-                }}
-              >
-                <span style={{ fontSize: "1.5rem" }}>📅</span>
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button className="bg-white rounded-2xl p-6 text-left hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                <Activity className="w-6 h-6 text-blue-600" />
               </div>
-              <div>
-                <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", margin: 0 }}>
-                  Track Your Cycle
-                </h3>
-                <p style={{ color: "#6b7280", fontSize: "0.875rem", margin: 0 }}>Log periods and symptoms</p>
+              <h4 className="font-semibold text-gray-900 mb-1">Log Symptoms</h4>
+              <p className="text-sm text-gray-600">Track today's data</p>
+            </button>
+            <button className="bg-white rounded-2xl p-6 text-left hover:shadow-lg transition-shadow border border-gray-100">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
-            </div>
-            <Link
-              href="/cycle-tracking"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#e11d48",
-                color: "white",
-                padding: "0.75rem 1.5rem",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontSize: "0.875rem",
-                fontWeight: "500",
-              }}
-            >
-              Start Tracking
-            </Link>
-          </div>
-
-          {/* Consultation Card */}
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "1.5rem",
-              borderRadius: "12px",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-              border: "1px solid #e5e7eb",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "#f0f9ff",
-                  borderRadius: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "1rem",
-                }}
-              >
-                <span style={{ fontSize: "1.5rem" }}>👩‍⚕️</span>
-              </div>
-              <div>
-                <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", margin: 0 }}>
-                  Book Consultation
-                </h3>
-                <p style={{ color: "#6b7280", fontSize: "0.875rem", margin: 0 }}>Talk to fertility experts</p>
-              </div>
-            </div>
-            <Link
-              href="/consultation"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#0369a1",
-                color: "white",
-                padding: "0.75rem 1.5rem",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontSize: "0.875rem",
-                fontWeight: "500",
-              }}
-            >
-              Book Now
-            </Link>
-          </div>
-
-          {/* Learning Card */}
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "1.5rem",
-              borderRadius: "12px",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-              border: "1px solid #e5e7eb",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "#f0fdf4",
-                  borderRadius: "12px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "1rem",
-                }}
-              >
-                <span style={{ fontSize: "1.5rem" }}>📚</span>
-              </div>
-              <div>
-                <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", margin: 0 }}>
-                  Learn About Fertility
-                </h3>
-                <p style={{ color: "#6b7280", fontSize: "0.875rem", margin: 0 }}>Expert articles and guides</p>
-              </div>
-            </div>
-            <Link
-              href="/blog"
-              style={{
-                display: "inline-block",
-                backgroundColor: "#16a34a",
-                color: "white",
-                padding: "0.75rem 1.5rem",
-                borderRadius: "8px",
-                textDecoration: "none",
-                fontSize: "0.875rem",
-                fontWeight: "500",
-              }}
-            >
-              Start Learning
-            </Link>
+              <h4 className="font-semibold text-gray-900 mb-1">View Cycle</h4>
+              <p className="text-sm text-gray-600">See predictions</p>
+            </button>
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "1.5rem",
-            borderRadius: "12px",
-            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <h2 style={{ fontSize: "1.25rem", fontWeight: "600", color: "#111827", marginBottom: "1rem" }}>
-            Your Fertility Journey
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
-            <div style={{ textAlign: "center", padding: "1rem" }}>
-              <div style={{ fontSize: "2rem", fontWeight: "700", color: "#e11d48", marginBottom: "0.5rem" }}>0</div>
-              <div style={{ color: "#6b7280", fontSize: "0.875rem" }}>Cycles Tracked</div>
+        {/* Current Cycle */}
+        <div className="bg-white rounded-2xl p-6 mb-6 border border-gray-100">
+          <h3 className="text-lg font-bold text-gray-900 mb-6">Current Cycle</h3>
+
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-4xl font-bold text-blue-600">Day {cycleDay}</div>
+            <span className="bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium">
+              Ovulation Phase
+            </span>
+          </div>
+
+          <div className="mb-6">
+            <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-500"
+                style={{ width: `${cycleProgress}%` }}
+              ></div>
             </div>
-            <div style={{ textAlign: "center", padding: "1rem" }}>
-              <div style={{ fontSize: "2rem", fontWeight: "700", color: "#0369a1", marginBottom: "0.5rem" }}>0</div>
-              <div style={{ color: "#6b7280", fontSize: "0.875rem" }}>Consultations</div>
+            <p className="text-sm text-gray-600 mt-2">{cycleDay} days into cycle</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-600 mb-1">Fertile Window</p>
+              <p className="text-3xl font-bold text-gray-900">{fertileWindow} days</p>
             </div>
-            <div style={{ textAlign: "center", padding: "1rem" }}>
-              <div style={{ fontSize: "2rem", fontWeight: "700", color: "#16a34a", marginBottom: "0.5rem" }}>0</div>
-              <div style={{ color: "#6b7280", fontSize: "0.875rem" }}>Articles Read</div>
+            <div className="text-center p-4 bg-gray-50 rounded-xl">
+              <p className="text-sm text-gray-600 mb-1">Next Period</p>
+              <p className="text-3xl font-bold text-gray-900">{nextPeriod} days</p>
             </div>
           </div>
+        </div>
+
+        {/* Health Education */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-bold text-gray-900">Health Education</h3>
+            <button className="text-sm text-blue-600 font-medium hover:text-blue-700">See All</button>
+          </div>
+          <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6 border border-pink-100">
+            <h4 className="font-semibold text-gray-900 mb-2">Understanding Ovulation Signs</h4>
+            <p className="text-sm text-gray-600 mb-4">Learn to identify your body's fertile signals</p>
+            <button className="text-sm text-blue-600 font-medium hover:text-blue-700">Read More →</button>
+          </div>
+        </div>
+
+        {/* Care Navigation */}
+        <div className="bg-white rounded-2xl p-6 border border-gray-100">
+          <h3 className="text-lg font-bold text-gray-900 mb-3">Care Navigation</h3>
+          <h4 className="font-semibold text-gray-900 mb-2">Find Fertility Clinics Near You</h4>
+          <p className="text-sm text-gray-600 mb-4">Connect with trusted specialists in your area</p>
+          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition-colors">
+            Find Clinics
+          </button>
         </div>
       </main>
 
-      {/* CSS for spinner animation */}
-      <style jsx>{`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 safe-area-pb">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-7 gap-2">
+            <Link href="/dashboard" className="flex flex-col items-center gap-1 text-blue-600">
+              <Calendar className="w-5 h-5" />
+              <span className="text-xs font-medium">Home</span>
+            </Link>
+            <Link
+              href="/dashboard/tracking"
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <Activity className="w-5 h-5" />
+              <span className="text-xs">Tracking</span>
+            </Link>
+            <Link
+              href="/dashboard/tests"
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <TestTube2 className="w-5 h-5" />
+              <span className="text-xs">Diagnostics</span>
+            </Link>
+            <Link
+              href="/dashboard/education"
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span className="text-xs">Learn</span>
+            </Link>
+            <Link
+              href="/dashboard/community"
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <Users className="w-5 h-5" />
+              <span className="text-xs">Community</span>
+            </Link>
+            <Link
+              href="/dashboard/updates"
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <Bell className="w-5 h-5" />
+              <span className="text-xs">Updates</span>
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="flex flex-col items-center gap-1 text-gray-500 hover:text-gray-900"
+            >
+              <User className="w-5 h-5" />
+              <span className="text-xs">Profile</span>
+            </button>
+          </div>
+        </div>
+      </nav>
     </div>
   )
 }
