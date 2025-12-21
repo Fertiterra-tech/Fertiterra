@@ -484,7 +484,7 @@ export default function HomePage() {
               {/* Left side - Text content */}
               <div className="space-y-6">
                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-                  <span className="inline-block ml-4">We're all at different</span>
+                  We're all at different
                   <br />
                   stages of our <em className="italic text-rose-500">journey</em>
                 </h2>
