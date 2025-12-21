@@ -600,7 +600,7 @@ export function Header() {
                   Login
                 </Link>
                 <Link href="/screening">
-                  <Button className="bg-black hover:bg-gray-800 text-white rounded-md">Start now</Button>
+                  <Button className="bg-green-600 hover:bg-green-700 text-white rounded-md">Start now</Button>
                 </Link>
               </div>
             )}
@@ -1270,7 +1270,7 @@ export function Header() {
                     </Button>
                   </Link>
                   <Link href="/screening" onClick={toggleMobileMenu}>
-                    <Button className="w-full bg-black text-white">Start now</Button>
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white">Start now</Button>
                   </Link>
                 </>
               )}

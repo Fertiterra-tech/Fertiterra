@@ -483,7 +483,9 @@ export default function HomePage() {
               {/* Left side - Text content */}
               <div className="space-y-6">
                 <h2 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-                  We're all at different stages of our <em className="italic text-rose-500">journey</em>
+                  <span className="inline-block ml-4">We're all at different</span>
+                  <br />
+                  stages of our <em className="italic text-rose-500">journey</em>
                 </h2>
                 <p className="text-xl text-gray-600">What's most important to you?</p>
               </div>
@@ -1202,7 +1204,7 @@ export default function HomePage() {
 
       <footer className="border-t py-8 bg-white">
         <div className="container">
-          <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-4 md:pl-12">
             <div>
               <Link href="/" className="flex items-center mb-4">
                 <Image
