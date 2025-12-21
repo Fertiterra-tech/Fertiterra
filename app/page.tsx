@@ -297,9 +297,9 @@ export default function HomePage() {
                     Choose where to start
                   </h3>
 
-                  <div className="grid gap-6 sm:grid-cols-2">
+                  <div className="grid gap-6 sm:grid-cols-2 sm:items-stretch">
                     {/* Personalise my test option */}
-                    <div className="bg-rose-100/50 backdrop-blur-sm rounded-2xl p-6 border border-rose-200">
+                    <div className="bg-rose-100/50 backdrop-blur-sm rounded-2xl p-6 border border-rose-200 flex flex-col">
                       <div className="flex gap-2 mb-4">
                         <Badge className="bg-black text-white hover:bg-gray-800">Most popular</Badge>
                         <Badge variant="outline" className="bg-gray-200 text-gray-700">
@@ -307,7 +307,7 @@ export default function HomePage() {
                         </Badge>
                       </div>
 
-                      <div className="mb-6">
+                      <div className="mb-6 flex-grow">
                         <h4 className="text-xl font-bold text-gray-900 mb-4">Advanced Hormone and Fertility Test</h4>
                         <div className="relative h-40 mb-4 overflow-hidden rounded-lg">
                           <Image
@@ -332,8 +332,8 @@ export default function HomePage() {
                     </div>
 
                     {/* Speak to an expert option */}
-                    <div className="bg-purple-100/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-200">
-                      <div className="mb-6">
+                    <div className="bg-purple-100/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-200 flex flex-col">
+                      <div className="mb-6 flex-grow">
                         <h4 className="text-xl font-bold text-gray-900 mb-2">Need some advice?</h4>
                         <div className="flex items-center gap-2 mb-4">
                           <span className="text-lg font-semibold text-gray-900">Speak to an expert</span>
@@ -363,6 +363,7 @@ export default function HomePage() {
                       </Button>
                     </div>
                   </div>
+                  {/* </CHANGE> */}
                 </div>
 
                 {/* Certification Section */}
