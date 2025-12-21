@@ -325,7 +325,7 @@ export default function HomePage() {
 
                       <Button
                         asChild
-                        className="w-full bg-black hover:bg-gray-800 text-white py-3 text-lg font-semibold"
+                        className="w-full bg-green-500/90 hover:bg-green-600 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                       >
                         <Link href="/screening">Start now</Link>
                       </Button>
@@ -357,7 +357,7 @@ export default function HomePage() {
                       <Button
                         asChild
                         variant="outline"
-                        className="w-full border-purple-300 text-purple-700 hover:bg-purple-50 py-3 text-lg font-semibold bg-transparent"
+                        className="w-full border-2 border-green-500 text-green-700 hover:bg-green-500/10 hover:border-green-600 py-3 text-lg font-semibold bg-green-50/50 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300"
                       >
                         <Link href="/consultation">Speak to an expert</Link>
                       </Button>
