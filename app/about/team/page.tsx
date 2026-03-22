@@ -24,27 +24,6 @@ const teamMembers = [
     bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
   },
   {
-    name: "Dr. Lilian Igweze",
-    role: "Head of Research & Diagnostics",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%284%29-GtfLldufzdOV2s8XQH6DEVU9gl35rm.png",
-    bio: "Lilian is a health researcher and diagnostics specialist with expertise in fertility testing and medical innovation. At FertiTerra, she spearheads research and the development of our fertility test kits, bridging science and accessibility to bring cutting-edge diagnostics to underserved populations.",
-  },
-  {
-    name: "Dr. Simpa Dania",
-    role: "Head of Partnerships & Business Development",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%285%29-u1y6fcOVsdhFiaBp0mNekdRuPrDHwr.png",
-    bio: "Simpa is a strategic business leader with extensive experience in building impactful partnerships and scaling ventures across Africa. With a background in entrepreneurship and social innovation, he drives FertiTerra's external collaborations, ensuring strong stakeholder engagement with hospitals, research centers, and industry players.",
-  },
-  {
-    name: "Dr. Kelechi Okoro",
-    role: "Head of Public Health Education & Advocacy (Healthertainer)",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%283%29-7aJEiLOLhBdqPLyXAdtXXjZ3Hs7kSX.png",
-    bio: "Dr. Kelechi, popularly known as The Healthertainer, is a Medical doctor and a passionate health educator and advocate. With years of experience in public health communications, she leads FertiTerra's education and awareness campaigns, reducing stigma around infertility and promoting reproductive health literacy across communities.",
-  },
-  {
     name: "Dr. Smart Akuma",
     role: "Head of Medical Affairs (Gynecology & Fertility Care)",
     image:
@@ -64,6 +43,30 @@ const teamMembers = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ISAIAH%20-%20Headshot%20%281%29.jpg-n5MeflEirk26mJPEW80MuD73r57iRv.jpeg",
     bio: "Isaiah is a finance professional with a strong background in startup finance, impact investing, and social enterprise accountability. He leads FertiTerra's financial strategy, ensuring sustainability while measuring and reporting the social and health impact of our work.",
+  },
+]
+
+const advisors = [
+  {
+    name: "Dr. Lilian Igweze",
+    role: "Advisor - Research & Diagnostics",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%284%29-GtfLldufzdOV2s8XQH6DEVU9gl35rm.png",
+    bio: "Lilian is a health researcher and diagnostics specialist with expertise in fertility testing and medical innovation. At FertiTerra, she spearheads research and the development of our fertility test kits, bridging science and accessibility to bring cutting-edge diagnostics to underserved populations.",
+  },
+  {
+    name: "Dr. Kelechi Okoro",
+    role: "Advisor - Public Health Education & Advocacy",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%283%29-7aJEiLOLhBdqPLyXAdtXXjZ3Hs7kSX.png",
+    bio: "Dr. Kelechi, popularly known as The Healthertainer, is a Medical doctor and a passionate health educator and advocate. With years of experience in public health communications, she leads FertiTerra's education and awareness campaigns, reducing stigma around infertility and promoting reproductive health literacy across communities.",
+  },
+  {
+    name: "Dr. Simpa Dania",
+    role: "Advisor - Partnerships & Business Development",
+    image:
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%285%29-u1y6fcOVsdhFiaBp0mNekdRuPrDHwr.png",
+    bio: "Simpa is a strategic business leader with extensive experience in building impactful partnerships and scaling ventures across Africa. With a background in entrepreneurship and social innovation, he drives FertiTerra's external collaborations, ensuring strong stakeholder engagement with hospitals, research centers, and industry players.",
   },
 ]
 
@@ -109,38 +112,79 @@ export default function TeamPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <Card
-                  key={index}
-                  className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg rounded-2xl overflow-hidden bg-white"
-                >
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <div className="aspect-square relative overflow-hidden">
-                        <Image
-                          src={member.image || "/placeholder.svg"}
-                          alt={member.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
+            <div className="mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Core Team</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member, index) => (
+                  <Card
+                    key={index}
+                    className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg rounded-2xl overflow-hidden bg-white"
+                  >
+                    <CardContent className="p-0">
+                      <div className="relative">
+                        <div className="aspect-square relative overflow-hidden">
+                          <Image
+                            src={member.image || "/placeholder.svg"}
+                            alt={member.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
+
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
 
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-rose-600 transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        <p className="text-rose-600 font-semibold mb-4 text-sm uppercase tracking-wide">{member.role}</p>
+                        <p className="text-gray-600 leading-relaxed text-sm">{member.bio}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
 
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-rose-600 transition-colors duration-300">
-                        {member.name}
-                      </h3>
-                      <p className="text-rose-600 font-semibold mb-4 text-sm uppercase tracking-wide">{member.role}</p>
-                      <p className="text-gray-600 leading-relaxed text-sm">{member.bio}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            {/* Advisors Section */}
+            <div className="mt-20">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Medical Advisors</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {advisors.map((advisor, index) => (
+                  <Card
+                    key={index}
+                    className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg rounded-2xl overflow-hidden bg-gradient-to-br from-rose-50 to-green-50"
+                  >
+                    <CardContent className="p-0">
+                      <div className="relative">
+                        <div className="aspect-square relative overflow-hidden">
+                          <Image
+                            src={advisor.image || "/placeholder.svg"}
+                            alt={advisor.name}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
+
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-rose-600 transition-colors duration-300">
+                          {advisor.name}
+                        </h3>
+                        <p className="text-green-600 font-semibold mb-4 text-sm uppercase tracking-wide">{advisor.role}</p>
+                        <p className="text-gray-600 leading-relaxed text-sm">{advisor.bio}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </div>

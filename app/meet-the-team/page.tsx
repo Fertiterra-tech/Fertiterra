@@ -28,24 +28,6 @@ const teamMembers = [
     bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
   },
   {
-    name: "Dr. Lilian Igweze",
-    title: "Head of Research & Diagnostics",
-    imageUrl: "/images/team/lilian-igweze.jpg",
-    bio: "Dr. Igweze is a renowned expert in reproductive endocrinology with over 20 years of experience in fertility research and diagnostics.  She holds a PhD in Reproductive Biology and has published extensively in leading medical journals.   As Head of Research & Diagnostics at FertiTerra, she spearheads the development of cutting-edge diagnostic tools and research initiatives to improve fertility outcomes for women across Africa.",
-  },
-  {
-    name: "Dr. Simpa Dania",
-    title: "Head of Partnerships & Business Development",
-    imageUrl: "/images/team/simpa-dania.jpg",
-    bio: "Dr. Dania is a seasoned healthcare executive with expertise in strategic partnerships and business development. He holds an MD and MBA from Yale University, and has a proven track record of building successful healthcare ventures across Africa.   At FertiTerra, Dr. Dania leads efforts to establish key partnerships with hospitals, clinics, and other organizations to expand access to FertiTerra’s services.",
-  },
-  {
-    name: "Dr. Kelechi Okoro",
-    title: "Head of Public Health Education & Advocacy",
-    imageUrl: "/images/team/kelechi-okoro.jpg",
-    bio: "Dr. Okoro is a passionate advocate for women’s health and reproductive rights. She is a medical doctor with over 10 years of experience in public health education and community engagement. As Head of Public Health Education & Advocacy at FertiTerra, Dr. Okoro develops and implements awareness campaigns to address infertility stigma and promote informed decision-making about reproductive health.",
-  },
-  {
     name: "Dr. Smart Akuma",
     title: "Head of Medical Affairs (Gynecology & Fertility Care)",
     imageUrl: "/images/team/smart-akuma.jpg",
@@ -62,6 +44,27 @@ const teamMembers = [
     title: "Head of Finance & Impact Measurement",
     imageUrl: "/images/team/isaiah-kporon.jpg",
     bio: "Isaiah is a seasoned finance professional with a passion for social impact. He holds a Masters in Finance and has extensive experience in financial management, impact investing, and social enterprise. At FertiTerra, Isaiah leads the financial operations and develops metrics to measure the social impact of the company.",
+  },
+]
+
+const advisors = [
+  {
+    name: "Dr. Lilian Igweze",
+    title: "Advisor - Research & Diagnostics",
+    imageUrl: "/images/team/lilian-igweze.jpg",
+    bio: "Dr. Igweze is a renowned expert in reproductive endocrinology with over 20 years of experience in fertility research and diagnostics.  She holds a PhD in Reproductive Biology and has published extensively in leading medical journals.   As Advisor for Research & Diagnostics at FertiTerra, she spearheads the development of cutting-edge diagnostic tools and research initiatives to improve fertility outcomes for women across Africa.",
+  },
+  {
+    name: "Dr. Kelechi Okoro",
+    title: "Advisor - Public Health Education & Advocacy",
+    imageUrl: "/images/team/kelechi-okoro.jpg",
+    bio: "Dr. Okoro is a passionate advocate for women's health and reproductive rights. She is a medical doctor with over 10 years of experience in public health education and community engagement. As Advisor for Public Health Education & Advocacy at FertiTerra, Dr. Okoro develops and implements awareness campaigns to address infertility stigma and promote informed decision-making about reproductive health.",
+  },
+  {
+    name: "Dr. Simpa Dania",
+    title: "Advisor - Partnerships & Business Development",
+    imageUrl: "/images/team/simpa-dania.jpg",
+    bio: "Dr. Dania is a seasoned healthcare executive with expertise in strategic partnerships and business development. He holds an MD and MBA from Yale University, and has a proven track record of building successful healthcare ventures across Africa.   At FertiTerra, Dr. Dania leads efforts to establish key partnerships with hospitals, clinics, and other organizations to expand access to FertiTerra's services.",
   },
 ]
 
@@ -91,25 +94,53 @@ export default function MeetTheTeamPage() {
               Our team is made up of world-class experts in healthcare and technology
             </p>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {teamMembers.map((member) => (
-                <Card key={member.name} className="border-0 shadow-xl">
-                  <div className="relative overflow-hidden rounded-t-lg">
-                    <Image
-                      src={member.imageUrl || "/placeholder.svg"}
-                      alt={member.name}
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-lg font-semibold text-gray-900">{member.name}</CardTitle>
-                    <CardDescription className="text-gray-500">{member.title}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-gray-600 text-sm leading-relaxed line-clamp-5">{member.bio}</CardContent>
-                </Card>
-              ))}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-left">Core Team</h3>
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {teamMembers.map((member) => (
+                  <Card key={member.name} className="border-0 shadow-xl">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <Image
+                        src={member.imageUrl || "/placeholder.svg"}
+                        alt={member.name}
+                        width={400}
+                        height={300}
+                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-lg font-semibold text-gray-900">{member.name}</CardTitle>
+                      <CardDescription className="text-gray-500">{member.title}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-gray-600 text-sm leading-relaxed line-clamp-5">{member.bio}</CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Advisors Section */}
+            <div className="mt-16">
+              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-left">Medical Advisors</h3>
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {advisors.map((advisor) => (
+                  <Card key={advisor.name} className="border-0 shadow-xl bg-gradient-to-br from-rose-50 to-green-50">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <Image
+                        src={advisor.imageUrl || "/placeholder.svg"}
+                        alt={advisor.name}
+                        width={400}
+                        height={300}
+                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-lg font-semibold text-gray-900">{advisor.name}</CardTitle>
+                      <CardDescription className="text-green-600">{advisor.title}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-gray-600 text-sm leading-relaxed line-clamp-5">{advisor.bio}</CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </section>
           {/* Cofounder Application Form Section */}
