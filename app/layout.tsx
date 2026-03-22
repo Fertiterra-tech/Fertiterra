@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -86,16 +87,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google AdSense */}
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9375281731859570"
           crossOrigin="anonymous"
-        ></script>
-        <script
+          strategy="lazyOnload"
+        />
+        {/* Mailchimp */}
+        <Script
           id="mcjs"
-          dangerouslySetInnerHTML={{
-            __html: `!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/cf21c6733b0384dc6fb8b1615/204d67574966fe34933a0bca2.js");`,
-          }}
+          src="https://chimpstatic.com/mcjs-connected/js/users/cf21c6733b0384dc6fb8b1615/204d67574966fe34933a0bca2.js"
+          strategy="lazyOnload"
+          async
         />
       </head>
       <body className={inter.className}>

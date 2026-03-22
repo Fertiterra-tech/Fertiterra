@@ -14,8 +14,14 @@ const teamMembers = [
   {
     name: "Kalu Chijioke Ugorji",
     role: "Founder & CEO",
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_2825.jpg-eDlS1ieHsDEmaAru7g89kXmLXHgaJF.jpeg",
+    image: "/images/team/kalu-chijioke-ugorji.jpg",
     bio: "Chijioke is a polymath and academic scholar with expertise in technology, engineering, and health sciences. He studied Chemistry at Michael Okpara University, Industrial Engineering at Dangote Academy, and is pursuing advanced studies in software engineering and health sciences. Driven by personal experiences with infertility stigma, he founded FertiTerra to transform fertility care in Africa through AI-driven, affordable, and inclusive solutions.",
+  },
+  {
+    name: "Dr. Favour Ayeboua",
+    role: "Co-founder & Medical Lead - All Country Operations",
+    image: "/images/team/dr-favour-ayeboua.jpg",
+    bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
   },
   {
     name: "Dr. Lilian Igweze",

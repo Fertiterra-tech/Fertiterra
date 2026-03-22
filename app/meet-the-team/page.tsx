@@ -22,6 +22,12 @@ const teamMembers = [
     bio: "Kalu is a visionary leader with a passion for leveraging technology to improve healthcare access. He holds degrees in Engineering, Public Health and an MBA from MIT, and has over 15 years of experience in healthcare innovation and entrepreneurship.  Driven by a desire to address the significant challenges in fertility care across Africa, Kalu founded FertiTerra Technologies to offer affordable and personalized solutions.",
   },
   {
+    name: "Dr. Favour Ayeboua",
+    title: "Co-founder & Medical Lead - All Country Operations",
+    imageUrl: "/images/team/dr-favour-ayeboua.jpg",
+    bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
+  },
+  {
     name: "Dr. Lilian Igweze",
     title: "Head of Research & Diagnostics",
     imageUrl: "/images/team/lilian-igweze.jpg",
