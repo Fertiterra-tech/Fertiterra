@@ -37,21 +37,21 @@ export type CreateUserData = {
 async function checkAdminAccess() {
   const supabase = createServerComponentClient({ cookies })
   const {
-    data: { session },
-  } = await supabase.auth.getSession()
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
 
-  if (!session) {
+  if (error || !user) {
     redirect("/login")
   }
 
-  // Get user profile to check role
-  const { data: profile } = await supabase.from("profiles").select("role").eq("id", session.user.id).single()
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single()
 
-  if (!profile || profile.role !== "admin") {
+  if (profile?.role !== "admin") {
     redirect("/dashboard")
   }
 
-  return session.user
+  return user
 }
 
 // Get all users with pagination
@@ -241,27 +241,10 @@ export async function deleteUser(userId: string) {
   return { error: null }
 }
 
-// Send invitation email
-export async function sendUserInvitation(email: string, role: UserRole) {
+// Invitation delivery stays disabled until secure persistence and email delivery are configured.
+export async function sendUserInvitation(_email: string, _role: UserRole) {
   await checkAdminAccess()
-  const supabase = createServerComponentClient({ cookies })
-
-  try {
-    // Generate invitation token (in a real app, you'd store this in a database)
-    const invitationToken = Math.random().toString(36).substring(2, 15)
-
-    // In a real application, you would:
-    // 1. Store the invitation in a database with expiration
-    // 2. Send an email with the invitation link
-    // 3. Handle the invitation acceptance flow
-
-    console.log(`Invitation sent to ${email} for role ${role} with token ${invitationToken}`)
-
-    return { error: null, token: invitationToken }
-  } catch (error) {
-    console.error("Error sending invitation:", error)
-    return { error: "Failed to send invitation" }
-  }
+  return { error: "Invitations are unavailable until secure storage and email delivery are active." }
 }
 
 // Get user statistics
@@ -273,16 +256,8 @@ export async function getUserStatistics() {
 
   if (error) {
     console.error("Error fetching user statistics:", error)
-    // Return default stats if RPC fails
-    return {
-      total_users: 0,
-      active_users: 0,
-      doctors: 0,
-      patients: 0,
-      admins: 0,
-      new_this_week: 0,
-    }
+    return { stats: null, error: error.message }
   }
 
-  return stats
+  return { stats, error: null }
 }

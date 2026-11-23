@@ -1,73 +1,74 @@
 import { NextResponse } from "next/server"
 
-export async function POST(request: Request) {
+const EXPECTED_AMOUNT = 500
+const EXPECTED_CURRENCY = "USD"
+const REFERENCE_PATTERN = /^fertility_[a-f0-9-]{36}$/i
+
+interface PaystackVerificationResponse {
+  status?: boolean
+  data?: {
+    amount?: number
+    currency?: string
+    metadata?: { service?: string }
+    paid_at?: string
+    reference?: string
+    status?: string
+  }
+}
+
+export async function GET(request: Request) {
+  const reference = new URL(request.url).searchParams.get("reference") ?? ""
+  const secretKey = process.env.PAYSTACK_SECRET_KEY
+
+  if (!REFERENCE_PATTERN.test(reference)) {
+    return NextResponse.json({ success: false, error: "Invalid payment reference." }, { status: 400 })
+  }
+
+  if (!secretKey) {
+    return NextResponse.json({ success: false, error: "Payment verification is unavailable." }, { status: 503 })
+  }
+
   try {
-    const { reference } = await request.json()
-
-    const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || "sk_test_your_secret_key"
-
-    const response = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${PAYSTACK_SECRET_KEY}`,
+    const response = await fetch(
+      `https://api.paystack.co/transaction/verify/${encodeURIComponent(reference)}`,
+      {
+        headers: { Authorization: `Bearer ${secretKey}` },
+        cache: "no-store",
+        signal: AbortSignal.timeout(10000),
       },
-    })
-
-    const data = await response.json()
-
-    if (data.status && data.data.status === "success") {
-      // Payment successful - notify FertiTerra team
-      await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/send-notification`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: "fertiterratechnologies@africanimpactinitiative.com",
-          type: "payment_confirmed",
-          subject: "💳 PAYSTACK PAYMENT CONFIRMED - $5.00 - Basic Fertility Checkup",
-          message: `✅ PAYMENT SUCCESSFULLY RECEIVED VIA PAYSTACK
-
-Payment Details:
-- Amount: $${(data.data.amount / 100).toFixed(2)} USD
-- Reference: ${data.data.reference}
-- Customer Email: ${data.data.customer.email}
-- Payment Date: ${new Date(data.data.paid_at).toLocaleString()}
-- Gateway Response: ${data.data.gateway_response}
-- Channel: ${data.data.channel}
-
-✅ PAYMENT CONFIRMED - READY TO SCHEDULE CONSULTATION
-
-Next Steps:
-1. Customer will schedule consultation
-2. Prepare for 15-minute consultation session
-3. Review customer questionnaire responses
-4. Send consultation link 30 minutes before appointment`,
-        }),
-      })
-
-      return NextResponse.json({
-        success: true,
-        data: data.data,
-        message: "Payment verified successfully",
-      })
-    } else {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Payment verification failed",
-        },
-        { status: 400 },
-      )
+    )
+    const result = (await response.json()) as PaystackVerificationResponse
+    const transaction = result.data
+    if (!transaction) {
+      return NextResponse.json({ success: false, error: "Payment is not confirmed." }, { status: 409 })
     }
-  } catch (error) {
-    console.error("Payment verification error:", error)
+
+    const verified =
+      response.ok &&
+      result.status === true &&
+      transaction.status === "success" &&
+      transaction.reference === reference &&
+      transaction.amount === EXPECTED_AMOUNT &&
+      transaction.currency === EXPECTED_CURRENCY &&
+      transaction.metadata?.service === "basic-fertility-checkup"
+
+    if (!verified) {
+      return NextResponse.json({ success: false, error: "Payment is not confirmed." }, { status: 409 })
+    }
+
     return NextResponse.json(
       {
-        error: "Payment verification failed",
-        message: "Please contact support",
+        success: true,
+        payment: {
+          reference: transaction.reference,
+          amount: transaction.amount,
+          currency: transaction.currency,
+          paidAt: transaction.paid_at ?? null,
+        },
       },
-      { status: 500 },
+      { headers: { "Cache-Control": "no-store, private" } },
     )
+  } catch {
+    return NextResponse.json({ success: false, error: "Payment verification is unavailable." }, { status: 503 })
   }
 }

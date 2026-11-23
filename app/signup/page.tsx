@@ -1,744 +1,154 @@
 "use client"
 
-import type React from "react"
-import { useState } from "react"
+import { useState, type FormEvent } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { userStorage } from "@/lib/user-storage"
-
-const countries = [
-  "United States",
-  "United Kingdom",
-  "Canada",
-  "Australia",
-  "Germany",
-  "France",
-  "Spain",
-  "Italy",
-  "Netherlands",
-  "Sweden",
-  "Norway",
-  "Denmark",
-  "Switzerland",
-  "Austria",
-  "Belgium",
-  "Ireland",
-  "New Zealand",
-  "Japan",
-  "South Korea",
-  "Singapore",
-  "Brazil",
-  "Mexico",
-  "Argentina",
-  "Chile",
-  "South Africa",
-  "Nigeria",
-  "Kenya",
-  "Egypt",
-  "India",
-  "China",
-  "Thailand",
-  "Malaysia",
-  "Other",
-]
-
-const medicalConditions = [
-  "PCOS (Polycystic Ovary Syndrome)",
-  "Endometriosis",
-  "Thyroid disorders",
-  "Diabetes",
-  "High blood pressure",
-  "Previous pregnancy complications",
-  "Irregular periods",
-  "None of the above",
-]
-
-const fertilityGoals = [
-  "Trying to conceive naturally",
-  "Preparing for IVF",
-  "Understanding my cycle",
-  "Managing fertility-related conditions",
-  "Pregnancy planning",
-  "Post-pregnancy recovery",
-  "General reproductive health",
-]
-
-const howDidYouHear = [
-  "Google search",
-  "Social media (Instagram, Facebook, TikTok)",
-  "Friend or family recommendation",
-  "Healthcare provider referral",
-  "Online article or blog",
-  "Podcast or YouTube",
-  "Advertisement",
-  "Other",
-]
+import { useRouter } from "next/navigation"
+import Header from "@/components/header"
+import { useAuth } from "@/context/auth-context"
 
 export default function SignupPage() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    fullName: "",
-    age: "",
-    country: "",
-    phoneNumber: "",
-    dateOfBirth: "",
-    medicalConditions: [] as string[],
-    currentMedications: "",
-    fertilityGoals: "",
-    howDidYouHear: "",
-  })
+  const router = useRouter()
+  const { signUp } = useAuth()
+  const [fullName, setFullName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const [currentStep, setCurrentStep] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState<"success" | "error" | "">("")
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setErrorMessage("")
+    setSuccessMessage("")
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleCheckboxChange = (condition: string, checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      medicalConditions: checked
-        ? [...prev.medicalConditions, condition]
-        : prev.medicalConditions.filter((c) => c !== condition),
-    }))
-  }
-
-  const validateStep = (step: number): boolean => {
-    switch (step) {
-      case 1:
-        return !!(formData.email && formData.password && formData.confirmPassword && formData.fullName)
-      case 2:
-        return !!(formData.age && formData.country && formData.dateOfBirth)
-      case 3:
-        return !!(formData.fertilityGoals && formData.howDidYouHear)
-      default:
-        return true
-    }
-  }
-
-  const nextStep = () => {
-    if (validateStep(currentStep)) {
-      setCurrentStep((prev) => Math.min(prev + 1, 3))
-    } else {
-      setMessage("Please fill in all required fields")
-      setMessageType("error")
-    }
-  }
-
-  const prevStep = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1))
-    setMessage("")
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setMessage("")
-    setMessageType("")
-
-    // Final validation
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match")
-      setMessageType("error")
-      setIsLoading(false)
+    if (password.length < 8) {
+      setErrorMessage("Choose a password with at least 8 characters.")
       return
     }
 
-    if (formData.password.length < 6) {
-      setMessage("Password must be at least 6 characters")
-      setMessageType("error")
-      setIsLoading(false)
+    if (password !== confirmPassword) {
+      setErrorMessage("The passwords do not match.")
       return
     }
 
-    if (Number.parseInt(formData.age) < 18 || Number.parseInt(formData.age) > 65) {
-      setMessage("Age must be between 18 and 65")
-      setMessageType("error")
-      setIsLoading(false)
-      return
-    }
-
-    // Check if user already exists
-    if (userStorage.hasUser(formData.email)) {
-      setMessage("Account already exists. Please log in instead.")
-      setMessageType("error")
-      setIsLoading(false)
-      return
-    }
-
+    setIsSubmitting(true)
     try {
-      // Add user to client-side storage
-      const userData = {
-        email: formData.email,
-        password: formData.password,
-        fullName: formData.fullName,
-        age: Number.parseInt(formData.age),
-        country: formData.country,
-        phoneNumber: formData.phoneNumber,
-        dateOfBirth: formData.dateOfBirth,
-        medicalConditions: formData.medicalConditions,
-        currentMedications: formData.currentMedications,
-        fertilityGoals: formData.fertilityGoals,
-        howDidYouHear: formData.howDidYouHear,
+      const result = await signUp(email.trim(), password, fullName.trim())
+      if (!result.success) {
+        setErrorMessage(result.error?.message ?? "Account creation is temporarily unavailable.")
+        return
       }
 
-      const userAdded = userStorage.addUser(userData)
-
-      if (userAdded) {
-        // Also call the API for any server-side processing
-        const response = await fetch("/api/direct-signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        })
-
-        const result = await response.json()
-
-        if (result.success || !response.ok) {
-          // Continue even if API fails
-          setMessage("Account created successfully! Welcome to FertiTerra.")
-          setMessageType("success")
-
-          // Store credentials for auto-login
-          localStorage.setItem("lastSignupEmail", formData.email)
-          localStorage.setItem("lastSignupPassword", formData.password)
-
-          // Clear form
-          setFormData({
-            email: "",
-            password: "",
-            confirmPassword: "",
-            fullName: "",
-            age: "",
-            country: "",
-            phoneNumber: "",
-            dateOfBirth: "",
-            medicalConditions: [],
-            currentMedications: "",
-            fertilityGoals: "",
-            howDidYouHear: "",
-          })
-          setCurrentStep(1)
-        } else {
-          setMessage(result.error || "Signup failed")
-          setMessageType("error")
-        }
-      } else {
-        setMessage("Failed to create account. User may already exist.")
-        setMessageType("error")
+      if (result.needsConfirmation) {
+        setSuccessMessage("Check your email to confirm your account before signing in.")
+        setPassword("")
+        setConfirmPassword("")
+        return
       }
-    } catch (error) {
-      setMessage("Account created successfully! You can now log in.")
-      setMessageType("success")
-      console.error("Signup error:", error)
-    }
 
-    setIsLoading(false)
-  }
-
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", marginBottom: "0.5rem" }}>
-              Account Information
-            </h3>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Full Name *
-              </label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                placeholder="Enter your full name"
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Email Address *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="name@example.com"
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Password *
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                placeholder="At least 6 characters"
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Confirm Password *
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleInputChange}
-                placeholder="Confirm your password"
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-          </div>
-        )
-
-      case 2:
-        return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", marginBottom: "0.5rem" }}>
-              Personal Information
-            </h3>
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-              <div>
-                <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                  Age *
-                </label>
-                <input
-                  type="number"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleInputChange}
-                  placeholder="25"
-                  min="18"
-                  max="65"
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "8px",
-                    fontSize: "1rem",
-                    boxSizing: "border-box",
-                  }}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                  Date of Birth *
-                </label>
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleInputChange}
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "8px",
-                    fontSize: "1rem",
-                    boxSizing: "border-box",
-                  }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Country *
-              </label>
-              <select
-                name="country"
-                value={formData.country}
-                onChange={handleInputChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              >
-                <option value="">Select your country</option>
-                {countries.map((country) => (
-                  <option key={country} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Phone Number (Optional)
-              </label>
-              <input
-                type="tel"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-                placeholder="+1 (555) 123-4567"
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Do you have any of these medical conditions? (Select all that apply)
-              </label>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr",
-                  gap: "0.5rem",
-                  maxHeight: "150px",
-                  overflowY: "auto",
-                  padding: "0.5rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                }}
-              >
-                {medicalConditions.map((condition) => (
-                  <label key={condition} style={{ display: "flex", alignItems: "center", fontSize: "0.875rem" }}>
-                    <input
-                      type="checkbox"
-                      checked={formData.medicalConditions.includes(condition)}
-                      onChange={(e) => handleCheckboxChange(condition, e.target.checked)}
-                      style={{ marginRight: "0.5rem" }}
-                    />
-                    {condition}
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                Current Medications (Optional)
-              </label>
-              <textarea
-                name="currentMedications"
-                value={formData.currentMedications}
-                onChange={handleInputChange}
-                placeholder="List any medications you're currently taking..."
-                rows={3}
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                  resize: "vertical",
-                }}
-              />
-            </div>
-          </div>
-        )
-
-      case 3:
-        return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <h3 style={{ fontSize: "1.125rem", fontWeight: "600", color: "#111827", marginBottom: "0.5rem" }}>
-              Your Fertility Journey
-            </h3>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                What are your fertility goals? *
-              </label>
-              <select
-                name="fertilityGoals"
-                value={formData.fertilityGoals}
-                onChange={handleInputChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              >
-                <option value="">Select your primary goal</option>
-                {fertilityGoals.map((goal) => (
-                  <option key={goal} value={goal}>
-                    {goal}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-                How did you hear about FertiTerra? *
-              </label>
-              <select
-                name="howDidYouHear"
-                value={formData.howDidYouHear}
-                onChange={handleInputChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  boxSizing: "border-box",
-                }}
-              >
-                <option value="">Select an option</option>
-                {howDidYouHear.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: "#fef7f7",
-                padding: "1rem",
-                borderRadius: "8px",
-                border: "1px solid #fecaca",
-              }}
-            >
-              <p style={{ fontSize: "0.875rem", fontWeight: "500", color: "#be185d", marginBottom: "0.5rem" }}>
-                🌸 What you'll get access to:
-              </p>
-              <ul style={{ fontSize: "0.875rem", color: "#be185d", margin: 0, paddingLeft: "1rem" }}>
-                <li>Personalized cycle tracking and ovulation predictions</li>
-                <li>Expert fertility health content and resources</li>
-                <li>Video consultations with certified fertility specialists</li>
-                <li>AI-powered health insights and recommendations</li>
-                <li>Secure health data storage and export</li>
-                <li>Community support and expert Q&A</li>
-              </ul>
-            </div>
-          </div>
-        )
-
-      default:
-        return null
+      router.push("/dashboard")
+    } catch {
+      setErrorMessage("Account creation is temporarily unavailable. Please try again later.")
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f9fafb",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1rem",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "2rem",
-          borderRadius: "12px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          width: "100%",
-          maxWidth: "500px",
-        }}
-      >
-        {/* Logo */}
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <Image
-            src="/placeholder.svg?height=45&width=160&text=FertiTerra"
-            alt="FertiTerra Logo"
-            width={160}
-            height={45}
-            style={{ height: "45px", width: "auto", marginBottom: "1rem" }}
-          />
-          <h1 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#111827", marginBottom: "0.5rem" }}>
-            Join FertiTerra
-          </h1>
-          <p style={{ color: "#6b7280", fontSize: "0.875rem" }}>Your personalized fertility journey starts here</p>
-        </div>
+    <div className="min-h-screen bg-slate-50">
+      <Header />
+      <main className="mx-auto flex max-w-6xl justify-center px-4 py-12 sm:px-6 lg:py-16">
+        <section className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="signup-title">
+          <div className="mb-8">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-rose-700">FertiTerra</p>
+            <h1 id="signup-title" className="text-3xl font-semibold tracking-tight text-slate-900">Create your account</h1>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Start with your account details. Health information is not collected during sign-up.
+            </p>
+          </div>
 
-        {/* Progress Bar */}
-        <div style={{ marginBottom: "2rem" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
-            {[1, 2, 3].map((step) => (
-              <div
-                key={step}
-                style={{
-                  width: "30%",
-                  height: "4px",
-                  borderRadius: "2px",
-                  backgroundColor: step <= currentStep ? "#e11d48" : "#e5e7eb",
-                }}
+          <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+            <div>
+              <label htmlFor="full-name" className="mb-1.5 block text-sm font-medium text-slate-800">Full name</label>
+              <input
+                id="full-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                maxLength={120}
+                value={fullName}
+                onChange={(event) => setFullName(event.target.value)}
+                className="h-11 w-full rounded-lg border border-slate-300 px-3 text-slate-900 outline-none transition focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20"
               />
-            ))}
-          </div>
-          <p style={{ fontSize: "0.75rem", color: "#6b7280", textAlign: "center" }}>Step {currentStep} of 3</p>
-        </div>
+            </div>
 
-        {/* Message Display */}
-        {message && (
-          <div
-            style={{
-              padding: "0.75rem",
-              borderRadius: "8px",
-              marginBottom: "1rem",
-              backgroundColor: messageType === "success" ? "#dcfce7" : "#fef2f2",
-              border: `1px solid ${messageType === "success" ? "#bbf7d0" : "#fecaca"}`,
-              color: messageType === "success" ? "#166534" : "#dc2626",
-              fontSize: "0.875rem",
-            }}
-          >
-            {message}
-            {messageType === "success" && (
-              <div style={{ marginTop: "0.5rem" }}>
-                <Link href="/login" style={{ color: "#166534", textDecoration: "underline" }}>
-                  Go to login page →
-                </Link>
-              </div>
-            )}
-          </div>
-        )}
+            <div>
+              <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-800">Email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                maxLength={254}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                className="h-11 w-full rounded-lg border border-slate-300 px-3 text-slate-900 outline-none transition focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20"
+              />
+            </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit}>
-          {renderStep()}
+            <div>
+              <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-slate-800">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={8}
+                maxLength={128}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="h-11 w-full rounded-lg border border-slate-300 px-3 text-slate-900 outline-none transition focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20"
+              />
+              <p className="mt-1.5 text-xs text-slate-500">Use at least 8 characters.</p>
+            </div>
 
-          {/* Navigation Buttons */}
-          <div style={{ display: "flex", justifyContent: "space-between", marginTop: "2rem", gap: "1rem" }}>
-            {currentStep > 1 && (
-              <button
-                type="button"
-                onClick={prevStep}
-                style={{
-                  padding: "0.75rem 1.5rem",
-                  backgroundColor: "#f3f4f6",
-                  color: "#374151",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                }}
-              >
-                Previous
-              </button>
-            )}
+            <div>
+              <label htmlFor="confirm-password" className="mb-1.5 block text-sm font-medium text-slate-800">Confirm password</label>
+              <input
+                id="confirm-password"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                required
+                minLength={8}
+                maxLength={128}
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                className="h-11 w-full rounded-lg border border-slate-300 px-3 text-slate-900 outline-none transition focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20"
+              />
+            </div>
 
-            {currentStep < 3 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                disabled={!validateStep(currentStep)}
-                style={{
-                  padding: "0.75rem 1.5rem",
-                  backgroundColor: validateStep(currentStep) ? "#e11d48" : "#9ca3af",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  fontWeight: "500",
-                  cursor: validateStep(currentStep) ? "pointer" : "not-allowed",
-                  marginLeft: currentStep === 1 ? "auto" : "0",
-                }}
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={isLoading || !validateStep(currentStep)}
-                style={{
-                  padding: "0.75rem 1.5rem",
-                  backgroundColor: isLoading ? "#9ca3af" : "#111827",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  fontSize: "1rem",
-                  fontWeight: "500",
-                  cursor: isLoading ? "not-allowed" : "pointer",
-                }}
-              >
-                {isLoading ? "Creating account..." : "Create Account"}
-              </button>
-            )}
-          </div>
-        </form>
+            {errorMessage && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-800">{errorMessage}</p>}
+            {successMessage && <p role="status" aria-live="polite" className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-sm text-emerald-800">{successMessage}</p>}
 
-        {/* Footer */}
-        <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem" }}>
-          <span style={{ color: "#6b7280" }}>Already have an account? </span>
-          <Link href="/login" style={{ color: "#e11d48", textDecoration: "none" }}>
-            Log in
-          </Link>
-        </div>
-      </div>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex h-11 w-full items-center justify-center rounded-lg bg-rose-700 px-4 text-sm font-semibold text-white transition hover:bg-rose-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {isSubmitting ? "Creating account…" : "Create account"}
+            </button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-slate-600">
+            Already have an account? <Link href="/login" className="font-semibold text-rose-700 underline-offset-4 hover:underline">Sign in</Link>
+          </p>
+        </section>
+      </main>
     </div>
   )
 }

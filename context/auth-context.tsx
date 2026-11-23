@@ -28,6 +28,7 @@ type AuthContextType = {
   signUp: (
     email: string,
     password: string,
+    fullName?: string,
   ) => Promise<{ error: any | null; success: boolean; needsConfirmation?: boolean }>
   signIn: (email: string, password: string) => Promise<{ error: any | null; success: boolean }>
   signOut: () => Promise<void>
@@ -45,8 +46,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const supabase = createClient()
 
-  const isAdmin = profile?.role === "admin"
-  const isEmailConfirmed = user?.email_confirmed_at !== null
+  const isAdmin = user?.app_metadata?.role === "admin"
+  const isEmailConfirmed = Boolean(user?.email_confirmed_at)
+
+  useEffect(() => {
+    window.localStorage.removeItem("isLoggedIn")
+    window.localStorage.removeItem("userEmail")
+  }, [])
 
   useEffect(() => {
     const getSession = async () => {
@@ -76,20 +82,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe()
   }, [supabase.auth])
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, fullName?: string) => {
     try {
       const { data, error } = await supabase.auth.signUp({
-        email,
+        email: email.trim(),
         password,
+        options: {
+          emailRedirectTo:
+            process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ?? `${window.location.origin}/auth/callback`,
+          data: fullName?.trim() ? { full_name: fullName.trim() } : undefined,
+        },
       })
 
       if (error) {
-        return { error, success: false }
+        const message = /rate limit|too many/i.test(error.message)
+          ? "Too many attempts. Please wait before trying again."
+          : /password.*(weak|length|character)/i.test(error.message)
+            ? "Choose a stronger password and try again."
+            : "Unable to create an account with these details. Please try another email or sign in."
+        return { error: { message }, success: false }
       }
 
       return { error: null, success: true, needsConfirmation: !data.user?.email_confirmed_at }
-    } catch (error) {
-      return { error: { message: "Network error. Please try again." }, success: false }
+    } catch {
+      return { error: { message: "Account creation is temporarily unavailable. Please try again later." }, success: false }
     }
   }
 
@@ -101,7 +117,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
 
       if (error) {
-        return { error, success: false }
+        return {
+          error: { message: "Invalid email or password. If you have not confirmed your email, check your inbox." },
+          success: false,
+        }
       }
 
       if (data.user && !data.user.email_confirmed_at) {
@@ -127,11 +146,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
 
       if (error) {
-        return { error, success: false }
+        return {
+          error: { message: "We could not request a confirmation email. If your account is eligible, check your inbox or try again later." },
+          success: false,
+        }
       }
 
       return { error: null, success: true }
-    } catch (error) {
+    } catch {
       return { error: { message: "Network error. Please try again." }, success: false }
     }
   }
