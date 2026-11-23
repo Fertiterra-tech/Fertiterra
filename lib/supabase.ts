@@ -1,11 +1,8 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-/**
- * Singleton browser/client Supabase instance.
- * Works in next-lite because it relies only on
- * standard browser APIs (fetch, crypto, …).
- */
-let supabaseClient: SupabaseClient | null = null
+type BrowserSupabaseClient = ReturnType<typeof createClientComponentClient>
+
+let supabaseClient: BrowserSupabaseClient | null = null
 
 export const createClientInstance = () => {
   if (supabaseClient) return supabaseClient
@@ -17,24 +14,17 @@ export const createClientInstance = () => {
     throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY env vars.")
   }
 
-  supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
+  supabaseClient = createClientComponentClient({
+    supabaseUrl,
+    supabaseKey: supabaseAnonKey,
+    isSingleton: true,
   })
 
   return supabaseClient
 }
 
 export const checkSupabaseConfig = () => {
-  try {
-    createClientInstance()
-    return true
-  } catch {
-    return false
-  }
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 }
 
-// Alias so other modules can `import { createClient } from "@/lib/supabase"`
 export { createClientInstance as createClient }

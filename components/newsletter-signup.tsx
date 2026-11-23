@@ -35,11 +35,11 @@ export function NewsletterSignup() {
 
       const data = await response.json()
 
-      if (data.success) {
+      if (response.ok && data.success === true) {
         setMessage("Successfully subscribed to our newsletter!")
         setEmail("")
       } else {
-        setMessage("Something went wrong. Please try again.")
+        setMessage(data.error ?? "Newsletter signup is temporarily unavailable. Your email was not subscribed.")
       }
     } catch (error) {
       setMessage("Something went wrong. Please try again.")
@@ -57,7 +57,11 @@ export function NewsletterSignup() {
         <p className="text-white text-lg mb-6 font-medium mt-4">Sign up to our newsletter</p>
 
         <form onSubmit={handleSubmit} className="flex gap-2">
+          <label htmlFor="newsletter-email" className="sr-only">
+            Email address
+          </label>
           <Input
+            id="newsletter-email"
             type="email"
             placeholder="your@email.com"
             value={email}
@@ -74,13 +78,20 @@ export function NewsletterSignup() {
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
-              <ArrowRight className="w-5 h-5" />
+              <>
+                <ArrowRight aria-hidden="true" className="w-5 h-5" />
+                <span className="sr-only">Subscribe</span>
+              </>
             )}
           </Button>
         </form>
 
         {message && (
-          <p className={`mt-4 text-sm ${message.includes("Successfully") ? "text-green-200" : "text-red-200"}`}>
+          <p
+            role="status"
+            aria-live="polite"
+            className={`mt-4 text-sm ${message.includes("Successfully") ? "text-green-200" : "text-red-200"}`}
+          >
             {message}
           </p>
         )}

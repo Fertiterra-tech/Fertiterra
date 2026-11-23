@@ -2,9 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { userStorage, type User } from "@/lib/user-storage"
+import { useAuth } from "@/context/auth-context"
+
+type User = {
+  email: string
+  fullName: string
+  age: number
+  country: string
+  role: "patient" | "admin" | "doctor"
+  createdAt: string
+  lastLogin?: string
+}
 
 export default function AdminDashboard() {
+  const { user: authUser, isLoading: authLoading, isAdmin, signOut } = useAuth()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [users, setUsers] = useState<User[]>([])
@@ -15,64 +26,22 @@ export default function AdminDashboard() {
     averageAge: 0,
   })
 
-  // Check admin authentication
   useEffect(() => {
-    const checkAuth = () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn")
-      const userRole = localStorage.getItem("userRole")
-      const adminAuth = localStorage.getItem("adminAuthenticated")
-      const userEmail = localStorage.getItem("userEmail")
+    if (authLoading) return
 
-      if (isLoggedIn === "true" && userRole === "admin" && adminAuth === "true" && userEmail) {
-        // Double-check with user storage
-        const user = userStorage.getUser(userEmail)
-        if (user && user.role === "admin") {
-          setIsAuthenticated(true)
-          loadUserData()
-        } else {
-          redirectToLogin()
-        }
-      } else {
-        redirectToLogin()
-      }
-      setIsLoading(false)
+    if (!isAdmin) {
+      window.location.replace("/login")
+      return
     }
 
-    checkAuth()
-  }, [])
+    setIsAuthenticated(true)
+    setIsLoading(false)
+    setUsers([])
+    setStats({ totalUsers: 0, newUsersToday: 0, countries: 0, averageAge: 0 })
+  }, [authLoading, isAdmin])
 
-  const redirectToLogin = () => {
-    window.location.href = "/admin/login"
-  }
-
-  const loadUserData = () => {
-    const allUsers = Array.from(userStorage.getAllUsers().values())
-    const patientUsers = allUsers.filter((user) => user.role === "patient")
-
-    setUsers(allUsers)
-
-    // Calculate statistics
-    const today = new Date().toDateString()
-    const newUsersToday = allUsers.filter((user) => new Date(user.createdAt).toDateString() === today).length
-
-    const countries = new Set(allUsers.map((user) => user.country)).size
-    const averageAge =
-      allUsers.length > 0 ? Math.round(allUsers.reduce((sum, user) => sum + user.age, 0) / allUsers.length) : 0
-
-    setStats({
-      totalUsers: allUsers.length,
-      newUsersToday,
-      countries,
-      averageAge,
-    })
-  }
-
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn")
-    localStorage.removeItem("userEmail")
-    localStorage.removeItem("userRole")
-    localStorage.removeItem("adminAuthenticated")
-    window.location.href = "/admin/login"
+  const handleLogout = async () => {
+    await signOut()
   }
 
   if (isLoading) {
@@ -123,10 +92,10 @@ export default function AdminDashboard() {
       >
         <div>
           <h1 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#111827", margin: 0 }}>
-            🔐 FertiTerra Admin Dashboard
+            FertiTerra Admin Dashboard
           </h1>
           <p style={{ color: "#6b7280", fontSize: "0.875rem", margin: "0.25rem 0 0 0" }}>
-            Welcome, {localStorage.getItem("userEmail")}
+            Welcome, {authUser?.email ?? "Administrator"}
           </p>
         </div>
         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -162,6 +131,9 @@ export default function AdminDashboard() {
 
       {/* Dashboard Content */}
       <main style={{ padding: "2rem" }}>
+        <div role="status" className="mb-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
+          Admin analytics are unavailable until the secure user database is active. No browser-local account data is shown.
+        </div>
         {/* Statistics Cards */}
         <div
           style={{

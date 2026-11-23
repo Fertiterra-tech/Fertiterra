@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { userStorage } from "@/lib/user-storage"
+import { useAuth } from "@/context/auth-context"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -13,25 +13,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [messageType, setMessageType] = useState<"success" | "error" | "">("")
-
-  const useTestAccount = (testEmail: string, testPassword: string) => {
-    setEmail(testEmail)
-    setPassword(testPassword)
-  }
-
-  // Load available users and auto-fill from signup
-  useEffect(() => {
-    // Auto-fill from recent signup
-    const lastEmail = localStorage.getItem("lastSignupEmail")
-    const lastPassword = localStorage.getItem("lastSignupPassword")
-    if (lastEmail && lastPassword) {
-      setEmail(lastEmail)
-      setPassword(lastPassword)
-      // Clear the stored credentials after using them
-      localStorage.removeItem("lastSignupEmail")
-      localStorage.removeItem("lastSignupPassword")
-    }
-  }, [])
+  const { signIn } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -48,60 +30,17 @@ export default function LoginPage() {
     }
 
     try {
-      // Get all users from client-side storage
-      const allUsers = userStorage.getAllUsers()
-      const usersObject = Object.fromEntries(allUsers)
-
-      // Try to login
-      const response = await fetch("/api/direct-login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          users: usersObject,
-        }),
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        setMessage("Login successful! Redirecting to dashboard...")
-        setMessageType("success")
-
-        // Store login state
-        localStorage.setItem("isLoggedIn", "true")
-        localStorage.setItem("userEmail", email)
-
-        // Check if user is admin and redirect accordingly
-        const user = userStorage.getUser(email)
-        if (user?.role === "admin") {
-          setTimeout(() => {
-            window.location.href = "/admin/dashboard"
-          }, 1000)
-        } else {
-          setTimeout(() => {
-            window.location.href = "/dashboard"
-          }, 1000)
-        }
-      } else {
-        setMessage(result.error || "Login failed")
+      const result = await signIn(email.trim(), password)
+      if (!result.success) {
+        setMessage(result.error?.message || "Unable to sign in. Please try again.")
         setMessageType("error")
-
-        // Show available accounts for debugging
-        if (result.availableAccounts) {
-          console.log("Available accounts:", result.availableAccounts)
-        }
       }
-    } catch (error) {
+    } catch {
       setMessage("Connection error. Please try again.")
       setMessageType("error")
-      console.error("Login error:", error)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   return (

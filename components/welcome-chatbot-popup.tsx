@@ -58,7 +58,7 @@ export function WelcomeChatbotPopup() {
   }, [messages])
 
   const handleSelect = (key: keyof typeof OPTION_MAP) => {
-    const userMsg = {
+    const userMsg: Message = {
       id: messages.length + 1,
       sender: "user",
       text: (() => {
@@ -75,7 +75,7 @@ export function WelcomeChatbotPopup() {
       })(),
     }
     const botData = OPTION_MAP[key]
-    const botMsg = {
+    const botMsg: Message = {
       id: messages.length + 2,
       sender: "bot",
       text: botData.reply,
@@ -100,7 +100,8 @@ export function WelcomeChatbotPopup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       })
-      const { success, message } = await res.json()
+      const { success, error } = await res.json()
+      const subscribed = res.ok && success === true
       setMessages((prev) => [
         ...prev,
         {
@@ -111,12 +112,14 @@ export function WelcomeChatbotPopup() {
         {
           id: prev.length + 2,
           sender: "bot",
-          text: success
-            ? "You're on the list! 🎉  Expect helpful fertility insights soon."
-            : `Oops: ${message ?? "something went wrong"}`,
+          text: subscribed
+            ? "You're subscribed. Expect helpful fertility insights soon."
+            : error ?? "Newsletter signup is temporarily unavailable. Your email was not subscribed.",
         },
       ])
-      if (success) {
+      if (subscribed) {
+        setEmail("")
+        setShowEmailStep(false)
         setTimeout(() => setOpen(false), 2000)
       }
     } catch (err) {
@@ -130,8 +133,6 @@ export function WelcomeChatbotPopup() {
       ])
     } finally {
       setIsSubmitting(false)
-      setEmail("")
-      setShowEmailStep(false)
     }
   }
 

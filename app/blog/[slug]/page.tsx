@@ -40,7 +40,7 @@ export async function generateStaticParams() {
 }
 
 export function generateMetadata({ params: { slug } }: Props): Metadata {
-  const article = articles[slug]
+  const article = articles[slug as keyof typeof articles]
   if (!article) {
     return {
       title: "Article Not Found",
@@ -53,7 +53,7 @@ export function generateMetadata({ params: { slug } }: Props): Metadata {
 }
 
 export default function ArticlePage({ params: { slug } }: Props) {
-  const article = articles[slug]
+  const article = articles[slug as keyof typeof articles]
 
   if (!article) {
     notFound()
