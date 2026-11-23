@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useCallback, useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
@@ -15,15 +15,8 @@ import { useAuth } from "@/context/auth-context"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Loader2 } from "lucide-react"
 
-type Profile = {
-  first_name: string | null
-  last_name: string | null
-  avatar_url: string | null
-}
-
 export default function ProfilePage() {
   const { user, isLoading: authLoading, signOut } = useAuth()
-  const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -33,18 +26,7 @@ export default function ProfilePage() {
   const router = useRouter()
   const supabase = createClientComponentClient()
 
-  useEffect(() => {
-    if (!user && !authLoading) {
-      router.push("/login")
-      return
-    }
-
-    if (user) {
-      fetchProfile()
-    }
-  }, [user, authLoading, router])
-
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     if (!user) return
 
     try {
@@ -55,27 +37,33 @@ export default function ProfilePage() {
         .eq("id", user.id)
         .single()
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
 
-      setProfile(data)
       setFirstName(data.first_name || "")
       setLastName(data.last_name || "")
-    } catch (error: any) {
-      console.error("Error fetching profile:", error.message)
+    } catch (error: unknown) {
+      console.error("Error fetching profile:", error instanceof Error ? error.message : "Unknown error")
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [supabase, user])
+
+  useEffect(() => {
+    if (!user && !authLoading) {
+      router.push("/login")
+      return
+    }
+
+    if (user) void fetchProfile()
+  }, [user, authLoading, router, fetchProfile])
 
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!user) return
+
     setIsSaving(true)
     setError(null)
     setSuccess(null)
-
-    if (!user) return
 
     try {
       const { error } = await supabase
@@ -92,13 +80,8 @@ export default function ProfilePage() {
       }
 
       setSuccess("Profile updated successfully")
-      setProfile({
-        ...profile!,
-        first_name: firstName,
-        last_name: lastName,
-      })
-    } catch (error: any) {
-      setError(error.message || "Failed to update profile")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to update profile")
     } finally {
       setIsSaving(false)
     }
