@@ -11,21 +11,21 @@
     align-items: center;
     overflow: hidden;
     background: #ffffff;
-    padding: 96px 24px;
+    padding: 96px 24px 64px;
     color: #00572f;
   }
 
   .home-hero__inner {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     max-width: 1280px;
     margin-inline: auto;
   }
 
   .home-hero__content {
-    width: min(100%, 640px);
-    max-width: 640px;
+    width: min(100%, 670px);
+    max-width: 670px;
   }
 
   .home-hero__title {
@@ -57,20 +57,21 @@
 
   .home-hero__cards {
     display: grid;
-    grid-template-columns: 1.15fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
-    width: 640px;
+    width: min(670px, 100%);
     max-width: 100%;
   }
 
   .home-hero__card {
     display: flex;
-    height: 240px;
+    height: auto;
+    min-height: 300px;
     min-width: 0;
     flex-direction: column;
     overflow: hidden;
     border: 1px solid #e8e2da;
-    border-radius: 20px;
+    border-radius: 16px;
     background: #f7f3ee;
     color: #1f2328;
     box-shadow: none;
@@ -81,7 +82,7 @@
     flex: 0 0 auto;
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px 24px 12px;
+    padding: 20px;
   }
 
   .home-hero__badges {
@@ -176,85 +177,123 @@
   }
 
   .home-hero__card-image {
-    position: relative;
+    display: flex;
     flex: 1 1 auto;
-    min-height: 54px;
+    min-height: 192px;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 12px 12px;
   }
 
   .home-hero__card-photo {
-    object-fit: cover;
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 180px;
+    object-fit: contain;
   }
 
   .home-hero__art {
+    position: absolute;
     z-index: 0;
-    width: 65% !important;
-    height: auto !important;
-    max-width: none;
-    right: -2% !important;
-    bottom: auto !important;
-    left: auto !important;
-    top: 50% !important;
-    object-fit: contain;
-    opacity: 0.95;
+    top: 40px;
+    right: 24px;
+    left: max(54%, 694px);
+    width: auto;
+    height: min(78vh, 640px);
+    background-image: url("/images/fertiterra-hero-ovary-sperm.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: contain;
+    opacity: 0.55;
     filter: brightness(0) saturate(100%) invert(25%) sepia(89%) saturate(1734%) hue-rotate(108deg) brightness(94%) contrast(100%);
-    transform: translateY(-50%);
-    transform-origin: center;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
     pointer-events: none;
+  }
+
+  .home-hero__mobile-art {
+    display: none;
+  }
+
+  @media (min-width: 1200px) {
+    .home-hero__content {
+      width: min(54vw, 670px);
+      max-width: 670px;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .home-hero {
+      background: radial-gradient(ellipse at 50% 25%, rgba(1, 190, 99, 0.08), transparent 58%), #ffffff;
+    }
+
+    .home-hero__art {
+      display: none;
+    }
+
+    .home-hero__mobile-art {
+      display: grid;
+      width: 100%;
+      height: 120px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      overflow: hidden;
+      margin-block: 24px;
+      opacity: 0.35;
+    }
+
+    .home-hero__mobile-art span {
+      min-width: 0;
+      background-image: url("/images/fertiterra-hero-ovary-sperm.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: auto 120px;
+      filter: brightness(0) saturate(100%) invert(25%) sepia(89%) saturate(1734%) hue-rotate(108deg) brightness(94%) contrast(100%);
+    }
+
+    .home-hero__choices {
+      margin-top: 0;
+    }
   }
 
   @media (max-width: 900px) {
     .home-hero__cards {
       grid-template-columns: 1fr;
+      grid-auto-rows: 1fr;
     }
 
     .home-hero__card {
-      height: auto;
-      min-height: 366px;
-    }
-
-    .home-hero__card-image {
-      min-height: 0;
-      flex: 0 0 200px;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .home-hero {
-      min-height: 88vh;
-      padding: 96px 24px;
-    }
-
-    .home-hero__content,
-    .home-hero__title {
-      max-width: none;
-    }
-
-    .home-hero__content {
-      width: 100%;
-    }
-
-    .home-hero__cards {
-      width: 100%;
-    }
-
-    .home-hero__art {
-      width: min(66vw, 260px) !important;
-      right: -88px !important;
-      top: -52px !important;
-      bottom: auto !important;
-      opacity: 0.95;
-      transform: none;
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
-      mask-image: linear-gradient(90deg, transparent 0%, #000 36%);
+      min-height: 300px;
     }
   }
 
   @media (max-width: 600px) {
-    .home-hero__content {
+    html,
+    body {
+      overflow-x: clip;
+    }
+
+    .home-hero {
+      padding: 72px 16px 64px;
+    }
+
+    .home-hero__content,
+    .home-hero__title {
       width: 100%;
       max-width: none;
+    }
+
+    .home-hero__title {
+      font-size: 40px;
+      line-height: 56px;
+    }
+
+    .home-hero__cards {
+      width: 100%;
+      gap: 12px;
+    }
+
+    .home-hero__card {
+      min-height: 280px;
     }
 
     .home-hero__card-title {

@@ -5,20 +5,17 @@ import { ArrowUpRight, Clock } from "lucide-react"
 export function HomeHero() {
   return (
     <section className="home-hero" aria-labelledby="home-hero-title">
-      <Image
-        src="/images/fertiterra-hero-ovary-sperm.png"
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        sizes="150vw"
-        className="home-hero__art"
-      />
+      <div className="home-hero__art" aria-hidden="true" />
       <div className="home-hero__inner">
         <div className="home-hero__content">
           <h1 id="home-hero-title" className="home-hero__title">
             You deserve better fertility care. <span>Full stop.</span>
           </h1>
+          <div className="home-hero__mobile-art" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
           <div className="home-hero__choices">
             <p className="home-hero__choices-label">Choose where to start</p>
             <div className="home-hero__cards">
@@ -37,8 +34,9 @@ export function HomeHero() {
                   <Image
                     src="/images/hero-test-card.png"
                     alt="FertiTerra fertility test kit held in a hand"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 640px"
+                    width={1024}
+                    height={1024}
+                    sizes="(max-width: 600px) 100vw, 327px"
                     className="home-hero__card-photo"
                   />
                 </div>
@@ -54,8 +52,9 @@ export function HomeHero() {
                   <Image
                     src="/images/hero-expert-card.png"
                     alt="FertiTerra consultation with a fertility expert"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 640px"
+                    width={1024}
+                    height={1024}
+                    sizes="(max-width: 600px) 100vw, 327px"
                     className="home-hero__card-photo"
                   />
                 </div>
