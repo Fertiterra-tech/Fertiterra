@@ -24,27 +24,6 @@ const teamMembers = [
     bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
   },
   {
-    name: "Dr. Lilian Igweze",
-    role: "Head of Research & Diagnostics",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%284%29-GtfLldufzdOV2s8XQH6DEVU9gl35rm.png",
-    bio: "Lilian is a health researcher and diagnostics specialist with expertise in fertility testing and medical innovation. At FertiTerra, she spearheads research and the development of our fertility test kits, bridging science and accessibility to bring cutting-edge diagnostics to underserved populations.",
-  },
-  {
-    name: "Dr. Simpa Dania",
-    role: "Head of Partnerships & Business Development",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%285%29-u1y6fcOVsdhFiaBp0mNekdRuPrDHwr.png",
-    bio: "Simpa is a strategic business leader with extensive experience in building impactful partnerships and scaling ventures across Africa. With a background in entrepreneurship and social innovation, he drives FertiTerra's external collaborations, ensuring strong stakeholder engagement with hospitals, research centers, and industry players.",
-  },
-  {
-    name: "Dr. Kelechi Okoro",
-    role: "Head of Public Health Education & Advocacy (Healthertainer)",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%283%29-7aJEiLOLhBdqPLyXAdtXXjZ3Hs7kSX.png",
-    bio: "Dr. Kelechi, popularly known as The Healthertainer, is a Medical doctor and a passionate health educator and advocate. With years of experience in public health communications, she leads FertiTerra's education and awareness campaigns, reducing stigma around infertility and promoting reproductive health literacy across communities.",
-  },
-  {
     name: "Dr. Smart Akuma",
     role: "Head of Medical Affairs (Gynecology & Fertility Care)",
     image:
@@ -52,18 +31,16 @@ const teamMembers = [
     bio: "Dr. Smart is a medical doctor and gynecologist with over 7 years of clinical experience in women's reproductive health. He leads FertiTerra's medical advisory, ensuring that all solutions are evidence-based, safe, and patient-centered. His passion lies in helping couples overcome infertility challenges and creating inclusive reproductive health systems across Africa.",
   },
   {
-    name: "Joshua Alana",
-    role: "Head of Technology & Product Development",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%281%29-KmQCJXeTTvjA5VoX5A0RPPP5DxBgf7.png",
-    bio: "Joshua is a skilled engineer and innovator with experience in building scalable tech solutions. He leads FertiTerra's digital product development, overseeing the design and implementation of our fertility health app and digital platforms to enhance patient care and user experience.",
+    name: "Paulin Fiangueu",
+    role: "Business Strategist & Operations Executive",
+    image: "/images/team/paulin-fiangueu.png",
+    bio: "Paulin Fiangueu is an entrepreneur, business strategist, and operations executive with a background in Biomedical Sciences and professional experience in business development, project management, and operational leadership. Having worked across Cameroon and Rwanda, he has helped build and manage ventures across agriculture, consulting, fashion, and other sectors, including leadership experience at African Fresh Market in Kigali. Passionate about entrepreneurship, investment, international trade, and business transformation, he aspires to build scalable enterprises, establish an international investment holding company, and contribute to Africa's economic development through innovation, job creation, and sustainable wealth creation.",
   },
   {
-    name: "Isaiah Kporon",
-    role: "Head of Finance & Impact Measurement",
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ISAIAH%20-%20Headshot%20%281%29.jpg-n5MeflEirk26mJPEW80MuD73r57iRv.jpeg",
-    bio: "Isaiah is a finance professional with a strong background in startup finance, impact investing, and social enterprise accountability. He leads FertiTerra's financial strategy, ensuring sustainability while measuring and reporting the social and health impact of our work.",
+    name: "Dr. Christelle Giraneza",
+    role: "Clinical Advisor & Strategic Partner",
+    image: "/images/team/dr-christelle-giraneza.png",
+    bio: "Dr. Christelle Giraneza is a medical doctor with an MSc in Gender, Sexual and Reproductive Health, founder of Urukundo Initiative, and host of the Vitalia Podcast. At FertiTerra, she reviews our clinical guidance and at-home test journey, and advises on regulation, partnerships, and market entry.",
   },
 ]
 
