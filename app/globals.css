@@ -98,20 +98,29 @@
 
   .home-hero__art {
     z-index: 0;
-    width: 105% !important;
+    width: 150% !important;
     height: auto !important;
     max-width: none;
-    right: -35% !important;
-    bottom: auto !important;
+    right: -18% !important;
+    bottom: -12% !important;
     left: auto !important;
-    top: 50% !important;
+    top: auto !important;
     object-fit: contain;
-    opacity: 0.35;
-    transform: translateY(-50%) rotate(-12deg);
+    opacity: 0.68;
+    transform: rotate(-12deg);
     transform-origin: center;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 18%) 38%, #000 68%);
-    mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 18%) 38%, #000 68%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 35%) 38%, #000 68%);
+    mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 35%) 38%, #000 68%);
     pointer-events: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1100px) {
+    .home-hero__art {
+      opacity: 0.6;
+      transform: translateX(25%) rotate(-12deg);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 25%, rgb(0 0 0 / 70%) 42%, #000 58%);
+      mask-image: linear-gradient(90deg, transparent 0%, transparent 25%, rgb(0 0 0 / 70%) 42%, #000 58%);
+    }
   }
 
   @media (max-width: 767px) {
@@ -129,11 +138,11 @@
       width: 190% !important;
       right: -35% !important;
       top: auto !important;
-      bottom: -18% !important;
-      opacity: 0.14;
+      bottom: -8% !important;
+      opacity: 0.58;
       transform: rotate(-12deg);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 8%) 58%, #000 92%);
-      mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 8%) 58%, #000 92%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 20%) 30%, #000 50%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 20%) 30%, #000 50%);
     }
   }
 }
