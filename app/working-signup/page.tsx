@@ -94,7 +94,7 @@ export default function WorkingSignupPage() {
             style={{
               fontSize: "2rem",
               fontWeight: "bold",
-              color: "#e11d48",
+              color: "#c62828",
               marginBottom: "0.5rem",
             }}
           >
@@ -175,13 +175,13 @@ export default function WorkingSignupPage() {
           <div
             style={{
               padding: "1rem",
-              backgroundColor: "#fdf2f8",
+              backgroundColor: "#fff1f1",
               borderRadius: "6px",
-              border: "1px solid #fce7f3",
+              border: "1px solid #ffe0e0",
             }}
           >
-            <h4 style={{ fontWeight: "600", color: "#be185d", marginBottom: "0.5rem" }}>What you'll get:</h4>
-            <ul style={{ fontSize: "0.875rem", color: "#be185d", margin: 0, paddingLeft: "1rem" }}>
+            <h4 style={{ fontWeight: "600", color: "#c62828", marginBottom: "0.5rem" }}>What you'll get:</h4>
+            <ul style={{ fontSize: "0.875rem", color: "#c62828", margin: 0, paddingLeft: "1rem" }}>
               <li>🩺 Track menstrual cycles and ovulation</li>
               <li>📖 Access fertility health resources</li>
               <li>👩‍⚕️ Book video consultations with doctors</li>
@@ -195,7 +195,7 @@ export default function WorkingSignupPage() {
             style={{
               width: "100%",
               padding: "0.75rem",
-              backgroundColor: status === "loading" ? "#9ca3af" : "#e11d48",
+              backgroundColor: status === "loading" ? "#9ca3af" : "#c62828",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -211,7 +211,7 @@ export default function WorkingSignupPage() {
         <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
           <p style={{ fontSize: "0.875rem", color: "#6b7280" }}>
             Already have an account?{" "}
-            <a href="/working-login" style={{ color: "#e11d48", textDecoration: "none" }}>
+            <a href="/working-login" style={{ color: "#c62828", textDecoration: "none" }}>
               Sign in
             </a>
           </p>

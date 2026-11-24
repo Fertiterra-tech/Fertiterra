@@ -79,7 +79,7 @@ export default function WorkingLoginPage() {
             style={{
               fontSize: "2rem",
               fontWeight: "bold",
-              color: "#e11d48",
+              color: "#c62828",
               marginBottom: "0.5rem",
             }}
           >
@@ -145,7 +145,7 @@ export default function WorkingLoginPage() {
             style={{
               width: "100%",
               padding: "0.75rem",
-              backgroundColor: status === "loading" ? "#9ca3af" : "#e11d48",
+              backgroundColor: status === "loading" ? "#9ca3af" : "#c62828",
               color: "white",
               border: "none",
               borderRadius: "6px",
@@ -161,7 +161,7 @@ export default function WorkingLoginPage() {
         <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
           <p style={{ fontSize: "0.875rem", color: "#6b7280" }}>
             Don't have an account?{" "}
-            <a href="/working-signup" style={{ color: "#e11d48", textDecoration: "none" }}>
+            <a href="/working-signup" style={{ color: "#c62828", textDecoration: "none" }}>
               Create account
             </a>
           </p>

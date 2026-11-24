@@ -213,7 +213,7 @@ export default function LoginPage() {
             style={{
               width: "100%",
               padding: "0.75rem",
-              backgroundColor: isLoading ? "#9ca3af" : "#e11d48",
+              backgroundColor: isLoading ? "#9ca3af" : "#c62828",
               color: "white",
               border: "none",
               borderRadius: "8px",
@@ -231,7 +231,7 @@ export default function LoginPage() {
         <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem" }}>
           <div style={{ marginBottom: "0.5rem" }}>
             <span style={{ color: "#6b7280" }}>Don't have an account? </span>
-            <Link href="/signup" style={{ color: "#e11d48", textDecoration: "none" }}>
+            <Link href="/signup" style={{ color: "#c62828", textDecoration: "none" }}>
               Sign up
             </Link>
           </div>

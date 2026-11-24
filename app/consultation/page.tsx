@@ -147,7 +147,7 @@ export default function ConsultationPage() {
               style={{ height: "40px", width: "auto" }}
             />
           </Link>
-          <Link href="/dashboard" style={{ color: "#e11d48", textDecoration: "none", fontSize: "0.875rem" }}>
+          <Link href="/dashboard" style={{ color: "#c62828", textDecoration: "none", fontSize: "0.875rem" }}>
             ← Back to Dashboard
           </Link>
         </div>
@@ -181,7 +181,7 @@ export default function ConsultationPage() {
                       backgroundColor: "white",
                       padding: "1.5rem",
                       borderRadius: "12px",
-                      border: selectedDoctor.id === doctor.id ? "2px solid #e11d48" : "1px solid #e5e7eb",
+                      border: selectedDoctor.id === doctor.id ? "2px solid #c62828" : "1px solid #e5e7eb",
                       cursor: "pointer",
                       transition: "all 0.2s",
                       boxShadow:
@@ -211,7 +211,7 @@ export default function ConsultationPage() {
                               key={specialty}
                               style={{
                                 backgroundColor: "#fef2f2",
-                                color: "#e11d48",
+                                color: "#c62828",
                                 padding: "0.25rem 0.5rem",
                                 borderRadius: "4px",
                                 fontSize: "0.75rem",
@@ -255,7 +255,7 @@ export default function ConsultationPage() {
                     backgroundColor: "white",
                     padding: "1.5rem",
                     borderRadius: "12px",
-                    border: consultationType === "video" ? "2px solid #e11d48" : "1px solid #e5e7eb",
+                    border: consultationType === "video" ? "2px solid #c62828" : "1px solid #e5e7eb",
                     cursor: "pointer",
                     textAlign: "center",
                   }}
@@ -272,7 +272,7 @@ export default function ConsultationPage() {
                     backgroundColor: "white",
                     padding: "1.5rem",
                     borderRadius: "12px",
-                    border: consultationType === "in-person" ? "2px solid #e11d48" : "1px solid #e5e7eb",
+                    border: consultationType === "in-person" ? "2px solid #c62828" : "1px solid #e5e7eb",
                     cursor: "pointer",
                     textAlign: "center",
                   }}
@@ -346,14 +346,14 @@ export default function ConsultationPage() {
                           disabled={!slot.available}
                           style={{
                             padding: "0.5rem",
-                            border: selectedTime === slot.time ? "2px solid #e11d48" : "1px solid #d1d5db",
+                            border: selectedTime === slot.time ? "2px solid #c62828" : "1px solid #d1d5db",
                             borderRadius: "6px",
                             backgroundColor: !slot.available
                               ? "#f3f4f6"
                               : selectedTime === slot.time
                                 ? "#fef2f2"
                                 : "white",
-                            color: !slot.available ? "#9ca3af" : selectedTime === slot.time ? "#e11d48" : "#374151",
+                            color: !slot.available ? "#9ca3af" : selectedTime === slot.time ? "#c62828" : "#374151",
                             cursor: slot.available ? "pointer" : "not-allowed",
                             fontSize: "0.875rem",
                           }}
@@ -427,7 +427,7 @@ export default function ConsultationPage() {
                 disabled={!selectedDate || !selectedTime || isBooking}
                 style={{
                   width: "100%",
-                  backgroundColor: !selectedDate || !selectedTime || isBooking ? "#d1d5db" : "#e11d48",
+                  backgroundColor: !selectedDate || !selectedTime || isBooking ? "#d1d5db" : "#c62828",
                   color: "white",
                   padding: "0.75rem",
                   borderRadius: "8px",

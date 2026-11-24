@@ -2,6 +2,34 @@ import type { Config } from 'tailwindcss'
 
 // all in fixtures is set to tailwind v3 as interims solutions
 
+const fertiterraGreen = {
+  50: "#effdf5",
+  100: "#d8f8e6",
+  200: "#b5f0d0",
+  300: "#80e4ab",
+  400: "#3bd989",
+  500: "#007a40",
+  600: "#006b36",
+  700: "#00572f",
+  800: "#10452b",
+  900: "#0d3a24",
+  950: "#062919",
+}
+
+const fertiterraRed = {
+  50: "#fff1f1",
+  100: "#ffe0e0",
+  200: "#ffc4c4",
+  300: "#ff9a9a",
+  400: "#ff6c6c",
+  500: "#c62828",
+  600: "#b4232f",
+  700: "#9f1f1f",
+  800: "#831b22",
+  900: "#64191f",
+  950: "#3f1015",
+}
+
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -13,6 +41,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          green: '#00bf63',
+          'green-dark': '#006b36',
+          'green-deep': '#00572f',
+          'green-soft': '#f1fff7',
+          red: '#ff4242',
+          'red-dark': '#c62828',
+          'red-soft': '#fff1f1',
+        },
+        green: fertiterraGreen,
+        emerald: fertiterraGreen,
+        teal: fertiterraGreen,
+        cyan: fertiterraGreen,
+        sky: fertiterraGreen,
+        blue: fertiterraGreen,
+        lime: fertiterraGreen,
+        red: fertiterraRed,
+        rose: fertiterraRed,
+        pink: fertiterraRed,
+        fuchsia: fertiterraRed,
+        purple: fertiterraRed,
+        violet: fertiterraRed,
+        indigo: fertiterraRed,
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
