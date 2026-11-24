@@ -21,7 +21,13 @@ const teamMembers = [
     name: "Dr. Favour Ayeboua",
     role: "Co-founder & Medical Lead - All Country Operations",
     image: "/images/team/dr-favour-ayeboua.jpg",
-    bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
+    bio: "Dr. Favour Ayeboua is a gynaecologist and obstetrician and co-founder of FertiTerra. She leads medical operations across our countries, guiding evidence-based, patient-centred reproductive care and clinical partnerships.",
+  },
+  {
+    name: "Paulin Fiangueu",
+    role: "Chief Operations Officer",
+    image: "/images/team/paulin-fiangueu.png",
+    bio: "Paulin Fiangueu is an entrepreneur and operations leader with a Biomedical Sciences background and experience in business development and project management. He has led ventures across Cameroon and Rwanda, including work with African Fresh Market in Kigali.",
   },
   {
     name: "Dr. Smart Akuma",
@@ -29,12 +35,6 @@ const teamMembers = [
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%282%29-Mdoo3uuoiddEvG2Zn4eWqKVM58bqpI.png",
     bio: "Dr. Smart is a medical doctor and gynecologist with over 7 years of clinical experience in women's reproductive health. He leads FertiTerra's medical advisory, ensuring that all solutions are evidence-based, safe, and patient-centered. His passion lies in helping couples overcome infertility challenges and creating inclusive reproductive health systems across Africa.",
-  },
-  {
-    name: "Paulin Fiangueu",
-    role: "Chief Operations Officer",
-    image: "/images/team/paulin-fiangueu.png",
-    bio: "Paulin Fiangueu is an entrepreneur, business strategist, and operations executive with a background in Biomedical Sciences and professional experience in business development, project management, and operational leadership. Having worked across Cameroon and Rwanda, he has helped build and manage ventures across agriculture, consulting, fashion, and other sectors, including leadership experience at African Fresh Market in Kigali. Passionate about entrepreneurship, investment, international trade, and business transformation, he aspires to build scalable enterprises, establish an international investment holding company, and contribute to Africa's economic development through innovation, job creation, and sustainable wealth creation.",
   },
   {
     name: "Dr. Christelle Giraneza",
@@ -99,7 +99,7 @@ export default function TeamPage() {
                           src={member.image || "/placeholder.svg"}
                           alt={member.name}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="object-cover grayscale group-hover:scale-105 transition-transform duration-300"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>

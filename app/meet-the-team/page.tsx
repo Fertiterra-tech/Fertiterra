@@ -25,19 +25,19 @@ const teamMembers = [
     name: "Dr. Favour Ayeboua",
     title: "Co-founder & Medical Lead - All Country Operations",
     imageUrl: "/images/team/dr-favour-ayeboua.jpg",
-    bio: "Dr. Favour Ayeboua is a compassionate Gynaecologist and Obstetrician (OB/GN) with an unwavering passion for advancing fertility health and reproductive care across Africa. As Co-founder and Medical Lead for all country operations at FertiTerra, she ensures that all clinical protocols, medical partnerships, and healthcare solutions are evidence-based, patient-centered, and culturally sensitive. Her clinical expertise and commitment to breaking down barriers to fertility care drive FertiTerra's mission to make high-quality reproductive health services accessible to every woman.",
-  },
-  {
-    name: "Dr. Smart Akuma",
-    title: "Head of Medical Affairs (Gynecology & Fertility Care)",
-    imageUrl: "/images/team/smart-akuma.jpg",
-    bio: "Dr. Akuma is a skilled gynecologist and fertility specialist with expertise in assisted reproductive technologies and personalized fertility care. He holds an MD and a Fellowship in Reproductive Endocrinology, and is committed to providing compassionate and evidence-based care to women facing fertility challenges. As Head of Medical Affairs, Dr. Akuma oversees the development of clinical protocols and medical partnerships to ensure quality and safety in FertiTerra's services.",
+    bio: "Dr. Favour Ayeboua is a gynaecologist and obstetrician and co-founder of FertiTerra. She leads medical operations across our countries, guiding evidence-based, patient-centred reproductive care and clinical partnerships.",
   },
   {
     name: "Paulin Fiangueu",
     title: "Chief Operations Officer",
     imageUrl: "/images/team/paulin-fiangueu.png",
-    bio: "Paulin Fiangueu is an entrepreneur, business strategist, and operations executive with a background in Biomedical Sciences and professional experience in business development, project management, and operational leadership. Having worked across Cameroon and Rwanda, he has helped build and manage ventures across agriculture, consulting, fashion, and other sectors, including leadership experience at African Fresh Market in Kigali. Passionate about entrepreneurship, investment, international trade, and business transformation, he aspires to build scalable enterprises, establish an international investment holding company, and contribute to Africa's economic development through innovation, job creation, and sustainable wealth creation.",
+    bio: "Paulin Fiangueu is an entrepreneur and operations leader with a Biomedical Sciences background and experience in business development and project management. He has led ventures across Cameroon and Rwanda, including work with African Fresh Market in Kigali.",
+  },
+  {
+    name: "Dr. Smart Akuma",
+    title: "Head of Medical Affairs (Gynecology & Fertility Care)",
+    imageUrl: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/download%20%282%29-Mdoo3uuoiddEvG2Zn4eWqKVM58bqpI.png",
+    bio: "Dr. Akuma is a skilled gynecologist and fertility specialist with expertise in assisted reproductive technologies and personalized fertility care. He holds an MD and a Fellowship in Reproductive Endocrinology, and is committed to providing compassionate and evidence-based care to women facing fertility challenges. As Head of Medical Affairs, Dr. Akuma oversees the development of clinical protocols and medical partnerships to ensure quality and safety in FertiTerra's services.",
   },
   {
     name: "Dr. Christelle Giraneza",
@@ -75,14 +75,14 @@ export default function MeetTheTeamPage() {
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {teamMembers.map((member) => (
-                <Card key={member.name} className="border-0 shadow-xl">
-                  <div className="relative overflow-hidden rounded-t-lg">
+                <Card key={member.name} className="group border-0 shadow-xl">
+                  <div className="relative aspect-square overflow-hidden rounded-t-lg">
                     <Image
                       src={member.imageUrl || "/placeholder.svg"}
                       alt={member.name}
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover grayscale transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                   <CardHeader>
