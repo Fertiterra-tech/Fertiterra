@@ -60,7 +60,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Managing symptoms"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -90,7 +89,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Trying to conceive"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -118,7 +116,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Menopause Support Africa"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -167,7 +164,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Doctor holding hands for Fertility care in Rwanda"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-rose-100 group-hover:border-rose-200 transition-colors duration-300">
@@ -205,7 +201,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Fertility checkup Africa"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-purple-100 group-hover:border-purple-200 transition-colors duration-300">
@@ -243,7 +238,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Peer Fertility support Rwanda"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-pink-100 group-hover:border-pink-200 transition-colors duration-300">
