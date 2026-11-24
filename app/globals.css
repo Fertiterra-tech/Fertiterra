@@ -301,6 +301,303 @@
     }
   }
 
+  .home-hero {
+    min-height: max(720px, calc(100svh - 100px));
+    align-items: stretch;
+    overflow: hidden;
+    padding: 36px 40px 32px;
+    background: #f7f3ee;
+    color: #1f2328;
+  }
+
+  .home-hero__inner {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+  }
+
+  .home-hero__content {
+    display: flex;
+    width: min(670px, 52vw);
+    max-width: 670px;
+    min-height: calc(100svh - 168px);
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .home-hero__title {
+    max-width: 650px;
+    color: #1f2328;
+    font-size: clamp(48px, 5.1vw, 72px);
+  }
+
+  .home-hero__choices {
+    margin-top: 40px;
+  }
+
+  .home-hero__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: min(670px, 100%);
+  }
+
+  .home-hero__card {
+    width: 100%;
+    max-width: 327px;
+    height: 225px;
+    min-height: 225px;
+    flex-direction: row;
+    border-radius: 12px;
+  }
+
+  .home-hero__card-content {
+    width: 65%;
+    flex: 0 0 65%;
+    justify-content: center;
+    padding: 12px 6px 12px 14px;
+  }
+
+  .home-hero__badges {
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+
+  .home-hero__popular,
+  .home-hero__duration {
+    min-height: 22px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .home-hero__card-title {
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .home-hero__assessment-link {
+    min-height: 38px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding-inline: 5px;
+    font-size: 11px;
+  }
+
+  .home-hero__expert-link {
+    gap: 6px;
+    font-size: 14px;
+  }
+
+  .home-hero__card-image {
+    width: 35%;
+    min-height: 0;
+    flex: 0 0 35%;
+    align-items: center;
+    padding: 8px 8px 8px 0;
+  }
+
+  .home-hero__card-photo {
+    width: 100%;
+    height: 100%;
+    max-height: 145px;
+    object-fit: contain;
+  }
+
+  .home-hero__art {
+    top: 30px;
+    right: -42px;
+    left: 53%;
+    height: min(78svh, 680px);
+    overflow: visible;
+    background: none;
+    opacity: 1;
+    filter: none;
+  }
+
+  .home-hero__art::before {
+    position: absolute;
+    inset: 0;
+    background-image: url("/images/fertiterra-hero-ovary-sperm.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+    content: "";
+    opacity: 0.65;
+    filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(1477%) hue-rotate(105deg) brightness(97%) contrast(101%);
+    pointer-events: none;
+  }
+
+  .home-hero__art > span,
+  .home-hero__mobile-art > span {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: clamp(70px, 7vw, 108px);
+    aspect-ratio: 0.72;
+    background-image: url("/images/fertiterra-hero-ovary-sperm.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 320% auto;
+    opacity: 0.35;
+    filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(1477%) hue-rotate(105deg) brightness(97%) contrast(101%);
+    pointer-events: none;
+  }
+
+  .home-hero__art > span:nth-child(1) {
+    top: 4%;
+    left: 3%;
+    transform: rotate(-19deg);
+  }
+
+  .home-hero__art > span:nth-child(2) {
+    top: 1%;
+    left: 42%;
+    transform: rotate(14deg);
+  }
+
+  .home-hero__art > span:nth-child(3) {
+    top: 48%;
+    left: 0;
+    transform: rotate(22deg);
+  }
+
+  .home-hero__art > span:nth-child(4) {
+    bottom: 1%;
+    left: 22%;
+    transform: rotate(-12deg);
+  }
+
+  .home-hero__art > span:nth-child(5) {
+    right: 2%;
+    bottom: 20%;
+    transform: rotate(8deg);
+  }
+
+  .home-hero__mobile-art {
+    display: none;
+  }
+
+  @media (max-width: 1199px) {
+    .home-hero {
+      min-height: 0;
+      overflow-x: clip;
+      overflow-y: visible;
+      padding: 40px 24px 20px;
+      background: #f7f3ee;
+    }
+
+    .home-hero__inner {
+      flex: initial;
+    }
+
+    .home-hero__content {
+      width: 100%;
+      max-width: none;
+      min-height: 0;
+    }
+
+    .home-hero__title {
+      max-width: 700px;
+      font-size: clamp(42px, 6vw, 62px);
+    }
+
+    .home-hero__choices {
+      margin-top: 24px;
+    }
+
+    .home-hero__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .home-hero__art {
+      display: none;
+    }
+
+    .home-hero__mobile-art {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: max(250px, min(65vw, 420px));
+      margin-top: 16px;
+      pointer-events: none;
+    }
+
+    .home-hero__mobile-main-art {
+      position: absolute;
+      top: 0;
+      right: -7%;
+      width: min(76vw, 640px);
+      aspect-ratio: 951 / 777;
+      background-image: url("/images/fertiterra-hero-ovary-sperm.png");
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: contain;
+      opacity: 0.65;
+      filter: brightness(0) saturate(100%) invert(47%) sepia(95%) saturate(1477%) hue-rotate(105deg) brightness(97%) contrast(101%);
+    }
+
+    .home-hero__mobile-art > span:nth-of-type(1) {
+      top: 15%;
+      left: 4%;
+      width: clamp(50px, 9vw, 80px);
+      transform: rotate(-21deg);
+    }
+
+    .home-hero__mobile-art > span:nth-of-type(2) {
+      top: 5%;
+      right: 2%;
+      width: clamp(50px, 9vw, 80px);
+      transform: rotate(17deg);
+    }
+
+    .home-hero__mobile-art > span:nth-of-type(3) {
+      right: 27%;
+      bottom: 0;
+      width: clamp(50px, 9vw, 80px);
+      transform: rotate(-8deg);
+    }
+
+    .home-hero__mobile-art > span {
+      opacity: 0.3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .home-hero {
+      padding: 32px 16px 8px;
+    }
+
+    .home-hero__title {
+      font-size: 40px;
+      line-height: 1.1;
+    }
+
+    .home-hero__choices {
+      margin-top: 20px;
+    }
+
+    .home-hero__cards {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .home-hero__card {
+      width: min(100%, 327px);
+      height: 225px;
+      min-height: 225px;
+    }
+
+    .home-hero__card-title {
+      font-size: 16px;
+    }
+
+    .home-hero__mobile-art {
+      height: max(250px, 65vw);
+      margin-top: 12px;
+    }
+  }
+
 }
 
 @layer utilities {
