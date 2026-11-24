@@ -5,17 +5,18 @@ import { ArrowUpRight, Clock } from "lucide-react"
 export function HomeHero() {
   return (
     <section className="home-hero" aria-labelledby="home-hero-title">
-      <div className="home-hero__art" aria-hidden="true" />
+      <div className="home-hero__art" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
       <div className="home-hero__inner">
         <div className="home-hero__content">
           <h1 id="home-hero-title" className="home-hero__title">
             You deserve better fertility care. <span>Full stop.</span>
           </h1>
-          <div className="home-hero__mobile-art" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
           <div className="home-hero__choices">
             <p className="home-hero__choices-label">Choose where to start</p>
             <div className="home-hero__cards">
@@ -60,6 +61,12 @@ export function HomeHero() {
                 </div>
               </article>
             </div>
+          </div>
+          <div className="home-hero__mobile-art" aria-hidden="true">
+            <div className="home-hero__mobile-main-art" />
+            <span />
+            <span />
+            <span />
           </div>
         </div>
       </div>
