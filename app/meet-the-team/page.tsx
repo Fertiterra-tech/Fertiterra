@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 
 const teamMembers = [
   {
-    name: "Kalu Chijioke Ugorji",
+    name: "Kalu Chijioke",
     title: "Founder & CEO",
-    imageUrl: "/images/team/kalu-chijioke-ugorji.jpg",
+    imageUrl: "/images/team/kalu-chijioke-official.jpeg",
     bio: "Kalu is a visionary leader with a passion for leveraging technology to improve healthcare access. He holds degrees in Engineering, Public Health and an MBA from MIT, and has over 15 years of experience in healthcare innovation and entrepreneurship.  Driven by a desire to address the significant challenges in fertility care across Africa, Kalu founded FertiTerra Technologies to offer affordable and personalized solutions.",
   },
   {
@@ -35,7 +35,7 @@ const teamMembers = [
   },
   {
     name: "Paulin Fiangueu",
-    title: "Business Strategist & Operations Executive",
+    title: "Chief Operations Officer",
     imageUrl: "/images/team/paulin-fiangueu.png",
     bio: "Paulin Fiangueu is an entrepreneur, business strategist, and operations executive with a background in Biomedical Sciences and professional experience in business development, project management, and operational leadership. Having worked across Cameroon and Rwanda, he has helped build and manage ventures across agriculture, consulting, fashion, and other sectors, including leadership experience at African Fresh Market in Kigali. Passionate about entrepreneurship, investment, international trade, and business transformation, he aspires to build scalable enterprises, establish an international investment holding company, and contribute to Africa's economic development through innovation, job creation, and sustainable wealth creation.",
   },

@@ -12,9 +12,9 @@ import { Header } from "@/components/header"
 
 const teamMembers = [
   {
-    name: "Kalu Chijioke Ugorji",
+    name: "Kalu Chijioke",
     role: "Founder & CEO",
-    image: "/images/team/kalu-chijioke-ugorji.jpg",
+    image: "/images/team/kalu-chijioke-official.jpeg",
     bio: "Chijioke is a polymath and academic scholar with expertise in technology, engineering, and health sciences. He studied Chemistry at Michael Okpara University, Industrial Engineering at Dangote Academy, and is pursuing advanced studies in software engineering and health sciences. Driven by personal experiences with infertility stigma, he founded FertiTerra to transform fertility care in Africa through AI-driven, affordable, and inclusive solutions.",
   },
   {
@@ -32,7 +32,7 @@ const teamMembers = [
   },
   {
     name: "Paulin Fiangueu",
-    role: "Business Strategist & Operations Executive",
+    role: "Chief Operations Officer",
     image: "/images/team/paulin-fiangueu.png",
     bio: "Paulin Fiangueu is an entrepreneur, business strategist, and operations executive with a background in Biomedical Sciences and professional experience in business development, project management, and operational leadership. Having worked across Cameroon and Rwanda, he has helped build and manage ventures across agriculture, consulting, fashion, and other sectors, including leadership experience at African Fresh Market in Kigali. Passionate about entrepreneurship, investment, international trade, and business transformation, he aspires to build scalable enterprises, establish an international investment holding company, and contribute to Africa's economic development through innovation, job creation, and sustainable wealth creation.",
   },
