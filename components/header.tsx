@@ -29,7 +29,7 @@ export function Header() {
   }
 
   return (
-    <header className="w-full bg-white">
+    <header className="w-full bg-[#F3ECE6]">
       {/* Banner */}
       <div className="w-full bg-[#e5d6c9] py-2 px-4 text-center text-sm">
         <div className="flex items-center justify-center gap-4">
