@@ -24,7 +24,7 @@ const teamMembers = [
   {
     name: "Dr. Favour Ayeboua",
     title: "Co-founder & Medical Lead - All Country Operations",
-    imageUrl: "/images/team/dr-favour-ayeboua-cropped.jpg",
+    imageUrl: "/images/team/dr-favour-ayeboua-portrait.png",
     bio: "Dr. Favour Ayeboua is a gynaecologist and obstetrician and co-founder of FertiTerra. She leads medical operations across our countries, guiding evidence-based, patient-centred reproductive care and clinical partnerships.",
   },
   {
@@ -36,7 +36,7 @@ const teamMembers = [
   {
     name: "Dr. Smart Akuma",
     title: "Head of Medical Affairs (Gynecology & Fertility Care)",
-    imageUrl: "/images/team/smart-akuma-sharpened.png",
+    imageUrl: "/images/team/smart-akuma-portrait.png",
     bio: "Dr. Akuma is a skilled gynecologist and fertility specialist with expertise in assisted reproductive technologies and personalized fertility care. He holds an MD and a Fellowship in Reproductive Endocrinology, and is committed to providing compassionate and evidence-based care to women facing fertility challenges. As Head of Medical Affairs, Dr. Akuma oversees the development of clinical protocols and medical partnerships to ensure quality and safety in FertiTerra's services.",
   },
   {
