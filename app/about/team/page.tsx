@@ -65,9 +65,6 @@ export default function TeamPage() {
                     className={`object-cover grayscale transition-transform duration-500 group-hover:scale-[1.035] ${member.name === "Kalu Chijioke" ? "object-center" : "object-top"}`}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-black">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
                 </div>
                 <div className="p-5 sm:p-6">
                   <h3 className="text-xl font-semibold tracking-tight text-black">{member.name}</h3>
