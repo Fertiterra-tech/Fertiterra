@@ -55,13 +55,13 @@ export default function TeamPage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {teamMembers.map((member, index) => (
               <article key={member.name} className="group overflow-hidden rounded-[1.35rem] border border-[#e8e6df] bg-white transition duration-300 hover:-translate-y-1 hover:border-[#b7d4bc] hover:shadow-[0_18px_50px_-28px_rgba(0,87,47,0.35)] focus-within:ring-2 focus-within:ring-[#00a957]">
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#f1f7f1]">
+                <div className="relative aspect-square overflow-hidden bg-[#f1f7f1]">
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
                     priority={index < 2}
-                    className={`object-cover transition-transform duration-500 group-hover:scale-[1.035] ${member.name === "Kalu Chijioke" ? "object-center" : "object-top"}`}
+                    className={`object-cover grayscale transition-transform duration-500 group-hover:scale-[1.035] ${member.name === "Kalu Chijioke" ? "object-center" : "object-top"}`}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <span className="absolute left-4 top-4 rounded-full border border-white/70 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-black">
