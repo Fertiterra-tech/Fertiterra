@@ -99,7 +99,7 @@ export default function TeamPage() {
                           src={member.image || "/placeholder.svg"}
                           alt={member.name}
                           fill
-                          className="object-cover grayscale group-hover:scale-105 transition-transform duration-300"
+                          className={`object-cover ${member.name === "Kalu Chijioke" ? "object-center" : "object-top"} grayscale group-hover:scale-105 transition-transform duration-300`}
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       </div>

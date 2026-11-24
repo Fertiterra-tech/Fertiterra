@@ -82,7 +82,7 @@ export default function MeetTheTeamPage() {
                       alt={member.name}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover grayscale transition-transform duration-500 group-hover:scale-110"
+                      className={`object-cover ${member.name === "Kalu Chijioke" ? "object-center" : "object-top"} grayscale transition-transform duration-500 group-hover:scale-110`}
                     />
                   </div>
                   <CardHeader>
