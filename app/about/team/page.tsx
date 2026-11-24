@@ -43,15 +43,13 @@ export default function TeamPage() {
       <main>
         <section className="border-b border-[#e7e6df] bg-[#f1f7f1]">
           <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:px-12">
-            <h1 className="text-4xl font-semibold tracking-[-0.045em] text-black sm:text-5xl">Team</h1>
+            <h1 className="max-w-4xl text-2xl font-medium leading-relaxed tracking-[-0.025em] text-black sm:text-3xl sm:leading-relaxed">
+              We are a growing team of experts, including scientists, researchers, doctors, lawyers, designers, developers, and business people. All on a mission to educate, empower and help you be #ReProductive. We all bring our individual skill sets together to ensure that we can provide entirely tailored, accessible, affordable, and high-quality at-home health testing. We are the Ferti-team.
+            </h1>
           </div>
         </section>
 
-        <section aria-labelledby="team-heading" className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
-          <div className="mb-8 sm:mb-10">
-            <h2 id="team-heading" className="text-2xl font-semibold tracking-[-0.04em] text-black sm:text-3xl">Team members</h2>
-          </div>
-
+        <section aria-label="Team profiles" className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             {teamMembers.map((member, index) => (
               <article key={member.name} className="group overflow-hidden rounded-[1.35rem] border border-[#e8e6df] bg-white transition duration-300 hover:-translate-y-1 hover:border-[#b7d4bc] hover:shadow-[0_18px_50px_-28px_rgba(0,87,47,0.35)] focus-within:ring-2 focus-within:ring-[#00a957]">
