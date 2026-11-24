@@ -29,12 +29,12 @@ export function Header() {
   }
 
   return (
-    <header className="w-full bg-[#F3ECE6]">
+    <header className="w-full bg-white text-[#171717]">
       {/* Banner */}
-      <div className="w-full bg-[#e5d6c9] py-2 px-4 text-center text-sm">
-        <div className="flex items-center justify-center gap-4">
+      <div className="w-full bg-[#f1fff7] py-2 px-4 text-center text-[14px] leading-snug text-[#00572f]">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span>Download a sample Advanced Hormone and Fertility Test report.</span>
-          <Link href="/sample-report" className="font-medium">
+          <Link href="/sample-report" className="whitespace-nowrap font-medium">
             Download it here
           </Link>
           <div className="hidden sm:flex items-center gap-3 ml-4">
@@ -62,13 +62,13 @@ export function Header() {
 
       {/* Main header */}
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex h-10 w-[140px] items-center overflow-hidden">
           <Image
             src="/images/fertiterra-logo.png"
             alt="FertiTerra Logo"
             width={140}
             height={40}
-            className="h-10 w-auto"
+            className="h-10 w-[140px] object-cover"
             priority
           />
         </Link>

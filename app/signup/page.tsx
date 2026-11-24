@@ -562,16 +562,16 @@ export default function SignupPage() {
 
             <div
               style={{
-                backgroundColor: "#fef7f7",
+                backgroundColor: "#fff1f1",
                 padding: "1rem",
                 borderRadius: "8px",
                 border: "1px solid #fecaca",
               }}
             >
-              <p style={{ fontSize: "0.875rem", fontWeight: "500", color: "#be185d", marginBottom: "0.5rem" }}>
+              <p style={{ fontSize: "0.875rem", fontWeight: "500", color: "#c62828", marginBottom: "0.5rem" }}>
                 🌸 What you'll get access to:
               </p>
-              <ul style={{ fontSize: "0.875rem", color: "#be185d", margin: 0, paddingLeft: "1rem" }}>
+              <ul style={{ fontSize: "0.875rem", color: "#c62828", margin: 0, paddingLeft: "1rem" }}>
                 <li>Personalized cycle tracking and ovulation predictions</li>
                 <li>Expert fertility health content and resources</li>
                 <li>Video consultations with certified fertility specialists</li>
@@ -634,7 +634,7 @@ export default function SignupPage() {
                   width: "30%",
                   height: "4px",
                   borderRadius: "2px",
-                  backgroundColor: step <= currentStep ? "#e11d48" : "#e5e7eb",
+                  backgroundColor: step <= currentStep ? "#c62828" : "#e5e7eb",
                 }}
               />
             ))}
@@ -698,7 +698,7 @@ export default function SignupPage() {
                 disabled={!validateStep(currentStep)}
                 style={{
                   padding: "0.75rem 1.5rem",
-                  backgroundColor: validateStep(currentStep) ? "#e11d48" : "#9ca3af",
+                  backgroundColor: validateStep(currentStep) ? "#c62828" : "#9ca3af",
                   color: "white",
                   border: "none",
                   borderRadius: "8px",
@@ -734,7 +734,7 @@ export default function SignupPage() {
         {/* Footer */}
         <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem" }}>
           <span style={{ color: "#6b7280" }}>Already have an account? </span>
-          <Link href="/login" style={{ color: "#e11d48", textDecoration: "none" }}>
+          <Link href="/login" style={{ color: "#c62828", textDecoration: "none" }}>
             Log in
           </Link>
         </div>

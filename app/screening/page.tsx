@@ -58,8 +58,8 @@ export default function ScreeningPage() {
                   flex items-center gap-3 px-5 py-4 rounded-lg text-left transition-all
                   ${
                     selectedOptions.includes(option)
-                      ? "bg-[#e8d5c4] border-2 border-[#d4b5a0]"
-                      : "bg-[#f5ebe1] border-2 border-transparent hover:border-[#e8d5c4]"
+                      ? "bg-green-50 border-2 border-green-600"
+                      : "bg-white border-2 border-transparent hover:border-green-200"
                   }
                 `}
               >
@@ -81,7 +81,7 @@ export default function ScreeningPage() {
               className="
                 rounded-full px-8 py-6 text-base font-medium
                 disabled:bg-[#d1d5db] disabled:text-gray-600 disabled:cursor-not-allowed disabled:opacity-100
-                bg-gray-900 hover:bg-gray-800 text-white
+                bg-green-700 hover:bg-green-800 text-white
                 transition-colors
               "
             >

@@ -103,14 +103,14 @@ export default function AdminLoginPage() {
           boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)",
           width: "100%",
           maxWidth: "400px",
-          border: "2px solid #e11d48",
+          border: "2px solid #c62828",
         }}
       >
         {/* Admin Header */}
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <div
             style={{
-              backgroundColor: "#e11d48",
+              backgroundColor: "#c62828",
               color: "white",
               padding: "0.5rem 1rem",
               borderRadius: "8px",
@@ -191,7 +191,7 @@ export default function AdminLoginPage() {
                 fontSize: "1rem",
                 backgroundColor: isLoading ? "#f9fafb" : "white",
                 boxSizing: "border-box",
-                borderColor: email === "admin@fertiterra.com" ? "#10b981" : "#d1d5db",
+                borderColor: email === "admin@fertiterra.com" ? "#007a40" : "#d1d5db",
               }}
             />
           </div>
@@ -216,7 +216,7 @@ export default function AdminLoginPage() {
                 fontSize: "1rem",
                 backgroundColor: isLoading ? "#f9fafb" : "white",
                 boxSizing: "border-box",
-                borderColor: password === "admin123" ? "#10b981" : "#d1d5db",
+                borderColor: password === "admin123" ? "#007a40" : "#d1d5db",
               }}
             />
           </div>
@@ -228,7 +228,7 @@ export default function AdminLoginPage() {
             style={{
               width: "100%",
               padding: "0.75rem",
-              backgroundColor: isLoading ? "#9ca3af" : "#e11d48",
+              backgroundColor: isLoading ? "#9ca3af" : "#c62828",
               color: "white",
               border: "none",
               borderRadius: "8px",

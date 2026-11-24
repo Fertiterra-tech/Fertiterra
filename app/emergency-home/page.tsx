@@ -25,7 +25,7 @@ export default function EmergencyHomePage() {
             style={{
               fontSize: "1.5rem",
               fontWeight: "bold",
-              color: "#e11d48",
+              color: "#c62828",
             }}
           >
             FertiTerra
@@ -35,9 +35,9 @@ export default function EmergencyHomePage() {
               href="/working-login"
               style={{
                 padding: "0.5rem 1rem",
-                color: "#e11d48",
+                color: "#c62828",
                 textDecoration: "none",
-                border: "1px solid #e11d48",
+                border: "1px solid #c62828",
                 borderRadius: "6px",
               }}
             >
@@ -47,7 +47,7 @@ export default function EmergencyHomePage() {
               href="/working-signup"
               style={{
                 padding: "0.5rem 1rem",
-                backgroundColor: "#e11d48",
+                backgroundColor: "#c62828",
                 color: "white",
                 textDecoration: "none",
                 borderRadius: "6px",
@@ -95,7 +95,7 @@ export default function EmergencyHomePage() {
               href="/working-signup"
               style={{
                 padding: "1rem 2rem",
-                backgroundColor: "#e11d48",
+                backgroundColor: "#c62828",
                 color: "white",
                 textDecoration: "none",
                 borderRadius: "8px",
@@ -109,8 +109,8 @@ export default function EmergencyHomePage() {
               href="/consultation"
               style={{
                 padding: "1rem 2rem",
-                border: "1px solid #e11d48",
-                color: "#e11d48",
+                border: "1px solid #c62828",
+                color: "#c62828",
                 textDecoration: "none",
                 borderRadius: "8px",
                 fontSize: "1.125rem",

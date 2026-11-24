@@ -201,7 +201,7 @@ export default function TTCPlanPage() {
                 >
                   <Button
                     size="lg"
-                    className="w-full bg-[#635bff] hover:bg-[#5a52e8] text-white px-8 py-4 text-lg font-semibold transition-colors duration-200"
+                    className="w-full bg-green-700 hover:bg-green-800 text-white px-8 py-4 text-lg font-semibold transition-colors duration-200"
                   >
                     Pay $200 - Start Your TTC Journey
                   </Button>
