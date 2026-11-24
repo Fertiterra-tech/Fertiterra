@@ -42,10 +42,13 @@ export default function TeamPage() {
       <Header />
       <main>
         <section className="border-b border-[#e7e6df] bg-[#f1f7f1]">
-          <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:px-12">
-            <h1 className="max-w-4xl text-2xl font-medium leading-relaxed tracking-[-0.025em] text-black sm:text-3xl sm:leading-relaxed">
-              We are a growing team of experts, including scientists, researchers, doctors, lawyers, designers, developers, and business people. All on a mission to educate, empower and help you be #ReProductive. We all bring our individual skill sets together to ensure that we can provide entirely tailored, accessible, affordable, and high-quality at-home health testing. We are the Ferti-team.
+          <div className="mx-auto grid max-w-7xl gap-7 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-14 lg:px-12 lg:py-20">
+            <h1 className="max-w-md text-5xl font-semibold leading-[0.98] tracking-[-0.055em] text-[#123d2b] sm:text-6xl lg:text-7xl">
+              We are the Ferti-team.
             </h1>
+            <p className="max-w-2xl border-l-2 border-[#00a957] pl-5 text-base leading-7 text-black sm:pl-7 sm:text-lg sm:leading-8">
+              We are a growing team of experts, including scientists, researchers, doctors, lawyers, designers, developers, and business people. All on a mission to educate, empower and help you be #ReProductive. We all bring our individual skill sets together to ensure that we can provide entirely tailored, accessible, affordable, and high-quality at-home health testing.
+            </p>
           </div>
         </section>
 
