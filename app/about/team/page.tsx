@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Sprout } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { Header } from "@/components/header"
 
 const teamMembers = [
@@ -41,42 +41,15 @@ export default function TeamPage() {
     <div className="min-h-screen bg-[#fbfaf7] text-black">
       <Header />
       <main>
-        <section className="relative overflow-hidden border-b border-[#e7e6df] bg-[#f1f7f1]">
-          <div className="mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-12">
-            <Link href="/about/founders-story" className="inline-flex items-center gap-2 rounded-full border border-[#cbd9c8] bg-white/70 px-4 py-2 text-sm font-medium text-black transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00a957]">
-              <ArrowLeft aria-hidden="true" className="size-4" />
-              Our founding story
-            </Link>
-            <div className="mt-12 grid items-end gap-10 md:grid-cols-[1fr_auto] md:gap-12">
-              <div className="max-w-3xl">
-                <p className="mb-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-black">
-                  <Sprout aria-hidden="true" className="size-4 text-[#008b49]" />
-                  FertiTerra · People first
-                </p>
-                <h1 className="text-balance text-5xl font-semibold leading-[1.04] tracking-[-0.055em] text-black sm:text-6xl lg:text-7xl">
-                  Care starts with people.
-                </h1>
-                <p className="mt-6 max-w-2xl text-lg leading-8 text-black sm:text-xl">
-                  Meet the clinicians, operators and builders working together to make fertility care more accessible and inclusive across Africa.
-                </p>
-              </div>
-              <div className="flex items-center gap-4 border-l-2 border-[#ff4242] pl-5 md:mb-2">
-                <span className="text-4xl font-semibold tracking-tight text-black">05</span>
-                <span className="max-w-24 text-sm leading-5 text-black">people, one shared mission</span>
-              </div>
-            </div>
+        <section className="border-b border-[#e7e6df] bg-[#f1f7f1]">
+          <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:px-12">
+            <h1 className="text-4xl font-semibold tracking-[-0.045em] text-black sm:text-5xl">Team</h1>
           </div>
-          <div aria-hidden="true" className="absolute -right-24 -top-28 size-80 rounded-full border border-[#c4d8c1] sm:size-[28rem]" />
-          <div aria-hidden="true" className="absolute -right-12 -top-16 size-64 rounded-full border border-[#c4d8c1] sm:size-96" />
         </section>
 
-        <section aria-labelledby="team-heading" className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-12">
-          <div className="mb-8 flex flex-col justify-between gap-3 sm:mb-10 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-black">The people behind the work</p>
-              <h2 id="team-heading" className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-black sm:text-4xl">Our team</h2>
-            </div>
-            <p className="text-sm text-black">A multidisciplinary team with a shared purpose.</p>
+        <section aria-labelledby="team-heading" className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14 lg:px-12">
+          <div className="mb-8 sm:mb-10">
+            <h2 id="team-heading" className="text-2xl font-semibold tracking-[-0.04em] text-black sm:text-3xl">Team members</h2>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
