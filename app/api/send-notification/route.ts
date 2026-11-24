@@ -68,7 +68,7 @@ function generateEmailHTML(type: string, message: string, customerEmail?: string
   `
 
   const headerStyle = `
-    background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+    background: linear-gradient(135deg, #c62828 0%, #ff4242 100%);
     color: white;
     padding: 30px;
     text-align: center;

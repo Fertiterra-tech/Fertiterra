@@ -17,6 +17,7 @@ import {
   Instagram,
 } from "lucide-react"
 import { Header } from "@/components/header"
+import { HomeHero } from "@/components/home-hero"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import type { Metadata } from "next"
 
@@ -31,451 +32,7 @@ export default function HomePage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        {/* Hero Section with New Message */}
-        <section className="relative overflow-hidden py-20 md:py-32">
-          <div className="absolute inset-0 z-0">
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 1400 900"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              <defs>
-                {/* Gradient backgrounds */}
-                <linearGradient id="bg-main" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#fdf2f8" />
-                  <stop offset="40%" stopColor="#fae8ff" />
-                  <stop offset="100%" stopColor="#fce7f3" />
-                </linearGradient>
-
-                {/* Egg cell gradient */}
-                <radialGradient id="egg-gradient" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#fce7f3" stopOpacity="0.9" />
-                  <stop offset="40%" stopColor="#fbcfe8" stopOpacity="0.7" />
-                  <stop offset="70%" stopColor="#f9a8d4" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#f472b6" stopOpacity="0.3" />
-                </radialGradient>
-
-                {/* Sperm head gradient (pink-lavender) */}
-                <radialGradient id="sperm-head-1" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#f9a8d4" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#ec4899" stopOpacity="0.5" />
-                </radialGradient>
-
-                {/* Sperm head gradient (lavender) */}
-                <radialGradient id="sperm-head-2" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#e9d5ff" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#c084fc" stopOpacity="0.5" />
-                </radialGradient>
-
-                {/* Sperm head gradient (rose) */}
-                <radialGradient id="sperm-head-3" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#fda4af" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#fb7185" stopOpacity="0.5" />
-                </radialGradient>
-
-                {/* Soft glow filter */}
-                <filter id="soft-glow">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                  <feMerge>
-                    <feMergeNode in="coloredBlur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              {/* Background */}
-              <rect width="1400" height="900" fill="url(#bg-main)" />
-
-              {/* Central EGG CELL - Large and prominent */}
-              <g filter="url(#soft-glow)">
-                <circle cx="800" cy="450" r="140" fill="url(#egg-gradient)" opacity="0.8" />
-                <circle cx="800" cy="450" r="120" fill="#fce7f3" opacity="0.6" />
-                <circle cx="800" cy="450" r="90" fill="#fbcfe8" opacity="0.4" />
-                {/* Nucleus hint */}
-                <circle cx="820" cy="430" r="35" fill="#f9a8d4" opacity="0.3" />
-              </g>
-
-              {/* SPERM CELL 1 - Coming from bottom left */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head (oval) */}
-                <ellipse cx="280" cy="720" rx="18" ry="28" fill="url(#sperm-head-1)" transform="rotate(-35 280 720)" />
-                {/* Sperm tail (curved path with varying width) */}
-                <path
-                  d="M 285 735 Q 340 680, 400 630 T 520 540 T 640 480 T 720 450"
-                  stroke="#f9a8d4"
-                  strokeWidth="6"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 285 735 Q 340 680, 400 630 T 520 540 T 640 480 T 720 450"
-                  stroke="#ec4899"
-                  strokeWidth="3"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* SPERM CELL 2 - Coming from left side */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head */}
-                <ellipse cx="150" cy="420" rx="16" ry="26" fill="url(#sperm-head-2)" transform="rotate(-10 150 420)" />
-                {/* Sperm tail */}
-                <path
-                  d="M 168 420 Q 280 430, 400 440 T 580 455 T 680 458"
-                  stroke="#e9d5ff"
-                  strokeWidth="5"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 168 420 Q 280 430, 400 440 T 580 455 T 680 458"
-                  stroke="#c084fc"
-                  strokeWidth="2.5"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* SPERM CELL 3 - Coming from top left */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head */}
-                <ellipse cx="350" cy="120" rx="17" ry="27" fill="url(#sperm-head-3)" transform="rotate(25 350 120)" />
-                {/* Sperm tail */}
-                <path
-                  d="M 360 145 Q 430 200, 500 260 T 620 350 T 700 410 T 750 440"
-                  stroke="#fda4af"
-                  strokeWidth="5.5"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 360 145 Q 430 200, 500 260 T 620 350 T 700 410 T 750 440"
-                  stroke="#fb7185"
-                  strokeWidth="3"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* SPERM CELL 4 - Coming from bottom center */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head */}
-                <ellipse cx="750" cy="800" rx="17" ry="26" fill="url(#sperm-head-1)" transform="rotate(-75 750 800)" />
-                {/* Sperm tail */}
-                <path
-                  d="M 760 775 Q 770 700, 775 630 T 785 540 T 790 490"
-                  stroke="#f9a8d4"
-                  strokeWidth="5"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 760 775 Q 770 700, 775 630 T 785 540 T 790 490"
-                  stroke="#ec4899"
-                  strokeWidth="2.5"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* SPERM CELL 5 - Coming from right side */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head */}
-                <ellipse
-                  cx="1200"
-                  cy="480"
-                  rx="16"
-                  ry="25"
-                  fill="url(#sperm-head-2)"
-                  transform="rotate(170 1200 480)"
-                />
-                {/* Sperm tail */}
-                <path
-                  d="M 1182 480 Q 1080 475, 980 470 T 880 465"
-                  stroke="#e9d5ff"
-                  strokeWidth="5"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 1182 480 Q 1080 475, 980 470 T 880 465"
-                  stroke="#c084fc"
-                  strokeWidth="2.5"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* SPERM CELL 6 - Coming from top right */}
-              <g opacity="0.85" filter="url(#soft-glow)">
-                {/* Sperm head */}
-                <ellipse
-                  cx="1100"
-                  cy="180"
-                  rx="18"
-                  ry="27"
-                  fill="url(#sperm-head-3)"
-                  transform="rotate(130 1100 180)"
-                />
-                {/* Sperm tail */}
-                <path
-                  d="M 1085 195 Q 1020 250, 950 310 T 850 390 T 800 430"
-                  stroke="#fda4af"
-                  strokeWidth="5.5"
-                  fill="none"
-                  opacity="0.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M 1085 195 Q 1020 250, 950 310 T 850 390 T 800 430"
-                  stroke="#fb7185"
-                  strokeWidth="3"
-                  fill="none"
-                  opacity="0.4"
-                  strokeLinecap="round"
-                />
-              </g>
-
-              {/* Additional ambient background elements for depth */}
-              <circle cx="200" cy="250" r="80" fill="#fae8ff" opacity="0.15" />
-              <circle cx="1150" cy="700" r="100" fill="#fce7f3" opacity="0.15" />
-              <circle cx="450" cy="850" r="70" fill="#f5d0fe" opacity="0.12" />
-            </svg>
-
-            <Image
-              src="/images/fertiterra-product-suite.png"
-              alt="FertiTerra product suite with test device and kit"
-              fill
-              className="object-cover"
-              priority
-              quality={90}
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-50/95 via-purple-50/90 to-pink-50/95"></div>
-          </div>
-          {/* </CHANGE> */}
-          <div className="container relative z-10">
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-              <div className="flex flex-col space-y-8 lg:pl-8">
-                <div className="space-y-6 text-center lg:text-left">
-                  <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl leading-tight max-w-4xl mx-auto lg:mx-0">
-                    You deserve better fertility care. <span className="text-rose-500 block">Full stop.</span>
-                  </h1>
-                </div>
-
-                {/* Care Promise */}
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-rose-100 max-w-2xl mx-auto lg:mx-0">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
-                      <Heart className="h-8 w-8 text-rose-500" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">Our Promise to You</h3>
-                      <p className="text-gray-600">
-                        No more waiting months for appointments. No more feeling dismissed. Get the answers and care you
-                        deserve, when you need them.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Choose where to start section */}
-                <div className="space-y-6 max-w-2xl mx-auto lg:mx-0">
-                  <h3 className="text-2xl font-semibold text-gray-900 text-center lg:text-left">
-                    Choose where to start
-                  </h3>
-
-                  <div className="grid gap-6 sm:grid-cols-2 sm:items-stretch">
-                    {/* Personalise my test option */}
-                    <div className="bg-rose-100/50 backdrop-blur-sm rounded-2xl p-6 border border-rose-200 flex flex-col">
-                      <div className="flex gap-2 mb-4">
-                        <Badge className="bg-black text-white hover:bg-gray-800">Most popular</Badge>
-                        <Badge variant="outline" className="bg-gray-200 text-gray-700">
-                          <Clock className="h-3 w-3 mr-1" />5 min
-                        </Badge>
-                      </div>
-
-                      <div className="mb-6 flex-grow">
-                        <h4 className="text-xl font-bold text-gray-900 mb-4">Advanced Hormone and Fertility Test</h4>
-                        <div className="relative h-40 mb-4 overflow-hidden rounded-lg">
-                          <Image
-                            src="/images/couple-fertility-struggle-1.png"
-                            alt="Concerned couple sitting on couch discussing fertility challenges - woman looking at pregnancy test while man supports her with head in hands showing emotional stress of fertility journey"
-                            width={280}
-                            height={160}
-                            className="object-cover w-full h-full"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            loading="eager"
-                            alt="Fertility test Africa"
-                          />
-                        </div>
-                      </div>
-
-                      <Button
-                        asChild
-                        className="w-full bg-green-500/90 hover:bg-green-600 text-white py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                      >
-                        <Link href="/screening">Start now</Link>
-                      </Button>
-                    </div>
-
-                    {/* Speak to an expert option */}
-                    <div className="bg-purple-100/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-200 flex flex-col">
-                      <div className="mb-6 flex-grow">
-                        <h4 className="text-xl font-bold text-gray-900 mb-2">Need some advice?</h4>
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className="text-lg font-semibold text-gray-900">Speak to an expert</span>
-                          <ArrowRight className="h-5 w-5 text-gray-600" />
-                        </div>
-
-                        <div className="relative h-40 mb-4 overflow-hidden rounded-lg">
-                          <Image
-                            src="/images/couple-fertility-struggle-2.png"
-                            alt="Couple on bed dealing with fertility disappointment - woman covering face in distress while holding pregnancy test, man providing emotional support and comfort during difficult fertility journey"
-                            width={280}
-                            height={160}
-                            className="object-cover w-full h-full"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            loading="eager"
-                            alt="Fertility Support Africa"
-                          />
-                        </div>
-                      </div>
-
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full border-2 border-green-500 text-green-700 hover:bg-green-500/10 hover:border-green-600 py-3 text-lg font-semibold bg-green-50/50 backdrop-blur-sm shadow-md hover:shadow-lg transition-all duration-300"
-                      >
-                        <Link href="/consultation">Speak to an expert</Link>
-                      </Button>
-                    </div>
-                  </div>
-                  {/* </CHANGE> */}
-                </div>
-
-                {/* Certification Section */}
-                <div className="flex flex-col items-center justify-center space-y-4 pt-4 max-w-4xl mx-auto lg:mx-0">
-                  <div className="w-full bg-gray-50 rounded-lg p-6">
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
-                      <div className="text-lg font-medium text-gray-800 whitespace-nowrap">
-                        Regulated and certified by
-                      </div>
-
-                      <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-                        {/* Rwanda Development Board */}
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src="/images/rdb-logo.png"
-                            alt="Rwanda Development Board (RDB)"
-                            width={120}
-                            height={40}
-                            className="h-10 w-auto"
-                          />
-                        </div>
-
-                        {/* Care Quality Commission */}
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src="/placeholder.svg?height=40&width=120&text=CQC"
-                            alt="Care Quality Commission"
-                            width={120}
-                            height={40}
-                            className="h-10 w-auto"
-                          />
-                        </div>
-
-                        {/* BSI ISO 13485 */}
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src="/placeholder.svg?height=40&width=80&text=BSI+ISO+13485"
-                            alt="BSI ISO 13485 Medical devices quality management systems"
-                            width={80}
-                            height={40}
-                            className="h-10 w-auto"
-                          />
-                        </div>
-
-                        {/* BSI ISO 9001 */}
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src="/placeholder.svg?height=40&width=80&text=BSI+ISO+9001"
-                            alt="BSI ISO 9001 Quality management systems"
-                            width={80}
-                            height={40}
-                            className="h-10 w-auto"
-                          />
-                        </div>
-
-                        {/* CE Marking */}
-                        <div className="flex items-center justify-center">
-                          <Image
-                            src="/placeholder.svg?height=40&width=60&text=CE"
-                            alt="CE marking - European Conformity"
-                            width={60}
-                            height={40}
-                            className="h-10 w-auto"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Care & Community Image */}
-              <div className="relative mx-auto max-w-lg lg:max-w-none">
-                <div className="relative">
-                  <Image
-                    src="/images/fertiterra-product-suite.png"
-                    alt="FertiTerra complete product suite - including test device, kit packaging, test strips, and all components"
-                    width={600}
-                    height={600}
-                    className="rounded-2xl shadow-2xl"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  />
-
-                  {/* Floating care elements */}
-                  <div className="absolute -top-4 -right-4 bg-white rounded-full p-4 shadow-lg">
-                    <Users className="h-8 w-8 text-purple-500" />
-                  </div>
-                  <div className="absolute -bottom-4 -left-4 bg-white rounded-full p-4 shadow-lg">
-                    <Shield className="h-8 w-8 text-green-500" />
-                  </div>
-                </div>
-
-                {/* Community testimonial overlay */}
-                <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                  <div className="flex items-center gap-3">
-                    <div className="flex -space-x-2">
-                      <div className="w-8 h-8 rounded-full bg-rose-200 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-purple-200 border-2 border-white"></div>
-                      <div className="w-8 h-8 rounded-full bg-pink-200 border-2 border-white"></div>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium">Join 10,000+ women</p>
-                      <p className="text-xs text-gray-600">taking control of their fertility</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(#f9a8d4_1px,transparent_1px)] opacity-20 [background-size:24px_24px]"></div>
-        </section>
+        <HomeHero />
 
         {/* Journey Cards Section */}
         <section className="py-16 bg-white">
@@ -503,7 +60,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Managing symptoms"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -533,7 +89,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Trying to conceive"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -561,7 +116,6 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      alt="Menopause Support Africa"
                     />
                     <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
                       <div className="flex justify-between items-start">
@@ -610,7 +164,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Doctor holding hands for Fertility care in Rwanda"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-rose-100 group-hover:border-rose-200 transition-colors duration-300">
@@ -648,7 +201,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Fertility checkup Africa"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-purple-100 group-hover:border-purple-200 transition-colors duration-300">
@@ -686,7 +238,6 @@ export default function HomePage() {
                         height={200}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                        alt="Peer Fertility support Rwanda"
                       />
                     </div>
                     <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full p-4 shadow-lg border-4 border-pink-100 group-hover:border-pink-200 transition-colors duration-300">

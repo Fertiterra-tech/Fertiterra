@@ -92,7 +92,7 @@ export default function AdminDashboard() {
               width: "40px",
               height: "40px",
               border: "4px solid #e5e7eb",
-              borderTop: "4px solid #e11d48",
+              borderTop: "4px solid #c62828",
               borderRadius: "50%",
               animation: "spin 1s linear infinite",
               margin: "0 auto 1rem",
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
           <button
             onClick={handleLogout}
             style={{
-              backgroundColor: "#e11d48",
+              backgroundColor: "#c62828",
               color: "white",
               border: "none",
               padding: "0.5rem 1rem",
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
             <h3 style={{ fontSize: "0.875rem", fontWeight: "500", color: "#6b7280", margin: "0 0 0.5rem 0" }}>
               New Users Today
             </h3>
-            <p style={{ fontSize: "2rem", fontWeight: "600", color: "#10b981", margin: 0 }}>{stats.newUsersToday}</p>
+            <p style={{ fontSize: "2rem", fontWeight: "600", color: "#007a40", margin: 0 }}>{stats.newUsersToday}</p>
           </div>
 
           <div
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
             <h3 style={{ fontSize: "0.875rem", fontWeight: "500", color: "#6b7280", margin: "0 0 0.5rem 0" }}>
               Countries
             </h3>
-            <p style={{ fontSize: "2rem", fontWeight: "600", color: "#3b82f6", margin: 0 }}>{stats.countries}</p>
+            <p style={{ fontSize: "2rem", fontWeight: "600", color: "#006b36", margin: 0 }}>{stats.countries}</p>
           </div>
 
           <div

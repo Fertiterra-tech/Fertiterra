@@ -67,7 +67,7 @@ export default function ContactPage() {
           <div className="flex items-center gap-1 py-6">
             {/* Step 1 - Completed */}
             <div className="flex items-center flex-1">
-              <div className="w-full h-2 bg-[#d4ff00] rounded-full" />
+              <div className="w-full h-2 bg-green-600 rounded-full" />
             </div>
             {/* Step 2 - Current */}
             <div className="flex items-center flex-1">
@@ -186,13 +186,13 @@ export default function ContactPage() {
             <div className="hidden lg:block">
               <div className="sticky top-12 bg-gray-900 rounded-2xl p-8 text-white">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#f5ebe1] to-[#e8d5c4] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
                     <span className="text-2xl">👤</span>
                   </div>
                   <div>
                     <p className="text-xl font-semibold">Sarah</p>
                     <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <svg className="w-4 h-4 text-[#d4ff00]" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
                       </svg>
                       <span>Verified Fertiterra customer</span>
