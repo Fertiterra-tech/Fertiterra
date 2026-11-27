@@ -18,6 +18,7 @@ import {
 } from "lucide-react"
 import { Header } from "@/components/header"
 import { HomeHero } from "@/components/home-hero"
+import { HomePartnershipStrips } from "@/components/home-partnership-strips"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import type { Metadata } from "next"
 
@@ -33,6 +34,7 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <HomeHero />
+        <HomePartnershipStrips />
 
         {/* Journey Cards Section */}
         <section className="py-16 bg-white">
