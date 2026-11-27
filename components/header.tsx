@@ -31,7 +31,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full text-[#1F2328]">
       {/* Announcement bar */}
-      <div className="w-full bg-[#1F3D33] px-4 py-2.5 text-center text-[14px] leading-snug text-white/90">
+      <div className="w-full bg-[#1F3D33] px-4 py-2 text-center text-[13px] leading-snug text-white/90 sm:py-2.5 sm:text-[14px]">
         <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span>Download a sample Advanced Hormone and Fertility Test report.</span>
           <Link
@@ -567,8 +567,8 @@ export function Header() {
           </nav>
 
           {/* Cart, Login, and CTA */}
-          <div className="flex items-center gap-4">
-            <Link href="/cart" aria-label="Cart" className="hidden text-[#1F2328] transition-colors hover:text-[#1F3D33] md:block">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link href="/cart" aria-label="Cart" className="block text-[#1F2328] transition-colors hover:text-[#1F3D33]">
               <ShoppingBag className="h-[22px] w-[22px]" strokeWidth={1.6} />
             </Link>
 

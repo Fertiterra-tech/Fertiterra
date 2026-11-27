@@ -300,3 +300,26 @@
     flex-wrap: wrap;
   }
 }
+
+/* ft-mobile-v1 */
+@media (max-width: 1023px) {
+  /* no egg or sperm art on phones and tablets: the space it left is gone */
+  .art { display: none; }
+
+  .hero { padding-bottom: 0; }
+
+  .inner { padding: 36px 20px 32px; }
+
+  .title {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(38px, 10.6vw, 52px);
+    line-height: 1.08;
+    max-width: 100%;
+  }
+
+  .choices { margin-top: 28px; }
+  .choicesLabel { text-align: left; }
+  .cards { gap: 14px; }
+}
