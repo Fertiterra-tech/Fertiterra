@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Minus, Plus } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import type { CSSProperties } from "react"
+import { HomeTreatmentBand } from "@/components/home-treatment-band"
 
 const journeySteps = [
   {
@@ -153,6 +154,8 @@ export function HomeSupportSection() {
             Start my free assessment
           </Link>
         </div>
+
+        <HomeTreatmentBand />
       </div>
     </section>
   )

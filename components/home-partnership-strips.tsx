@@ -64,25 +64,6 @@ function PartnerLogoSet({ duplicate = false }: { duplicate?: boolean }) {
 export function HomePartnershipStrips() {
   return (
     <div className="home-partnership-strips">
-      <section className="regulated-strip" aria-labelledby="regulated-strip-title">
-        <div className="regulated-strip__inner">
-          <h2 className="regulated-strip__title" id="regulated-strip-title">
-            Regulated and certified by
-          </h2>
-          <div className="regulated-strip__mark">
-            <Image
-              className="regulated-strip__logo"
-              src="/images/partners/rdb-logo.webp"
-              alt="Rwanda Development Board logo"
-              width={251}
-              height={55}
-              sizes="(max-width: 600px) 182px, 182px"
-            />
-            <p className="regulated-strip__caption">Registered with Rwanda Development Board</p>
-          </div>
-        </div>
-      </section>
-
       <section className="partners-strip" aria-labelledby="partners-strip-title">
         <h2 className="partners-strip__title" id="partners-strip-title">
           Partnered with

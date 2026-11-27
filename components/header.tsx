@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
+import { FertiTerraLogo } from "@/components/fertiterra-logo"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/auth-context"
 import { Menu, X, ShoppingBag, Linkedin, Instagram } from "lucide-react"
@@ -29,20 +29,26 @@ export function Header() {
   }
 
   return (
-    <header className="w-full bg-white text-[#171717]">
-      {/* Banner */}
-      <div className="w-full bg-[#f1fff7] py-2 px-4 text-center text-[14px] leading-snug text-[#00572f]">
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+    <header className="sticky top-0 z-40 w-full text-[#1F2328]">
+      {/* Announcement bar */}
+      <div className="w-full bg-[#1F3D33] px-4 py-2.5 text-center text-[14px] leading-snug text-white/90">
+        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span>Download a sample Advanced Hormone and Fertility Test report.</span>
-          <Link href="/sample-report" className="whitespace-nowrap font-medium">
+          <Link
+            href="/sample-report"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap font-medium text-[#E6FF70] transition-opacity hover:opacity-80"
+          >
             Download it here
+            <span aria-hidden="true" className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full border border-[#E6FF70] text-[11px] leading-none">
+              &rarr;
+            </span>
           </Link>
-          <div className="hidden sm:flex items-center gap-3 ml-4">
+          <div className="ml-3 hidden items-center gap-3.5 sm:flex">
             <a
               href="https://www.linkedin.com/company/fertiterra-technologies/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 transition-colors"
+              className="text-white/75 transition-colors hover:text-[#E6FF70]"
               aria-label="Follow us on LinkedIn"
             >
               <Linkedin className="h-4 w-4" />
@@ -51,7 +57,7 @@ export function Header() {
               href="https://www.instagram.com/fertiterra_technologies?igsh=MXMyZmN3cGRraTJzcg=="
               target="_blank"
               rel="noopener noreferrer"
-              className="text-pink-600 hover:text-pink-800 transition-colors"
+              className="text-white/75 transition-colors hover:text-[#E6FF70]"
               aria-label="Follow us on Instagram"
             >
               <Instagram className="h-4 w-4" />
@@ -60,26 +66,20 @@ export function Header() {
         </div>
       </div>
 
-      {/* Main header */}
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex h-10 w-[140px] items-center overflow-hidden">
-          <Image
-            src="/images/fertiterra-logo.png"
-            alt="FertiTerra Logo"
-            width={140}
-            height={40}
-            className="h-10 w-[140px] object-cover"
-            priority
-          />
+      {/* Main header: same 1440px / 80px rails as the hero so logo and headline share one left edge */}
+      <div className="w-full border-b border-[#1F2328]/10 bg-[#FAF7F2]/90 backdrop-blur-md supports-[backdrop-filter]:bg-[#FAF7F2]/80">
+      <div className="mx-auto flex h-[68px] w-full max-w-[1440px] items-center justify-between px-6 sm:px-10 lg:px-20">
+        <Link href="/" aria-label="FertiTerra home" className="flex shrink-0 items-center">
+          <FertiTerraLogo className="h-[34px] w-auto lg:h-[38px]" />
         </Link>
 
         {/* Right side - Navigation, Cart, Login, Signup */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden items-center gap-7 lg:flex xl:gap-8">
             <div className="relative dropdown-container">
               <button
-                className="text-sm font-medium hover:text-rose-500 flex items-center gap-1"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
                 onClick={() => setActiveDropdown(activeDropdown === "hormones" ? null : "hormones")}
               >
                 Hormones & Fertility
@@ -93,14 +93,14 @@ export function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  className="h-4 w-4 opacity-60"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
 
               <div
-                className={`absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-md p-4 z-50 ${activeDropdown === "hormones" ? "block" : "hidden"}`}
+                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "hormones" ? "block" : "hidden"}`}
               >
                 <div className="space-y-4">
                   <div>
@@ -196,7 +196,7 @@ export function Header() {
 
             <div className="relative dropdown-container">
               <button
-                className="text-sm font-medium hover:text-rose-500 flex items-center gap-1"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
                 onClick={() => setActiveDropdown(activeDropdown === "symptoms" ? null : "symptoms")}
               >
                 Symptoms
@@ -210,14 +210,14 @@ export function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  className="h-4 w-4 opacity-60"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
 
               <div
-                className={`absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-md p-4 z-50 ${activeDropdown === "symptoms" ? "block" : "hidden"}`}
+                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "symptoms" ? "block" : "hidden"}`}
               >
                 <div className="space-y-4">
                   <div>
@@ -288,7 +288,7 @@ export function Header() {
 
             <div className="relative dropdown-container">
               <button
-                className="text-sm font-medium hover:text-rose-500 flex items-center gap-1"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
                 onClick={() => setActiveDropdown(activeDropdown === "clinical" ? null : "clinical")}
               >
                 Clinical Care
@@ -302,14 +302,14 @@ export function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  className="h-4 w-4 opacity-60"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
 
               <div
-                className={`absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-md p-4 z-50 ${activeDropdown === "clinical" ? "block" : "hidden"}`}
+                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "clinical" ? "block" : "hidden"}`}
               >
                 <div className="space-y-4">
                   <div>
@@ -405,7 +405,7 @@ export function Header() {
 
             <div className="relative dropdown-container">
               <button
-                className="text-sm font-medium hover:text-rose-500 flex items-center gap-1"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
                 onClick={() => setActiveDropdown(activeDropdown === "learn" ? null : "learn")}
               >
                 Learn
@@ -419,14 +419,14 @@ export function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  className="h-4 w-4 opacity-60"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
 
               <div
-                className={`absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-md p-4 z-50 ${activeDropdown === "learn" ? "block" : "hidden"}`}
+                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "learn" ? "block" : "hidden"}`}
               >
                 <div className="space-y-4">
                   <div>
@@ -496,7 +496,7 @@ export function Header() {
 
             <div className="relative dropdown-container">
               <button
-                className="text-sm font-medium hover:text-rose-500 flex items-center gap-1"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
                 onClick={() => setActiveDropdown(activeDropdown === "shop" ? null : "shop")}
               >
                 Shop
@@ -510,14 +510,14 @@ export function Header() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="ml-1 h-4 w-4"
+                  className="h-4 w-4 opacity-60"
                 >
                   <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
 
               <div
-                className={`absolute left-0 top-full mt-2 w-80 bg-white shadow-lg rounded-md p-4 z-50 ${activeDropdown === "shop" ? "block" : "hidden"}`}
+                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "shop" ? "block" : "hidden"}`}
               >
                 <div className="space-y-4">
                   <div>
@@ -561,15 +561,15 @@ export function Header() {
               </div>
             </div>
 
-            <Link href="/for-employers" className="text-sm font-medium hover:text-rose-500">
+            <Link href="/for-employers" className="text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]">
               For Employers
             </Link>
           </nav>
 
           {/* Cart, Login, and CTA */}
           <div className="flex items-center gap-4">
-            <Link href="/cart" className="hidden md:block">
-              <ShoppingBag className="h-5 w-5" />
+            <Link href="/cart" aria-label="Cart" className="hidden text-[#1F2328] transition-colors hover:text-[#1F3D33] md:block">
+              <ShoppingBag className="h-[22px] w-[22px]" strokeWidth={1.6} />
             </Link>
 
             {user ? (
@@ -596,11 +596,11 @@ export function Header() {
               </div>
             ) : (
               <div className="hidden md:flex items-center gap-4">
-                <Link href="/login" className="text-sm font-medium">
+                <Link href="/login" className="text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]">
                   Login
                 </Link>
                 <Link href="/screening">
-                  <Button className="bg-green-500/90 hover:bg-green-600 text-white rounded-md shadow-md hover:shadow-lg transition-all duration-300">
+                  <Button className="h-11 rounded-lg bg-[#1F2328] px-5 text-[15px] font-medium text-white shadow-none transition-colors hover:bg-[#1F3D33]">
                     Start now
                   </Button>
                 </Link>
@@ -620,11 +620,12 @@ export function Header() {
           </div>
         </div>
       </div>
+      </div>
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t bg-white">
-          <div className="container flex flex-col space-y-4 py-4">
+        <div className="border-t border-[#1F2328]/10 bg-[#FAF7F2] lg:hidden">
+          <div className="mx-auto flex max-h-[calc(100vh-110px)] w-full max-w-[1440px] flex-col space-y-4 overflow-y-auto px-6 py-4 sm:px-10">
             {/* Mobile navigation sections */}
             <div className="space-y-3">
               <div className="border-b pb-2">
