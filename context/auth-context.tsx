@@ -28,7 +28,7 @@ type AuthContextType = {
   signUp: (
     email: string,
     password: string,
-  ) => Promise<{ error: any | null; success: boolean; needsConfirmation?: boolean }>
+  ) => Promise<{ error: any | null; success: boolean; needsConfirmation?: boolean; existingAccount?: boolean }>
   signIn: (email: string, password: string) => Promise<{ error: any | null; success: boolean }>
   signOut: () => Promise<void>
   refreshProfile: () => Promise<void>
@@ -85,6 +85,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         return { error, success: false }
+      }
+
+      // Supabase never errors on an address that is already taken. It returns a
+      // user with an empty identities array instead. Without this check a
+      // returning person is told to check their email for a mail that is never
+      // sent, which is the broken screen this pass removes.
+      if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+        return { error: null, success: false, existingAccount: true }
       }
 
       return { error: null, success: true, needsConfirmation: !data.user?.email_confirmed_at }

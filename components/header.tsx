@@ -34,6 +34,14 @@ export function Header() {
       <div className="w-full bg-[#1F3D33] px-4 py-2 text-center text-[13px] leading-snug text-white/90 sm:py-2.5 sm:text-[14px]">
         <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span>See what is inside your Advanced Hormone and Fertility Test report.</span>
+          <span className="hidden text-white/35 sm:inline" aria-hidden="true">|</span>
+          <Link
+            href="/waitlist"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap font-medium text-[#E6FF70] transition-opacity hover:opacity-80"
+          >
+            <span className="sm:hidden">App coming soon</span>
+            <span className="hidden sm:inline">The app is coming soon. Join the waitlist</span>
+          </Link>
           <Link
             href="/sample-report"
             className="inline-flex items-center gap-1.5 whitespace-nowrap font-medium text-[#E6FF70] transition-opacity hover:opacity-80"

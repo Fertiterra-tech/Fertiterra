@@ -196,6 +196,12 @@ export function SiteFooter() {
                         : "Fertility updates from FertiTerra. Unsubscribe anytime."}
                   </p>
                 </form>
+                <p className="mt-4 text-[13px] leading-relaxed text-[#F7F3EE]/70">
+                  Waiting for the app?{" "}
+                  <Link href="/waitlist" className="font-medium text-[#E6FF70] underline underline-offset-4">
+                    Join the waitlist
+                  </Link>
+                </p>
               </div>
             </div>
           </div>

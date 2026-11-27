@@ -24,7 +24,7 @@ const border = { borderColor: "rgba(31,61,51,0.2)", color: INK }
 
 export default function RegisterPage() {
   const router = useRouter()
-  const { signUp } = useAuth()
+  const { signUp, resendConfirmation } = useAuth()
 
   const [first, setFirst] = useState("")
   const [last, setLast] = useState("")
@@ -42,6 +42,9 @@ export default function RegisterPage() {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const [sent, setSent] = useState(false)
+  const [existing, setExisting] = useState(false)
+  const [resending, setResending] = useState(false)
+  const [resendNote, setResendNote] = useState("")
 
   const pwIssue = useMemo(() => {
     if (!password) return ""
@@ -99,6 +102,12 @@ export default function RegisterPage() {
       return
     }
 
+    if (result.existingAccount) {
+      setExisting(true)
+      setBusy(false)
+      return
+    }
+
     // Best effort: keep the details they gave us against the new profile.
     try {
       const supabase = createClientInstance()
@@ -127,6 +136,67 @@ export default function RegisterPage() {
     }
 
     router.push("/health-hub/home")
+  }
+
+  const handleResend = async () => {
+    setResending(true)
+    setResendNote("")
+    const outcome = await resendConfirmation(email.trim())
+    setResendNote(
+      outcome.error
+        ? "We could not send it just now. Wait a minute and try again."
+        : "Sent. Check your inbox and your spam folder.",
+    )
+    setResending(false)
+  }
+
+  if (existing) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-6" style={{ background: CREAM }}>
+        <div className="w-full max-w-md rounded-3xl bg-white p-10 text-center">
+          <h1 className="mb-3 font-serif text-3xl" style={{ color: INK }}>
+            That email already has an account
+          </h1>
+          <p className="mb-6 text-base leading-relaxed" style={{ color: INK, opacity: 0.75 }}>
+            {email} is already registered with FertiTerra. Sign in with your password. If you never finished
+            setting it up, we can send a fresh confirmation link.
+          </p>
+          <Link
+            href="/login"
+            className="mb-3 inline-block w-full rounded-full px-7 py-3 text-base font-semibold"
+            style={{ background: GREEN, color: "#FFFFFF" }}
+          >
+            Sign in
+          </Link>
+          <button
+            type="button"
+            onClick={handleResend}
+            disabled={resending}
+            className="mb-3 inline-block w-full rounded-full border px-7 py-3 text-base font-semibold disabled:opacity-60"
+            style={{ borderColor: "rgba(31,61,51,0.25)", color: INK }}
+          >
+            {resending ? "Sending..." : "Send a new confirmation link"}
+          </button>
+          {resendNote ? (
+            <p className="mb-3 text-sm" style={{ color: INK, opacity: 0.7 }}>
+              {resendNote}
+            </p>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => {
+              setExisting(false)
+              setEmail("")
+              setError("")
+            }}
+            className="text-sm underline"
+            style={{ color: INK, opacity: 0.7 }}
+          >
+            Use a different email
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (sent) {
