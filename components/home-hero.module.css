@@ -342,3 +342,288 @@
     line-height: 1.1;
   }
 }
+
+/* ft-mobile-v2 */
+/* Hertility-style phone hero: airy headline, ONE tall card in view on arrival */
+@media (max-width: 1023px) {
+  .inner { padding: 56px 24px 40px; }
+
+  .title { margin-top: 0; }
+
+  .choices { margin-top: 56px; }
+  .choicesLabel { margin-bottom: 18px; font-size: 18px; }
+
+  .cards { gap: 24px; }
+
+  .card { height: 380px; padding: 20px 22px 22px; border-radius: 18px; }
+  .cardTest { height: max(380px, calc(100svh - 340px)); }
+  .cardTest .cardTitle { max-width: 170px; margin-top: 18px; font-size: 20px; line-height: 1.3; }
+  .cardTest .badges { font-size: 13px; }
+  .cardTest .popular { padding: 8px 12px; }
+  .cardTest .duration { padding: 7px 11px; }
+
+  .cardPhoto { width: 230px; height: 230px; right: -6px; top: 12px; }
+
+  .primary { margin-top: auto; min-height: 56px; font-size: 18px; }
+
+  .cardAdvice { height: 225px; }
+}
+
+/* ft-cards-v3 */
+/* ---------- test card: the kit never touches the badges or the button ---------- */
+/* desktop cards are 225px tall: badges (top), photo box (middle), button (bottom 18+48).
+   Photo box runs from 58px to 158px, so it ends 19px above the button. */
+@media (min-width: 1024px) { .cardTest { height: 262px; } }
+.cardTest .cardPhoto {
+  top: 58px;
+  right: 6px;
+  width: 176px;
+  height: 138px;
+  z-index: 1;
+}
+.cardTest .cardPhoto img { object-position: right center; }
+
+/* the title keeps clear of the photo */
+.cardTest .cardTitle { max-width: 142px; }
+
+/* ---------- advice card: same mint as the test card, clearly clickable ---------- */
+.cardAdvice {
+  background: #e4ede6;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid rgba(31, 61, 51, 0.14);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.cardAdvice:hover,
+.cardAdvice:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(31, 61, 51, 0.45);
+  box-shadow: 0 16px 36px rgba(31, 35, 40, 0.14);
+}
+.cardAdvice:focus-visible { outline: 3px solid #1f3d33; outline-offset: 3px; }
+@media (min-width: 1024px) { .cardAdvice { height: 262px; } }
+
+/* a real button look: dark pill with an arrow, so nobody has to guess */
+.adviceCta {
+  position: relative;
+  z-index: 3;
+  margin-top: 14px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding: 0 8px 0 18px;
+  border-radius: 999px;
+  background: #1f2328;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.adviceArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #e6ff70;
+  color: #1f2328;
+}
+.adviceArrow svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
+.cardAdvice:hover .adviceCta,
+.cardAdvice:focus-visible .adviceCta { background: #1f3d33; }
+.cardAdvice:hover .adviceArrow svg,
+.cardAdvice:focus-visible .adviceArrow svg { transform: translate(2px, -2px); }
+
+/* ---------- phones and tablets: roomier card, kit scaled to fit ---------- */
+@media (max-width: 1023px) {
+  .cardTest .cardPhoto {
+    top: 76px;
+    right: 8px;
+    width: 52%;
+    max-width: 210px;
+    height: 150px;
+  }
+  .cardTest .cardTitle { max-width: 44%; }
+  .cardTest .badges { flex-wrap: nowrap; }
+  .cardAdvice { height: 225px; }
+  .adviceCta { height: 46px; font-size: 16px; }
+}
+
+/* ft-cards-v4 */
+/* the advice card is a column: title, then the pill, then the video band.
+   Nothing is absolutely positioned over anything else, so they cannot collide. */
+.cardAdvice {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.cardAdvice .cardTitle { flex: 0 0 auto; }
+
+.cardAdvice .adviceCta {
+  flex: 0 0 auto;
+  margin-top: 12px;
+}
+
+/* video band: normal flow, pushed to the bottom, still bleeding to the card edges */
+.cardAdvice .photoWide {
+  position: relative;
+  inset: auto;
+  margin-top: auto;
+  width: 100%;
+  flex: 0 0 auto;
+  height: 132px;
+  border-radius: 0 0 18px 18px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* phones and tablets: a little taller so the title, pill and video each get their row */
+@media (max-width: 1023px) {
+  .cardAdvice { height: 250px; }
+  .cardAdvice .adviceCta { margin-top: 10px; }
+  .cardAdvice .photoWide { height: 118px; }
+}
+
+/* ft-cards-v5 */
+@media (max-width: 1023px) {
+  /* both cards the same height, so the pair looks like a pair */
+  .cardTest { height: 250px; padding: 16px 18px 16px; }
+  .cardAdvice { height: 250px; }
+
+  /* title and kit shrink a touch so they sit comfortably inside 250px */
+  .cardTest .badges { font-size: 12.5px; }
+  .cardTest .popular { padding: 7px 11px; }
+  .cardTest .duration { padding: 6px 10px; }
+  .cardTest .cardTitle { margin-top: 12px; font-size: 19px; line-height: 1.25; max-width: 46%; }
+  .cardTest .cardPhoto {
+    top: 52px;
+    right: 6px;
+    width: 52%;
+    max-width: 190px;
+    height: 128px;
+  }
+
+  /* the button keeps its own row at the bottom of the shorter card */
+  .primary { min-height: 48px; font-size: 17px; bottom: 16px; left: 16px; right: 16px; }
+
+  /* tighter space above the cards so the whole first card fits on arrival */
+  .inner { padding-top: 22px; }
+  .choices { margin-top: 14px; }
+  .choicesLabel { margin-bottom: 8px; }
+  .cards { gap: 22px; }
+}
+
+/* very small phones (320 to 359 wide): narrower title column, smaller kit, so nothing touches */
+@media (max-width: 359px) {
+  .cardTest .cardTitle { max-width: 42%; font-size: 17px; }
+  .cardTest .cardPhoto { width: 48%; height: 112px; top: 56px; }
+}
+
+/* ft-calm-v7 */
+@media (max-width: 1023px) {
+  /* Hertility's rhythm, measured at 390x844:
+       48px of air above the headline, headline on 56px lines, 48px under it, the label,
+       then the card straight after, and the second card only 8px below the first.
+     The calm comes from the big, airy block ABOVE the card, not from blank space below it.
+     That block is tall enough that the second card sits below the fold. */
+  .inner { padding-top: 48px; padding-bottom: 0; }
+  .title { line-height: 1.4; }
+  .choices { margin-top: 48px; }
+  .choicesLabel { margin-bottom: 20px; }
+
+  /* Hertility's first card plus its pinned button fill the rest of the first screen, so the
+     second card (8px under it) starts below the fold. Here the first card takes the room that
+     is left on the screen: one screen (100svh), minus the 151px header block, the 48px top
+     air, the 2-line headline, the 48px gap, the label (24px) and its 20px gap, so
+     the second card starts at the bottom edge. It never goes below 250px. The extra height holds a larger kit photo, so the
+     card looks fuller, not emptier. */
+  .cards { gap: 10px; }
+  .cardTest {
+    height: max(240px, calc(100svh - 113px - 151px - 48px - (2 * 1.4 * (100vw - 40px) / 9.7) - 48px - 24px - 20px));
+  }
+  .cardTest .cardPhoto {
+    top: 60px;
+    bottom: 78px;
+    height: auto;
+    width: 56%;
+    max-width: 230px;
+  }
+  .cardTest .cardPhoto img { object-position: right center; }
+  .cardAdvice { height: 250px; }
+
+  /* breathing room under the last card so the pinned bar never covers it */
+  .hero { padding-bottom: 96px; }
+}
+
+/* short screens (under 700px tall): less air and tighter leading, so the first card still
+   fills the screen edge to edge without being cut by the browser bar */
+@media (max-width: 1023px) and (max-height: 699px) {
+  .inner { padding-top: 22px; }
+  .title { line-height: 1.16; }
+  .choices { margin-top: 18px; }
+  .choicesLabel { margin-bottom: 10px; }
+  .cardTest {
+    height: max(240px, calc(100svh - 113px - 151px - 22px - (2 * 1.16 * (100vw - 40px) / 9.7) - 18px - 24px - 10px));
+  }
+}
+
+/* pinned bar: phones and tablets only */
+.stickyStart { display: none; }
+@media (max-width: 1023px) {
+  .stickyStart {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    display: block;
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, #faf7f2 70%, rgba(250, 247, 242, 0));
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .stickyStart[data-hidden="true"] {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .stickyStart a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-radius: 8px;
+    background: #1f2328;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .stickyStart a:active { background: #1f3d33; }
+}
+
+/* ft-desktop-calm-v1 */
+@media (min-width: 1024px) {
+  /* the name label in the video box: show the whole picture, no side crop, desktop only */
+  .photoWide { background: #131819; }
+  .photoWide img { object-fit: contain; object-position: center top; }
+
+  /* no fixed height: the hero ends right after the cards, so no blank band follows them */
+  .hero { min-height: 0; }
+  .inner {
+    padding-top: clamp(56px, 8svh, 96px);
+    padding-bottom: 40px;
+  }
+
+  /* calm rhythm: label sits clear of the headline, cards follow */
+  .choices { margin-top: clamp(48px, 7svh, 72px); }
+  .choicesLabel { margin-bottom: 18px; }
+}

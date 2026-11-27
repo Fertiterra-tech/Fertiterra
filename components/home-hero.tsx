@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Clock } from "lucide-react"
 import { HeroLineStage } from "@/components/hero-line-stage"
+import { HomeStickyStart } from "@/components/home-sticky-start"
 import s from "./home-hero.module.css"
 
 export function HomeHero() {
@@ -43,16 +44,17 @@ export function HomeHero() {
                 </Link>
               </article>
 
-              <article className={`${s.card} ${s.cardAdvice}`}>
+              {/* ft-cards-v3 */}
+              <Link href="/consultation" className={`${s.card} ${s.cardAdvice}`} aria-label="Need some advice? Speak to an expert">
                 <h2 className={s.cardTitle} style={{ maxWidth: "none", marginTop: 0, fontSize: 18 }}>
                   Need some advice?
                 </h2>
-                <Link href="/consultation" className={s.secondary}>
+                <span className={s.adviceCta}>
                   Speak to an expert
-                  <span aria-hidden="true">
+                  <span className={s.adviceArrow} aria-hidden="true">
                     <ArrowUpRight />
                   </span>
-                </Link>
+                </span>
                 <div className={s.photoWide}>
                   <Image
                     src="/images/hero-advice-call.webp"
@@ -62,24 +64,13 @@ export function HomeHero() {
                     sizes="327px"
                   />
                 </div>
-              </article>
+              </Link>
             </div>
           </div>
 
-          <div className={s.trust}>
-            <span>Registered with</span>
-            <div className={s.trustLogos}>
-              <Image
-                src="/images/rdb-logo.png"
-                alt="Rwanda Development Board"
-                width={160}
-                height={44}
-                style={{ height: 40, width: "auto" }}
-              />
-            </div>
-          </div>
         </div>
       </div>
+      <HomeStickyStart />
     </section>
   )
 }

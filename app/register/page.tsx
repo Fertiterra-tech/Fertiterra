@@ -1,193 +1,353 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { useRouter } from "next/navigation"
 import { useAuth } from "@/context/auth-context"
-import { Loader2, AlertCircle, Mail, CheckCircle } from "lucide-react"
+import { createClientInstance } from "@/lib/supabase"
+import { INK, GREEN, LIME, CREAM, PHOTO } from "@/lib/brand"
+
+const COUNTRIES = [
+  { code: "+250", label: "Rwanda" },
+  { code: "+234", label: "Nigeria" },
+  { code: "+254", label: "Kenya" },
+  { code: "+256", label: "Uganda" },
+  { code: "+255", label: "Tanzania" },
+  { code: "+44", label: "United Kingdom" },
+  { code: "+1", label: "United States" },
+]
+
+const field =
+  "h-14 w-full rounded-xl border bg-white px-4 text-base outline-none focus:ring-2 focus:ring-[#1F3D33]/25"
+const border = { borderColor: "rgba(31,61,51,0.2)", color: INK }
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [needsConfirmation, setNeedsConfirmation] = useState(false)
+  const router = useRouter()
   const { signUp } = useAuth()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const [first, setFirst] = useState("")
+  const [last, setLast] = useState("")
+  const [email, setEmail] = useState("")
+  const [dial, setDial] = useState("+250")
+  const [phone, setPhone] = useState("")
+  const [day, setDay] = useState("")
+  const [month, setMonth] = useState("")
+  const [year, setYear] = useState("")
+  const [sex, setSex] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirm, setConfirm] = useState("")
+  const [marketing, setMarketing] = useState(false)
+  const [show, setShow] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState("")
+  const [sent, setSent] = useState(false)
+
+  const pwIssue = useMemo(() => {
+    if (!password) return ""
+    if (password.length < 8) return "Use at least 8 characters."
+    if (confirm && password !== confirm) return "The two passwords do not match."
+    return ""
+  }, [password, confirm])
+
+  const dobValid = () => {
+    const d = Number(day)
+    const m = Number(month)
+    const y = Number(year)
+    if (!d || !m || !y) return false
+    if (d < 1 || d > 31 || m < 1 || m > 12) return false
+    if (y < 1900 || y > new Date().getFullYear()) return false
+    return true
+  }
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError(null)
-    setIsLoading(true)
+    setError("")
 
-    // Basic validation
-    if (!email || !password || !confirmPassword) {
-      setError("All fields are required")
-      setIsLoading(false)
+    if (!first.trim() || !last.trim()) {
+      setError("Please enter your first and last name.")
+      return
+    }
+    if (!dobValid()) {
+      setError("Please enter a valid date of birth.")
+      return
+    }
+    if (!sex) {
+      setError("Please tell us the sex you were assigned at birth.")
+      return
+    }
+    if (password.length < 8) {
+      setError("Use at least 8 characters for your password.")
+      return
+    }
+    if (password !== confirm) {
+      setError("The two passwords do not match.")
       return
     }
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match")
-      setIsLoading(false)
+    setBusy(true)
+    const result = await signUp(email.trim(), password)
+
+    if (result.error) {
+      const message = String(result.error.message || "")
+      setError(
+        /already registered|already exists/i.test(message)
+          ? "An account already exists for that email. Try logging in instead."
+          : message || "We could not create your account. Please try again.",
+      )
+      setBusy(false)
       return
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters")
-      setIsLoading(false)
-      return
-    }
-
+    // Best effort: keep the details they gave us against the new profile.
     try {
-      const result = await signUp(email, password)
-
-      if (result.error) {
-        setError(result.error.message || "Failed to create account")
-      } else if (result.success) {
-        if (result.needsConfirmation) {
-          setNeedsConfirmation(true)
-        }
+      const supabase = createClientInstance()
+      const { data } = await supabase.auth.getUser()
+      if (data && data.user) {
+        await supabase.from("profiles").upsert(
+          {
+            id: data.user.id,
+            full_name: (first + " " + last).trim(),
+            phone: dial + phone,
+            date_of_birth: year + "-" + String(month).padStart(2, "0") + "-" + String(day).padStart(2, "0"),
+            sex_at_birth: sex,
+            marketing_opt_in: marketing,
+          },
+          { onConflict: "id" },
+        )
       }
-    } catch (err) {
-      setError("Something went wrong. Please try again.")
-    } finally {
-      setIsLoading(false)
+    } catch {
+      // The account exists either way; details can be completed in Account.
     }
+
+    if (result.needsConfirmation) {
+      setSent(true)
+      setBusy(false)
+      return
+    }
+
+    router.push("/health-hub/home")
+  }
+
+  if (sent) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-6" style={{ background: CREAM }}>
+        <div className="w-full max-w-md rounded-3xl bg-white p-10 text-center">
+          <h1 className="mb-3 font-serif text-3xl" style={{ color: INK }}>
+            Check your email
+          </h1>
+          <p className="mb-6 text-base leading-relaxed" style={{ color: INK, opacity: 0.75 }}>
+            We sent a confirmation link to {email}. Open it to finish setting up your account, then sign in.
+          </p>
+          <Link
+            href="/login"
+            className="inline-block rounded-full px-7 py-3 text-base font-semibold"
+            style={{ background: GREEN, color: "#FFFFFF" }}
+          >
+            Go to login
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center px-4 py-12">
-        <Link href="/" className="flex items-center mb-8">
-          <Image
-            src="/placeholder.svg?height=45&width=160"
-            alt="FertiTerra Logo"
-            width={160}
-            height={45}
-            className="h-12 w-auto"
-          />
+    <div className="flex min-h-screen" style={{ background: CREAM }}>
+      <div className="flex w-full flex-col px-6 py-10 sm:px-10 lg:w-1/2 lg:px-20">
+        <Link href="/" className="mb-8 inline-block font-serif text-2xl font-semibold" style={{ color: GREEN }}>
+          fertiterra
         </Link>
 
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            {needsConfirmation ? (
-              <>
-                <Mail className="mx-auto h-12 w-12 text-blue-500 mb-4" />
-                <CardTitle className="text-2xl font-bold text-center">Check Your Email</CardTitle>
-                <CardDescription className="text-center">
-                  We've sent a confirmation link to <strong>{email}</strong>. Please check your email and click the link
-                  to activate your account.
-                </CardDescription>
-              </>
-            ) : (
-              <>
-                <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-                <CardDescription>Enter your information to create your FertiTerra account</CardDescription>
-              </>
-            )}
-          </CardHeader>
+        <Link href="/login" className="mb-8 text-sm font-medium" style={{ color: GREEN }}>
+          Back to login
+        </Link>
 
-          {needsConfirmation ? (
-            <CardContent className="space-y-4">
-              <Alert className="bg-green-50 border-green-200">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <AlertDescription className="text-green-800">
-                  Account created successfully! Please check your email to confirm your account.
-                </AlertDescription>
-              </Alert>
+        <div className="w-full max-w-[420px]">
+          <h1 className="mb-8 font-serif text-4xl" style={{ color: INK }}>
+            Create account
+          </h1>
 
-              <div className="text-sm text-gray-600 space-y-1">
-                <p>• Check your spam/junk folder if you don't see the email</p>
-                <p>• The confirmation link will expire in 24 hours</p>
-                <p>• Make sure to click the link from the same device</p>
+          <form onSubmit={submit} className="grid gap-4">
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              First name
+              <input value={first} onChange={(e) => setFirst(e.target.value)} placeholder="Amara" className={field} style={border} required />
+            </label>
+
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              Last name
+              <input value={last} onChange={(e) => setLast(e.target.value)} placeholder="Mugisha" className={field} style={border} required />
+            </label>
+
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              Email address
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@email.com" className={field} style={border} required />
+            </label>
+
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              Phone number
+              <div className="flex gap-2">
+                <select
+                  aria-label="Country code"
+                  value={dial}
+                  onChange={(e) => setDial(e.target.value)}
+                  className="h-14 shrink-0 rounded-xl border bg-white px-3 text-base outline-none"
+                  style={border}
+                >
+                  {COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.code} {c.label}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="790 000 000"
+                  inputMode="tel"
+                  className={field}
+                  style={border}
+                  required
+                />
               </div>
+            </label>
 
-              <div className="flex flex-col space-y-2">
-                <Button variant="outline" asChild>
-                  <Link href="/login">Back to Login</Link>
-                </Button>
+            <div className="grid gap-2">
+              <span className="text-sm font-medium" style={{ color: INK }}>
+                Date of birth
+              </span>
+              <div className="grid grid-cols-3 gap-2">
+                <input aria-label="Day" value={day} onChange={(e) => setDay(e.target.value)} placeholder="DD" inputMode="numeric" maxLength={2} className={field + " text-center"} style={border} required />
+                <input aria-label="Month" value={month} onChange={(e) => setMonth(e.target.value)} placeholder="MM" inputMode="numeric" maxLength={2} className={field + " text-center"} style={border} required />
+                <input aria-label="Year" value={year} onChange={(e) => setYear(e.target.value)} placeholder="YYYY" inputMode="numeric" maxLength={4} className={field + " text-center"} style={border} required />
               </div>
-            </CardContent>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-4">
-                {error && (
-                  <Alert variant="destructive">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
+            </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
+            <fieldset className="grid gap-2">
+              <legend className="mb-2 text-sm font-medium" style={{ color: INK }}>
+                What sex were you assigned at birth?
+              </legend>
+              <div className="flex gap-2">
+                {["Female", "Male"].map((option) => {
+                  const on = sex === option
+                  return (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setSex(option)}
+                      aria-pressed={on}
+                      className="h-14 flex-1 rounded-xl border text-base font-medium"
+                      style={{
+                        background: on ? GREEN : "#FFFFFF",
+                        borderColor: on ? GREEN : "rgba(31,61,51,0.2)",
+                        color: on ? "#FFFFFF" : INK,
+                      }}
+                    >
+                      {option}
+                    </button>
+                  )
+                })}
+              </div>
+            </fieldset>
 
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="At least 6 characters"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              New password
+              <div className="relative">
+                <input
+                  type={show ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className={field + " pr-20"}
+                  style={border}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium"
+                  style={{ color: GREEN }}
+                >
+                  {show ? "Hide" : "Show"}
+                </button>
+              </div>
+            </label>
 
-                <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm password</Label>
-                  <Input
-                    id="confirm-password"
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
-              </CardContent>
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              Confirm new password
+              <input
+                type={show ? "text" : "password"}
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
+                placeholder="Confirm password"
+                className={field}
+                style={border}
+                required
+              />
+            </label>
 
-              <CardFooter className="flex flex-col space-y-4">
-                <Button className="w-full" type="submit" disabled={isLoading}>
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating account...
-                    </>
-                  ) : (
-                    "Create account"
-                  )}
-                </Button>
+            {pwIssue ? (
+              <p className="text-sm" style={{ color: "#8A1C1C" }}>
+                {pwIssue}
+              </p>
+            ) : null}
 
-                <div className="text-center text-sm">
-                  Already have an account?{" "}
-                  <Link href="/login" className="text-rose-500 hover:underline">
-                    Log in
-                  </Link>
-                </div>
-              </CardFooter>
-            </form>
-          )}
-        </Card>
+            <label className="flex items-start gap-3 text-sm leading-relaxed" style={{ color: INK, opacity: 0.85 }}>
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="mt-1 h-5 w-5 shrink-0 rounded border"
+                style={{ accentColor: GREEN }}
+              />
+              <span>
+                I want to receive email communications on new products, exclusive offers and events. You can unsubscribe at any
+                time. <Link href="/legal/privacy" className="underline" style={{ color: GREEN }}>View our Privacy Policy.</Link>
+              </span>
+            </label>
+
+            {error ? (
+              <p role="alert" className="rounded-lg px-4 py-3 text-sm" style={{ background: "#FDECEC", color: "#8A1C1C" }}>
+                {error}
+              </p>
+            ) : null}
+
+            <button
+              type="submit"
+              disabled={busy}
+              className="mt-2 h-14 w-full rounded-full text-base font-semibold disabled:opacity-60"
+              style={{ background: GREEN, color: "#FFFFFF" }}
+            >
+              {busy ? "Creating account..." : "Create account"}
+            </button>
+          </form>
+
+          <p className="mt-8 text-sm" style={{ color: INK, opacity: 0.75 }}>
+            Already have an account?{" "}
+            <Link href="/login" className="font-semibold" style={{ color: GREEN }}>
+              Login
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      <div className="relative hidden lg:block lg:w-1/2">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url(" + PHOTO + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center 58%",
+          }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(31,61,51,0.55)" }} />
+        <div className="absolute inset-x-0 bottom-0 p-14">
+          <p className="mb-3 font-serif text-3xl leading-tight" style={{ color: "#FFFFFF" }}>
+            Start with answers, not guesses.
+          </p>
+          <p className="text-base" style={{ color: LIME }}>
+            A few questions, then a plan built for you.
+          </p>
+        </div>
       </div>
     </div>
   )

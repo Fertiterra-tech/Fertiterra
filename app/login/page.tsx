@@ -1,245 +1,136 @@
 "use client"
 
 import type React from "react"
-
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { userStorage } from "@/lib/user-storage"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/auth-context"
+import { INK, GREEN, LIME, CREAM, PHOTO } from "@/lib/brand"
 
 export default function LoginPage() {
+  const router = useRouter()
+  const { signIn } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState<"success" | "error" | "">("")
+  const [show, setShow] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState("")
 
-  const useTestAccount = (testEmail: string, testPassword: string) => {
-    setEmail(testEmail)
-    setPassword(testPassword)
-  }
-
-  // Load available users and auto-fill from signup
-  useEffect(() => {
-    // Auto-fill from recent signup
-    const lastEmail = localStorage.getItem("lastSignupEmail")
-    const lastPassword = localStorage.getItem("lastSignupPassword")
-    if (lastEmail && lastPassword) {
-      setEmail(lastEmail)
-      setPassword(lastPassword)
-      // Clear the stored credentials after using them
-      localStorage.removeItem("lastSignupEmail")
-      localStorage.removeItem("lastSignupPassword")
-    }
-  }, [])
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
-    setMessage("")
-    setMessageType("")
-
-    // Basic validation
-    if (!email || !password) {
-      setMessage("Email and password are required")
-      setMessageType("error")
-      setIsLoading(false)
+    setBusy(true)
+    setError("")
+    const result = await signIn(email.trim(), password)
+    if (result.error) {
+      setError(
+        result.error.message === "Invalid login credentials"
+          ? "That email and password do not match an account."
+          : result.error.message || "We could not sign you in.",
+      )
+      setBusy(false)
       return
     }
-
-    try {
-      // Get all users from client-side storage
-      const allUsers = userStorage.getAllUsers()
-      const usersObject = Object.fromEntries(allUsers)
-
-      // Try to login
-      const response = await fetch("/api/direct-login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          users: usersObject,
-        }),
-      })
-
-      const result = await response.json()
-
-      if (result.success) {
-        setMessage("Login successful! Redirecting to dashboard...")
-        setMessageType("success")
-
-        // Store login state
-        localStorage.setItem("isLoggedIn", "true")
-        localStorage.setItem("userEmail", email)
-
-        // Check if user is admin and redirect accordingly
-        const user = userStorage.getUser(email)
-        if (user?.role === "admin") {
-          setTimeout(() => {
-            window.location.href = "/admin/dashboard"
-          }, 1000)
-        } else {
-          setTimeout(() => {
-            window.location.href = "/dashboard"
-          }, 1000)
-        }
-      } else {
-        setMessage(result.error || "Login failed")
-        setMessageType("error")
-
-        // Show available accounts for debugging
-        if (result.availableAccounts) {
-          console.log("Available accounts:", result.availableAccounts)
-        }
-      }
-    } catch (error) {
-      setMessage("Connection error. Please try again.")
-      setMessageType("error")
-      console.error("Login error:", error)
-    }
-
-    setIsLoading(false)
+    router.push("/health-hub/home")
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#f9fafb",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1rem",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "2rem",
-          borderRadius: "12px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          width: "100%",
-          maxWidth: "400px",
-        }}
-      >
-        {/* Logo */}
-        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <Image
-            src="/images/fertiterra-logo-main.png"
-            alt="FertiTerra Logo"
-            width={200}
-            height={60}
-            style={{ height: "auto", width: "200px", marginBottom: "1rem" }}
-          />
-          <h1 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#111827", marginBottom: "0.5rem" }}>
+    <div className="flex min-h-screen" style={{ background: CREAM }}>
+      <div className="flex w-full flex-col justify-center px-6 py-12 sm:px-10 lg:w-1/2 lg:px-20">
+        <Link href="/" className="mb-12 font-serif text-2xl font-semibold" style={{ color: GREEN }}>
+          fertiterra
+        </Link>
+
+        <div className="w-full max-w-md">
+          <h1 className="mb-2 font-serif text-4xl" style={{ color: INK }}>
             Welcome back
           </h1>
-          <p style={{ color: "#6b7280", fontSize: "0.875rem" }}>Sign in to your FertiTerra account</p>
-        </div>
+          <p className="mb-8 text-base" style={{ color: INK, opacity: 0.7 }}>
+            Sign in to see your results, care plan and next steps.
+          </p>
 
-        {/* Login Form */}
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          {/* Message Display */}
-          {message && (
-            <div
-              style={{
-                padding: "0.75rem",
-                borderRadius: "8px",
-                backgroundColor: messageType === "success" ? "#dcfce7" : "#fef2f2",
-                border: `1px solid ${messageType === "success" ? "#bbf7d0" : "#fecaca"}`,
-                color: messageType === "success" ? "#166534" : "#dc2626",
-                fontSize: "0.875rem",
-              }}
-            >
-              {message}
-            </div>
-          )}
-
-          {/* Email Field */}
-          <div>
-            <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
-              Email
+          <form onSubmit={submit} className="grid gap-4">
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
+              Email address
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="h-14 w-full rounded-xl border bg-white px-4 text-base outline-none"
+                style={{ borderColor: "rgba(31,61,51,0.2)", color: INK }}
+              />
             </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@example.com"
-              required
-              disabled={isLoading}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #d1d5db",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                backgroundColor: isLoading ? "#f9fafb" : "white",
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
 
-          {/* Password Field */}
-          <div>
-            <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: "500", color: "#374151" }}>
+            <label className="grid gap-2 text-sm font-medium" style={{ color: INK }}>
               Password
+              <div className="relative">
+                <input
+                  type={show ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="h-14 w-full rounded-xl border bg-white px-4 pr-20 text-base outline-none"
+                  style={{ borderColor: "rgba(31,61,51,0.2)", color: INK }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium"
+                  style={{ color: GREEN }}
+                >
+                  {show ? "Hide" : "Show"}
+                </button>
+              </div>
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              required
-              disabled={isLoading}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #d1d5db",
-                borderRadius: "8px",
-                fontSize: "1rem",
-                backgroundColor: isLoading ? "#f9fafb" : "white",
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isLoading}
-            style={{
-              width: "100%",
-              padding: "0.75rem",
-              backgroundColor: isLoading ? "#9ca3af" : "#c62828",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              fontSize: "1rem",
-              fontWeight: "500",
-              cursor: isLoading ? "not-allowed" : "pointer",
-              transition: "background-color 0.2s",
-            }}
-          >
-            {isLoading ? "Signing in..." : "Sign in"}
-          </button>
-        </form>
+            <div className="flex justify-end">
+              <Link href="/forgot-password" className="text-sm" style={{ color: GREEN }}>
+                Forgot your password?
+              </Link>
+            </div>
 
-        {/* Footer Links */}
-        <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem" }}>
-          <div style={{ marginBottom: "0.5rem" }}>
-            <span style={{ color: "#6b7280" }}>Don't have an account? </span>
-            <Link href="/signup" style={{ color: "#c62828", textDecoration: "none" }}>
-              Sign up
+            {error ? (
+              <p role="alert" className="rounded-lg px-4 py-3 text-sm" style={{ background: "#FDECEC", color: "#8A1C1C" }}>
+                {error}
+              </p>
+            ) : null}
+
+            <button
+              type="submit"
+              disabled={busy}
+              className="h-14 w-full rounded-full text-base font-semibold disabled:opacity-60"
+              style={{ background: GREEN, color: "#FFFFFF" }}
+            >
+              {busy ? "Signing in..." : "Login"}
+            </button>
+          </form>
+
+          <p className="mt-8 text-sm" style={{ color: INK, opacity: 0.75 }}>
+            New to FertiTerra?{" "}
+            <Link href="/register" className="font-semibold" style={{ color: GREEN }}>
+              Create an account
             </Link>
-          </div>
-          <div>
-            <Link href="/" style={{ color: "#9ca3af", textDecoration: "none" }}>
-              ← Back to Home
-            </Link>
-          </div>
+          </p>
+        </div>
+      </div>
+
+      <div className="relative hidden lg:block lg:w-1/2">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url(" + PHOTO + ")",
+            backgroundSize: "cover",
+            backgroundPosition: "center 58%",
+          }}
+        />
+        <div className="absolute inset-0" style={{ background: "rgba(31,61,51,0.55)" }} />
+        <div className="absolute inset-x-0 bottom-0 p-14">
+          <p className="mb-3 font-serif text-3xl leading-tight" style={{ color: "#FFFFFF" }}>
+            Clear results. Personal steps. Expert care.
+          </p>
+          <p className="text-base" style={{ color: LIME }}>
+            Your health hub, in one place.
+          </p>
         </div>
       </div>
     </div>
