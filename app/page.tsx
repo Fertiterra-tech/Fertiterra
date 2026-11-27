@@ -37,104 +37,63 @@ export default function HomePage() {
         <HomePartnershipStrips />
 
         {/* Journey Cards Section */}
-        <section className="py-16 bg-white">
-          <div className="container">
-            <div className="grid gap-12 lg:grid-cols-2 items-center">
-              {/* Left side - Text content */}
-              <div className="space-y-6">
-                <h2 className="text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-                  We're all at different
-                  <br />
-                  stages of our <em className="italic text-rose-500">journey</em>
-                </h2>
-                <p className="text-xl text-gray-600">What's most important to you?</p>
-              </div>
+        <section className="journey-section" aria-labelledby="journey-section-title">
+          <div className="journey-section__inner">
+            <div className="journey-section__intro">
+              <h2 id="journey-section-title">
+                We&apos;re all at different stages of our <em>journey</em>
+              </h2>
+              <p>What&apos;s most important to you?</p>
+            </div>
 
-              {/* Right side - Journey cards */}
-              <div className="space-y-4">
-                {/* Managing symptoms card */}
-                <Link href="/appointments/menopause-specialist" className="block">
-                  <div className="relative overflow-hidden rounded-2xl h-48 group cursor-pointer transition-transform hover:scale-105">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60 z-10 group-hover:from-blue-900/90 group-hover:to-blue-800/70 transition-all"></div>
-                    <Image
-                      src="/images/couple-fertility-journey-2.png"
-                      alt="Happy couple at home - woman in red headwrap and man in gray cardigan smiling together"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                    />
-                    <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-2xl font-bold mb-2">Managing symptoms</h3>
-                          <p className="text-blue-100">
-                            Fatigue, irritability, anxiety, feeling cold, low mood, acne...
-                          </p>
-                        </div>
-                        <button className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors group-hover:bg-white/40">
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+            <div className="journey-section__cards">
+              <Link href="/appointments/menopause-specialist" className="journey-card group">
+                <Image
+                  src="/images/couple-fertility-journey-2.png"
+                  alt="Happy couple at home - woman in red headwrap and man in gray cardigan smiling together"
+                  fill
+                  className="journey-card__image"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1200px) 54vw, 700px"
+                />
+                <span className="journey-card__gradient" aria-hidden="true" />
+                <span className="journey-card__plus" aria-hidden="true">+</span>
+                <span className="journey-card__copy">
+                  <span className="journey-card__title">Managing symptoms</span>
+                  <span className="journey-card__description">Fatigue, irritability, anxiety, feeling cold, low mood, acne...</span>
+                </span>
+              </Link>
 
-                {/* Fertility card */}
-                <Link href="/plans/ttc" className="block">
-                  <div className="relative overflow-hidden rounded-2xl h-48 group cursor-pointer transition-transform hover:scale-105">
-                    <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 to-green-800/60 z-10 group-hover:from-green-900/90 group-hover:to-green-800/70 transition-all"></div>
-                    <Image
-                      src="/images/couple-fertility-journey-1.png"
-                      alt="Loving couple in kitchen - man embracing woman from behind, both smiling warmly"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                    />
-                    <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-2xl font-bold mb-2">Fertility</h3>
-                          <p className="text-green-100">Planning for the future or actively trying to conceive</p>
-                        </div>
-                        <button className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors group-hover:bg-white/40">
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+              <Link href="/plans/ttc" className="journey-card group">
+                <Image
+                  src="/images/couple-fertility-journey-1.png"
+                  alt="Loving couple in kitchen - man embracing woman from behind, both smiling warmly"
+                  fill
+                  className="journey-card__image"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1200px) 54vw, 700px"
+                />
+                <span className="journey-card__gradient" aria-hidden="true" />
+                <span className="journey-card__plus" aria-hidden="true">+</span>
+                <span className="journey-card__copy">
+                  <span className="journey-card__title">Fertility</span>
+                  <span className="journey-card__description">Planning for the future or actively trying to conceive</span>
+                </span>
+              </Link>
 
-                {/* Perimenopause or Menopause card */}
-                <Link href="/learn/experiencing-symptoms" className="block">
-                  <div className="relative overflow-hidden rounded-2xl h-48 group cursor-pointer transition-transform hover:scale-105">
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 to-purple-800/60 z-10 group-hover:from-purple-900/90 group-hover:to-purple-800/70 transition-all"></div>
-                    <Image
-                      src="/images/couple-fertility-journey-3.png"
-                      alt="Joyful couple outdoors at sunset - man giving woman piggyback ride, both laughing"
-                      fill
-                      className="object-cover transition-transform group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-                    />
-                    <div className="absolute inset-0 z-20 p-6 flex flex-col justify-between text-white">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-2xl font-bold mb-2">Perimenopause or Menopause</h3>
-                          <p className="text-purple-100">Menopausal or experiencing symptoms and looking for support</p>
-                        </div>
-                        <button className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors group-hover:bg-white/40">
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
+              <Link href="/learn/experiencing-symptoms" className="journey-card group">
+                <Image
+                  src="/images/couple-fertility-journey-3.png"
+                  alt="Joyful couple outdoors at sunset - man giving woman piggyback ride, both laughing"
+                  fill
+                  className="journey-card__image"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1200px) 54vw, 700px"
+                />
+                <span className="journey-card__gradient" aria-hidden="true" />
+                <span className="journey-card__plus" aria-hidden="true">+</span>
+                <span className="journey-card__copy">
+                  <span className="journey-card__title">Perimenopause or Menopause</span>
+                  <span className="journey-card__description">Menopausal or experiencing symptoms and looking for support</span>
+                </span>
+              </Link>
             </div>
           </div>
         </section>
