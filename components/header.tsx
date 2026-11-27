@@ -31,10 +31,10 @@ export function Header() {
   return (
     <header className="w-full bg-white text-[#171717]">
       {/* Banner */}
-      <div className="w-full bg-[#f1fff7] py-2 px-4 text-center text-sm text-[#00572f]">
-        <div className="flex items-center justify-center gap-4">
+      <div className="w-full bg-[#f1fff7] py-2 px-4 text-center text-[14px] leading-snug text-[#00572f]">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <span>Download a sample Advanced Hormone and Fertility Test report.</span>
-          <Link href="/sample-report" className="font-medium">
+          <Link href="/sample-report" className="whitespace-nowrap font-medium">
             Download it here
           </Link>
           <div className="hidden sm:flex items-center gap-3 ml-4">
