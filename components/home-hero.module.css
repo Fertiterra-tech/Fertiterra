@@ -323,3 +323,22 @@
   .choicesLabel { text-align: left; }
   .cards { gap: 14px; }
 }
+
+/* ft-headline-v1 */
+/* each line is a block that never wraps, and the size follows the screen width */
+.title .line { display: block; white-space: nowrap; }
+
+/* desktop and wide tablets keep the current sizes; the two lines now sit stacked */
+@media (max-width: 1279px) {
+  .title { max-width: none; }
+}
+
+/* tablets and phones: the wider line is "fertility care. Full stop." (9.4em), so size the font
+   from the viewport so that line always fits the text box (viewport minus 40px side padding) */
+@media (max-width: 1023px) {
+  .title {
+    font-size: min(calc((100vw - 40px) / 9.7), 64px);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+}

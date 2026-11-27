@@ -94,13 +94,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="lazyOnload"
         />
-        {/* Mailchimp */}
-        <Script
-          id="mcjs"
-          src="https://chimpstatic.com/mcjs-connected/js/users/cf21c6733b0384dc6fb8b1615/204d67574966fe34933a0bca2.js"
-          strategy="lazyOnload"
-          async
-        />
       </head>
       <body className={`${inter.className} ${playfair.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>

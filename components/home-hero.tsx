@@ -14,7 +14,8 @@ export function HomeHero() {
       <div className={s.inner}>
         <div className={s.copy}>
           <h1 id="home-hero-title" className={s.title}>
-            You deserve better fertility care. <em>Full stop.</em>
+            <span className={s.line}>You deserve better</span>
+            <span className={s.line}>fertility care. <em>Full stop.</em></span>
           </h1>
 
           <div className={s.choices}>
