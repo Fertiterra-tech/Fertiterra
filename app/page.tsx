@@ -19,6 +19,7 @@ import {
 import { Header } from "@/components/header"
 import { HomeHero } from "@/components/home-hero"
 import { HomePartnershipStrips } from "@/components/home-partnership-strips"
+import { HomeSupportSection } from "@/components/home-support-section"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import type { Metadata } from "next"
 
@@ -97,6 +98,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <HomeSupportSection />
 
         {/* Why You Deserve Better Section - Enhanced with Images */}
         <section className="py-20 bg-gradient-to-br from-gray-50 via-rose-50/30 to-purple-50/30">
