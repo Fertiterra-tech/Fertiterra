@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 
 export const metadata: Metadata = {
-  title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
+  title: "At-Home Fertility & Hormone Tests | FertiTerra",
   description:
     "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
   keywords:
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
+    title: "At-Home Fertility & Hormone Tests | FertiTerra",
     description:
       "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
     url: "https://fertiterratechnologies.com",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
+    title: "At-Home Fertility & Hormone Tests | FertiTerra",
     description:
       "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
     images: ["/images/og-fertiterra.png"],
