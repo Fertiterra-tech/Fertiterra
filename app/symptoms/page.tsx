@@ -2,7 +2,6 @@ import { Header } from "@/components/header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
 import { SymptomByline, SymptomsIntro, WhatIsImbalance, ImbalanceVsCondition, OtherSymptoms, WhatToDoNext, ManagingSymptoms, HowWeCanHelp } from "@/components/ft/symptom-sections"
-import { SymptomByline, SymptomsIntro, WhatIsImbalance, ImbalanceVsCondition, OtherSymptoms, WhatToDoNext, ManagingSymptoms, HowWeCanHelp } from "@/components/ft/symptom-sections"
 
 export const metadata = {
   title: "Symptoms we help you understand | FertiTerra",
