@@ -97,7 +97,7 @@ export function SiteFooter() {
             <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3">
               {COLUMNS.map((column) => (
                 <div key={column.title}>
-                  <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#E6FF70]">
+                  <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FAF7F2]">
                     {column.title}
                   </h3>
                   <ul className="space-y-2.5">
@@ -108,14 +108,14 @@ export function SiteFooter() {
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-[#F7F3EE]/75 transition-colors hover:text-[#E6FF70]"
+                            className="text-sm text-[#F7F3EE]/75 transition-colors hover:text-[#FAF7F2]"
                           >
                             {link.label}
                           </a>
                         ) : (
                           <Link
                             href={link.href}
-                            className="text-sm text-[#F7F3EE]/75 transition-colors hover:text-[#E6FF70]"
+                            className="text-sm text-[#F7F3EE]/75 transition-colors hover:text-[#FAF7F2]"
                           >
                             {link.label}
                           </Link>
@@ -142,7 +142,7 @@ export function SiteFooter() {
                 aria-hidden="true"
               />
               <div className="relative">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#E6FF70]">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#FAF7F2]">
                   FertiTerra newsletter
                 </p>
                 <h3
@@ -153,7 +153,7 @@ export function SiteFooter() {
                 </h3>
                 <p className="mt-2 text-sm text-[#F7F3EE]/75">New tests, expert guides and early access. No noise.</p>
                 <form onSubmit={handleSubmit} className="mt-5">
-                  <div className="flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-4 focus-within:ring-2 focus-within:ring-[#E6FF70]">
+                  <div className="flex items-center gap-2 rounded-full bg-white/95 p-1.5 pl-4 focus-within:ring-2 focus-within:ring-[#FAF7F2]">
                     <label htmlFor="footer-email" className="sr-only">
                       Email address
                     </label>
@@ -170,7 +170,7 @@ export function SiteFooter() {
                       type="submit"
                       disabled={status === "sending"}
                       aria-label="Subscribe to the FertiTerra newsletter"
-                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#1F3D33] text-[#E6FF70] transition hover:bg-[#12261F] disabled:opacity-60"
+                      className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#1F3D33] text-[#FAF7F2] transition hover:bg-[#12261F] disabled:opacity-60"
                     >
                       <svg
                         width="16"
@@ -198,7 +198,7 @@ export function SiteFooter() {
                 </form>
                 <p className="mt-4 text-[13px] leading-relaxed text-[#F7F3EE]/70">
                   Waiting for the app?{" "}
-                  <Link href="/waitlist" className="font-medium text-[#E6FF70] underline underline-offset-4">
+                  <Link href="/waitlist" className="font-medium text-[#FAF7F2] underline underline-offset-4">
                     Join the waitlist
                   </Link>
                 </p>

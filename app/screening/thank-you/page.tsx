@@ -3,7 +3,7 @@ import { Header } from "@/components/header"
 
 const INK = "#1F2328"
 const GREEN = "#1F3D33"
-const LIME = "#E6FF70"
+const LIME = "#FAF7F2"
 const CREAM = "#FAF7F2"
 const MINT = "#E4EDE6"
 

@@ -11,9 +11,9 @@ const inter = Inter({ subsets: ["latin"] })
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
 
 export const metadata: Metadata = {
-  title: "FertiTerra Technologies - Fertility Care & Support in Africa",
+  title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
   description:
-    "FertiTerra provides affordable fertility tests, expert support, and comprehensive education across Africa to help couples conceive.",
+    "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
   keywords:
     "fertility, reproductive health, Africa, AI healthcare, fertility testing, telemedicine, infertility treatment, fertility test Africa, fertility support Rwanda, fertility app Africa",
   authors: [{ name: "FertiTerra Technologies" }],
@@ -29,16 +29,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "FertiTerra Technologies - Fertility Care & Support in Africa",
-    description: "AI-driven, affordable, and inclusive fertility solutions for Africa",
+    title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
+    description:
+      "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
     url: "https://fertiterratechnologies.com",
-    siteName: "FertiTerra Technologies",
+    siteName: "FertiTerra",
     images: [
       {
-        url: "/images/fertiterra-logo-main.png",
+        url: "/images/og-fertiterra.png",
         width: 1200,
         height: 630,
-        alt: "FertiTerra Technologies Logo",
+        alt: "FertiTerra at-home fertility and hormone tests",
       },
     ],
     locale: "en_US",
@@ -46,9 +47,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FertiTerra Technologies - Fertility Care & Support in Africa",
-    description: "AI-driven, affordable, and inclusive fertility solutions for Africa",
-    images: ["/images/fertiterra-logo-main.png"],
+    title: "At-Home Fertility & Hormone Tests For Women | FertiTerra",
+    description:
+      "Get clinical-grade fertility and hormone insights, specialist access, and a personalised care plan. Your reproductive health journey, fully supported.",
+    images: ["/images/og-fertiterra.png"],
   },
   robots: {
     index: true,

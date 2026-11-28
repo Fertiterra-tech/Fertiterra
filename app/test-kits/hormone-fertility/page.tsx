@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Header } from "@/components/header"
 import { useAuth } from "@/context/auth-context"
 import { CheckCircle, ArrowRight, Package, Heart, Baby, Zap, Shield, Target, TrendingUp, X } from "lucide-react"
+import { TestTierCards, StageCards, SupportTabs, HormonePanel, ConsultationBand, ComparisonTable, PartnerBand, FaqAccordion } from "@/components/ft/sections"
 
 export default function HormoneFertilityTestPage() {
   const { user } = useAuth()
@@ -228,7 +229,7 @@ export default function HormoneFertilityTestPage() {
                     <div
                       className={`h-10 w-10 rounded-full flex items-center justify-center ${
                         step === currentStep
-                          ? "bg-rose-500 text-white"
+                          ? "bg-[#1F3D33] text-white"
                           : step < currentStep
                             ? "bg-green-500 text-white"
                             : "bg-gray-200 text-gray-500"
@@ -245,7 +246,7 @@ export default function HormoneFertilityTestPage() {
               <div className="relative mt-2">
                 <div className="absolute top-0 left-0 h-1 bg-gray-200 w-full"></div>
                 <div
-                  className="absolute top-0 left-0 h-1 bg-rose-500 transition-all"
+                  className="absolute top-0 left-0 h-1 bg-[#1F3D33] transition-all"
                   style={{ width: `${((currentStep - 1) / 2) * 100}%` }}
                 ></div>
               </div>
@@ -272,7 +273,7 @@ export default function HormoneFertilityTestPage() {
                       <RadioGroupItem value={goal.id} id={goal.id} className="peer sr-only" />
                       <Label
                         htmlFor={goal.id}
-                        className={`flex flex-col h-full p-6 border-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-lg ${goal.color} peer-data-[state=checked]:border-rose-500 peer-data-[state=checked]:bg-rose-50 peer-data-[state=checked]:shadow-lg`}
+                        className={`flex flex-col h-full p-6 border-2 rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-lg ${goal.color} peer-data-[state=checked]:border-[#1F3D33] peer-data-[state=checked]:bg-[#E4EDE6] peer-data-[state=checked]:shadow-lg`}
                       >
                         <div className="flex flex-col items-center text-center space-y-4">
                           <div
@@ -297,7 +298,7 @@ export default function HormoneFertilityTestPage() {
                   <Button
                     onClick={handleContinue}
                     disabled={!selectedGoal}
-                    className="bg-rose-500 hover:bg-rose-600 disabled:bg-gray-300 px-12 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+                    className="bg-[#1F3D33] hover:bg-[#1F3D33] disabled:bg-gray-300 px-12 py-4 text-lg font-semibold rounded-full transition-all duration-200"
                     size="lg"
                   >
                     Continue <ArrowRight className="ml-2 h-5 w-5" />
@@ -336,7 +337,7 @@ export default function HormoneFertilityTestPage() {
                   <Button variant="outline" onClick={handleBack}>
                     Back
                   </Button>
-                  <Button onClick={handleContinue} className="bg-rose-500 hover:bg-rose-600">
+                  <Button onClick={handleContinue} className="bg-[#1F3D33] hover:bg-[#1F3D33]">
                     Continue <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
@@ -399,10 +400,10 @@ export default function HormoneFertilityTestPage() {
                         <div className="space-y-2">
                           <h3 className="font-medium">Your selected goal:</h3>
                           <div
-                            className={`flex items-center gap-3 p-4 rounded-lg ${selectedGoalObject?.color || "bg-rose-50"}`}
+                            className={`flex items-center gap-3 p-4 rounded-lg ${selectedGoalObject?.color || "bg-[#E4EDE6]"}`}
                           >
                             <div
-                              className={`h-10 w-10 rounded-full bg-white flex items-center justify-center ${selectedGoalObject?.iconColor || "text-rose-600"} shadow-sm`}
+                              className={`h-10 w-10 rounded-full bg-white flex items-center justify-center ${selectedGoalObject?.iconColor || "text-[#1F3D33]"} shadow-sm`}
                             >
                               {selectedGoalObject?.icon && <selectedGoalObject.icon className="h-5 w-5" />}
                             </div>
@@ -491,7 +492,7 @@ export default function HormoneFertilityTestPage() {
                         </div>
                       </CardContent>
                       <CardFooter className="flex flex-col space-y-4">
-                        <Button className="w-full bg-rose-500 hover:bg-rose-600" onClick={handleContinue}>
+                        <Button className="w-full bg-[#1F3D33] hover:bg-[#1F3D33]" onClick={handleContinue}>
                           Proceed to Checkout
                         </Button>
                         <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
@@ -531,7 +532,7 @@ export default function HormoneFertilityTestPage() {
                       id={option.id}
                       checked={selectedOptions.includes(option.id)}
                       onChange={() => handleOptionToggle(option.id)}
-                      className="h-5 w-5 text-rose-500 border-gray-300 rounded focus:ring-rose-500 focus:ring-2"
+                      className="h-5 w-5 text-[#1F3D33] border-gray-300 rounded focus:ring-[#1F3D33] focus:ring-2"
                     />
                     <label htmlFor={option.id} className="text-lg text-gray-900 cursor-pointer flex-1 py-3 select-none">
                       {option.label}
@@ -544,7 +545,7 @@ export default function HormoneFertilityTestPage() {
                 <Button
                   onClick={handleNext}
                   disabled={selectedOptions.length === 0}
-                  className="bg-rose-500 hover:bg-rose-600 disabled:bg-gray-300 disabled:cursor-not-allowed px-12 py-3 text-lg font-semibold rounded-full transition-all duration-200"
+                  className="bg-[#1F3D33] hover:bg-[#1F3D33] disabled:bg-gray-300 disabled:cursor-not-allowed px-12 py-3 text-lg font-semibold rounded-full transition-all duration-200"
                   size="lg"
                 >
                   Next <ArrowRight className="ml-2 h-5 w-5" />
@@ -553,6 +554,16 @@ export default function HormoneFertilityTestPage() {
             </div>
           </div>
         </div>
+      
+        {/* ft-sections-v2: Hertility-shaped sections, FertiTerra branding */}
+        <TestTierCards />
+        <StageCards />
+        <HormonePanel />
+        <ConsultationBand />
+        <SupportTabs />
+        <ComparisonTable />
+        <PartnerBand />
+        <FaqAccordion />
       </main>
 
       <footer className="border-t py-8 bg-white">
@@ -560,10 +571,10 @@ export default function HormoneFertilityTestPage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500">© {new Date().getFullYear()} FertiTerra. All rights reserved.</p>
             <div className="flex gap-4 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-rose-500">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#1F3D33]">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-sm text-gray-500 hover:text-rose-500">
+              <Link href="/terms" className="text-sm text-gray-500 hover:text-[#1F3D33]">
                 Terms of Service
               </Link>
             </div>

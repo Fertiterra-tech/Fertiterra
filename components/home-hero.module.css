@@ -430,8 +430,8 @@
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  background: #e6ff70;
-  color: #1f2328;
+  background: #1F3D33;
+  color: #FAF7F2;
 }
 .adviceArrow svg { width: 16px; height: 16px; transition: transform 0.2s ease; }
 .cardAdvice:hover .adviceCta,

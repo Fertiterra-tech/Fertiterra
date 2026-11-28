@@ -3,26 +3,33 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Header } from "@/components/header"
+import { SiteFooter } from "@/components/site-footer"
 import { useCart } from "@/context/cart-context"
-import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from "lucide-react"
+import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react"
+
+const GREEN = "#1F3D33"
+const CREAM = "#FAF7F2"
+const MINT = "#E4EDE6"
+const INK = "#1F2328"
 
 export default function CartPage() {
-  const { items, updateQuantity, removeFromCart, getTotal, clearCart } = useCart()
+  const { items, updateQuantity, removeFromCart, getTotal } = useCart()
   const [promoCode, setPromoCode] = useState("")
   const [discount, setDiscount] = useState(0)
+  const [promoError, setPromoError] = useState("")
 
   const applyPromoCode = () => {
-    // Simple promo code logic
-    if (promoCode.toLowerCase() === "welcome10") {
-      setDiscount(0.1) // 10% discount
-    } else if (promoCode.toLowerCase() === "fertility20") {
-      setDiscount(0.2) // 20% discount
+    const code = promoCode.trim().toLowerCase()
+    if (code === "welcome10") {
+      setDiscount(0.1)
+      setPromoError("")
+    } else if (code === "fertility20") {
+      setDiscount(0.2)
+      setPromoError("")
     } else {
-      alert("Invalid promo code")
+      setDiscount(0)
+      setPromoError("That code is not valid.")
     }
   }
 
@@ -30,138 +37,162 @@ export default function CartPage() {
   const discountAmount = subtotal * discount
   const total = subtotal - discountAmount
 
-  if (items.length === 0) {
-    return (
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1 py-12">
-          <div className="container">
-            <div className="max-w-2xl mx-auto text-center">
-              <ShoppingBag className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-              <h1 className="text-2xl font-bold mb-2">Your cart is empty</h1>
-              <p className="text-gray-600 mb-6">Looks like you haven't added any items to your cart yet.</p>
-              <Link href="/shop">
-                <Button className="bg-rose-500 hover:bg-rose-600">Continue Shopping</Button>
+  return (
+    <div className="flex min-h-screen flex-col" style={{ backgroundColor: CREAM, color: INK }}>
+      <Header />
+
+      <main className="flex-1">
+        <div className="mx-auto w-full max-w-[1440px] px-5 pt-10 sm:px-10 lg:px-20 lg:pt-14">
+          <h1
+            className="text-[32px] leading-[1.1] sm:text-[42px]"
+            style={{ fontFamily: "var(--font-playfair), serif", color: GREEN }}
+          >
+            Your basket
+          </h1>
+
+          {items.length === 0 ? (
+            <div className="mt-10 max-w-[520px] rounded-2xl bg-white p-9">
+              <ShoppingBag className="h-10 w-10" strokeWidth={1.4} style={{ color: GREEN }} />
+              <p className="mt-5 text-[18px] font-semibold" style={{ color: GREEN }}>
+                Your basket is empty
+              </p>
+              <p className="mt-2 text-[15px] leading-[24px] opacity-80">
+                Start with the hormone and fertility test, or browse the appointments.
+              </p>
+              <Link
+                href="/test-kits"
+                className="mt-6 inline-flex h-[48px] items-center justify-center rounded-full px-7 text-[15px] font-semibold text-white"
+                style={{ backgroundColor: GREEN }}
+              >
+                See the test
               </Link>
             </div>
-          </div>
-        </main>
-      </div>
-    )
-  }
+          ) : (
+            <div className="mt-8 grid gap-10 pb-20 lg:grid-cols-[1fr_380px] lg:gap-14">
+              <div>
+                <div className="overflow-hidden rounded-2xl bg-white">
+                  {items.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex flex-wrap items-center gap-5 border-b p-5 last:border-b-0 sm:flex-nowrap"
+                      style={{ borderColor: "rgba(31,35,40,0.08)" }}
+                    >
+                      {item.image ? (
+                        <div className="relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-xl" style={{ backgroundColor: MINT }}>
+                          <Image src={item.image} alt={item.name} fill className="object-cover" sizes="72px" />
+                        </div>
+                      ) : (
+                        <div className="h-[72px] w-[72px] shrink-0 rounded-xl" style={{ backgroundColor: MINT }} />
+                      )}
 
-  return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1 py-12">
-        <div className="container">
-          <h1 className="text-3xl font-bold mb-8">Shopping Cart</h1>
-
-          <div className="grid gap-8 lg:grid-cols-3">
-            <div className="lg:col-span-2 space-y-4">
-              {items.map((item) => (
-                <Card key={item.id}>
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="relative h-20 w-20 rounded-md overflow-hidden">
-                        <Image src={item.image || "/placeholder.svg"} alt={item.name} fill className="object-cover" />
+                      <div className="min-w-[140px] flex-1">
+                        <p className="text-[15px] font-semibold leading-[22px]" style={{ color: GREEN }}>
+                          {item.name}
+                        </p>
+                        <p className="mt-1 text-[14px] opacity-70">{item.price.toLocaleString()} RWF</p>
                       </div>
 
-                      <div className="flex-1">
-                        <h3 className="font-medium">{item.name}</h3>
-                        <p className="text-sm text-gray-500">Price: ${item.price}</p>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                      <div className="flex items-center gap-1 rounded-full border" style={{ borderColor: "rgba(31,35,40,0.15)" }}>
+                        <button
+                          type="button"
+                          aria-label={"Decrease quantity of " + item.name}
+                          onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                          className="flex h-9 w-9 items-center justify-center rounded-full"
                         >
-                          <Minus className="h-4 w-4" />
-                        </Button>
-                        <span className="w-8 text-center">{item.quantity}</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
+                          <Minus className="h-3.5 w-3.5" />
+                        </button>
+                        <span className="w-7 text-center text-[14px] font-semibold">{item.quantity}</span>
+                        <button
+                          type="button"
+                          aria-label={"Increase quantity of " + item.name}
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="flex h-9 w-9 items-center justify-center rounded-full"
                         >
-                          <Plus className="h-4 w-4" />
-                        </Button>
+                          <Plus className="h-3.5 w-3.5" />
+                        </button>
                       </div>
 
-                      <div className="text-right">
-                        <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFromCart(item.id)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
+                      <p className="w-[90px] text-right text-[15px] font-semibold" style={{ color: GREEN }}>
+                        {(item.price * item.quantity).toLocaleString()} RWF
+                      </p>
+
+                      <button
+                        type="button"
+                        aria-label={"Remove " + item.name}
+                        onClick={() => removeFromCart(item.id)}
+                        className="flex h-9 w-9 items-center justify-center rounded-full opacity-50 hover:opacity-100"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  ))}
+                </div>
 
-              <div className="flex justify-between">
-                <Button variant="outline" onClick={clearCart}>
-                  Clear Cart
-                </Button>
-                <Link href="/shop">
-                  <Button variant="outline">Continue Shopping</Button>
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Order Summary</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                <div className="mt-5 rounded-2xl bg-white p-5">
+                  <p className="text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GREEN }}>
+                    Promo code
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-3">
+                    <input
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      placeholder="Enter code"
+                      className="h-[44px] flex-1 rounded-full border px-5 text-[14px] outline-none"
+                      style={{ borderColor: "rgba(31,35,40,0.15)", backgroundColor: CREAM }}
+                    />
+                    <button
+                      type="button"
+                      onClick={applyPromoCode}
+                      className="h-[44px] rounded-full px-6 text-[14px] font-semibold"
+                      style={{ backgroundColor: MINT, color: GREEN }}
+                    >
+                      Apply
+                    </button>
                   </div>
+                  {promoError && <p className="mt-2 text-[13px]" style={{ color: "#FF4244" }}>{promoError}</p>}
+                </div>
+              </div>
 
+              <aside className="h-fit rounded-2xl bg-white p-7 lg:sticky lg:top-28">
+                <p className="text-[18px] font-semibold" style={{ color: GREEN }}>
+                  Order summary
+                </p>
+                <div className="mt-5 space-y-3 text-[14px]">
+                  <div className="flex justify-between">
+                    <span className="opacity-70">Subtotal</span>
+                    <span>{subtotal.toLocaleString()} RWF</span>
+                  </div>
                   {discount > 0 && (
-                    <div className="flex justify-between text-green-600">
-                      <span>Discount ({(discount * 100).toFixed(0)}%)</span>
-                      <span>-${discountAmount.toFixed(2)}</span>
+                    <div className="flex justify-between">
+                      <span className="opacity-70">Discount ({Math.round(discount * 100)}%)</span>
+                      <span style={{ color: GREEN }}>-{discountAmount.toLocaleString()} RWF</span>
                     </div>
                   )}
-
-                  <div className="flex justify-between">
-                    <span>Shipping</span>
-                    <span>Free</span>
-                  </div>
-
-                  <div className="border-t pt-4 flex justify-between font-medium text-lg">
+                  <div className="flex justify-between border-t pt-3 text-[16px] font-semibold" style={{ borderColor: "rgba(31,35,40,0.1)", color: GREEN }}>
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>{total.toLocaleString()} RWF</span>
                   </div>
-
-                  <div className="space-y-2">
-                    <Input placeholder="Promo code" value={promoCode} onChange={(e) => setPromoCode(e.target.value)} />
-                    <Button variant="outline" className="w-full" onClick={applyPromoCode}>
-                      Apply Code
-                    </Button>
-                  </div>
-
-                  <Link href="/checkout">
-                    <Button className="w-full bg-rose-500 hover:bg-rose-600">
-                      Proceed to Checkout <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                </div>
+                <Link
+                  href="/checkout"
+                  className="mt-6 flex h-[48px] w-full items-center justify-center rounded-full text-[15px] font-semibold text-white"
+                  style={{ backgroundColor: GREEN }}
+                >
+                  Checkout
+                </Link>
+                <Link href="/test-kits" className="mt-3 block text-center text-[13px] underline opacity-70">
+                  Continue shopping
+                </Link>
+                <p className="mt-5 text-[12px] leading-[18px] opacity-60">
+                  Payment is taken securely at checkout. Your results are reviewed by a clinician before they are released.
+                </p>
+              </aside>
             </div>
-          </div>
+          )}
         </div>
       </main>
+
+      <SiteFooter />
     </div>
   )
 }

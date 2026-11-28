@@ -1,0 +1,261 @@
+"use client"
+
+/**
+ * FertiTerra /symptoms sections.
+ * Section order and content types follow Hertility's symptoms page.
+ * Words, colours, assets and claims are FertiTerra's own. No statistics,
+ * no drug names, no claimed clinical reviewer, because none of those are ours to state.
+ */
+import Link from "next/link"
+import { ArrowRight, AlertCircle, Search, Stethoscope, ChevronDown } from "lucide-react"
+import { useState } from "react"
+
+const GREEN = "#1F3D33"
+const LIME = "#E6FF70"
+const CREAM = "#FAF7F2"
+const INK = "#1F2328"
+const MINT = "#E4EDE6"
+
+/* 1 ---------------------------------------------------------------- byline */
+export function SymptomByline() {
+  return (
+    <div className="mx-auto mt-6 flex max-w-[900px] flex-wrap items-center gap-x-3 gap-y-1 px-5 text-[13px] sm:px-10" style={{ color: "rgba(31,35,40,0.6)" }}>
+      <span>FertiTerra clinical content</span>
+      <span aria-hidden="true">·</span>
+      <span>8 minute read</span>
+      <span aria-hidden="true">·</span>
+      <span>General information, not a diagnosis</span>
+    </div>
+  )
+}
+
+/* 2 ------------------------------------------------------- intro fact band */
+export function SymptomsIntro() {
+  const facts = [
+    {
+      icon: AlertCircle,
+      head: "If you think something is up, it usually is",
+      body: "Many people are told their symptoms are normal, or that they should wait. If something has changed and stayed changed, it deserves an explanation.",
+    },
+    {
+      icon: Search,
+      head: "Symptoms can be hard to understand",
+      body: "The same symptom can come from several different causes. Irregular periods, acne and low mood can all point to more than one hormone being out of step.",
+    },
+    {
+      icon: Stethoscope,
+      head: "The key is finding the right expert",
+      body: "Once you know what is driving your symptoms, the right person can treat it. That is what the assessment is for: pointing you to the right next step.",
+    },
+  ]
+  return (
+    <section className="mt-14 w-full">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[40px]" style={{ color: INK }}>
+          Are you experiencing symptoms?
+        </h2>
+        <p className="mt-2 text-[20px]" style={{ color: "rgba(31,35,40,0.7)" }}>Here&apos;s what you need to know.</p>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {facts.map((f) => (
+            <div key={f.head} className="rounded-3xl p-7" style={{ background: MINT }}>
+              <f.icon className="h-6 w-6" style={{ color: GREEN }} />
+              <h3 className="mt-4 text-[17px] font-semibold leading-snug" style={{ color: INK }}>{f.head}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed" style={{ color: "rgba(31,35,40,0.75)" }}>{f.body}</p>
+            </div>
+          ))}
+        </div>
+        <Link href="/screening" className="mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold" style={{ background: GREEN, color: "#fff" }}>
+          Start my free assessment <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+/* 3 --------------------------------------------------- what is imbalance */
+export function WhatIsImbalance() {
+  return (
+    <section className="mt-16 w-full" style={{ background: CREAM }}>
+      <div className="mx-auto max-w-[820px] px-5 py-14 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[38px]" style={{ color: INK }}>
+          What is a hormonal imbalance?
+        </h2>
+        <p className="mt-5 text-[17px] leading-relaxed" style={{ color: "rgba(31,35,40,0.8)" }}>
+          Your body runs on hormones that have to stay in step with each other. When one sits slightly higher or lower than it should, the effect can reach further than you would expect: your cycle, your skin, your energy, your mood and your sleep.
+        </p>
+        <p className="mt-4 text-[17px] leading-relaxed" style={{ color: "rgba(31,35,40,0.8)" }}>
+          Some imbalances are temporary and settle on their own. Others point to a condition that needs care. Blood results are how you tell the difference.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+/* 4 ------------------------------------------- imbalance vs a condition */
+export function ImbalanceVsCondition() {
+  return (
+    <section className="mt-16 w-full">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[38px]" style={{ color: INK }}>
+          A hormonal imbalance or an underlying condition?
+        </h2>
+        <p className="mt-4 max-w-[820px] text-[17px] leading-relaxed" style={{ color: "rgba(31,35,40,0.8)" }}>
+          These two are not the same thing, and the difference changes what happens next. A single symptom is not enough to tell them apart, which is why we look at your symptoms together with your hormone results.
+        </p>
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <div className="rounded-3xl border p-7" style={{ borderColor: "rgba(31,35,40,0.12)", background: "#fff" }}>
+            <h3 className="text-[19px] font-semibold" style={{ color: INK }}>A hormonal imbalance</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed" style={{ color: "rgba(31,35,40,0.75)" }}>
+              One or more hormones sitting outside their usual range. It can be short lived, and it can be corrected once you know which hormone is involved.
+            </p>
+          </div>
+          <div className="rounded-3xl border p-7" style={{ borderColor: GREEN, background: "#fff" }}>
+            <h3 className="text-[19px] font-semibold" style={{ color: INK }}>An underlying condition</h3>
+            <p className="mt-2.5 text-[15px] leading-relaxed" style={{ color: "rgba(31,35,40,0.75)" }}>
+              A recognised condition such as PCOS, endometriosis or a thyroid disorder, where a pattern of symptoms and results points to a diagnosis that needs managing over time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* 5 --------------------------------------------------- other symptoms */
+export function OtherSymptoms() {
+  const items = [
+    "Irregular or missed periods",
+    "Heavy or painful periods",
+    "Acne and oily skin",
+    "Hair thinning or excess hair",
+    "Weight changes you cannot explain",
+    "Low mood and irritability",
+    "Brain fog",
+    "Low sex drive",
+    "Pain during sex",
+    "Fatigue and low energy",
+    "Feeling cold",
+    "Sleep that does not refresh you",
+  ]
+  return (
+    <section className="mt-16 w-full">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[38px]" style={{ color: INK }}>
+          Other symptoms of a hormonal imbalance
+        </h2>
+        <p className="mt-3 text-[16px]" style={{ color: "rgba(31,35,40,0.7)" }}>You do not need to have all of these. Any one of them is a reason to look.</p>
+        <ul className="mt-7 flex flex-wrap gap-2.5">
+          {items.map((s) => (
+            <li key={s} className="rounded-full px-4 py-2 text-[14px]" style={{ background: MINT, color: INK }}>{s}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+/* 6 ------------------------------------------------------ what to do next */
+export function WhatToDoNext() {
+  return (
+    <section className="mt-16 w-full">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+        <div className="rounded-3xl p-8 sm:p-12" style={{ background: GREEN }}>
+          <h2 className="font-[family-name:var(--font-playfair)] text-[28px] leading-tight text-white sm:text-[36px]">
+            What to do next
+          </h2>
+          <p className="mt-4 max-w-[720px] text-[16px] leading-relaxed" style={{ color: "rgba(250,247,242,0.82)" }}>
+            You may have seen one doctor about this. You may have seen several. The assessment takes your symptoms, your history and your hormone results together, so the picture is built from evidence instead of guesswork.
+          </p>
+          <Link href="/screening" className="mt-7 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold" style={{ background: LIME, color: GREEN }}>
+            Start my free assessment <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* 7 ---------------------------------------------- managing your symptoms */
+export function ManagingSymptoms() {
+  const conditions = [
+    {
+      name: "PCOS",
+      body: "A hormonal condition affecting how the ovaries work. It can cause irregular periods, acne and excess hair. Care usually starts with confirming the pattern, then managing the symptoms that matter most to you.",
+    },
+    {
+      name: "Endometriosis and fibroids",
+      body: "Painful, heavy periods that interrupt normal days are not something to live with. These conditions are common, and both are investigated with a scan or a specialist appointment.",
+    },
+    {
+      name: "Thyroid disorders",
+      body: "An underactive or overactive thyroid can affect your cycle, your energy and your weight. A blood test is how it is found, and it is treatable once found.",
+    },
+    {
+      name: "Perimenopause and menopause",
+      body: "Changing cycles, hot flushes, low mood and poor sleep are expected stages, not a mystery. Treatment depends on your symptoms and your history.",
+    },
+    {
+      name: "Hypothalamic amenorrhoea",
+      body: "Missed periods linked to low energy availability, stress or over-exercise. It is a signal that the body has switched off reproduction, and it needs proper investigation.",
+    },
+  ]
+  const [open, setOpen] = useState<number | null>(0)
+  return (
+    <section className="mt-16 w-full" style={{ background: CREAM }}>
+      <div className="mx-auto max-w-[900px] px-5 py-14 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[38px]" style={{ color: INK }}>
+          Managing your symptoms
+        </h2>
+        <p className="mt-4 text-[17px] leading-relaxed" style={{ color: "rgba(31,35,40,0.8)" }}>
+          What you do about a symptom depends on what is causing it. Sometimes the imbalance can be corrected directly. Sometimes the cause is a condition that is managed over time. Either way, the first step is the same: find out what is going on.
+        </p>
+        <div className="mt-8">
+          {conditions.map((c, i) => {
+            const isOpen = open === i
+            return (
+              <div key={c.name} style={{ borderTop: i ? "1px solid rgba(31,35,40,0.12)" : undefined }}>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="flex w-full items-center justify-between gap-6 py-5 text-left"
+                >
+                  <span className="font-[family-name:var(--font-playfair)] text-[21px]" style={{ color: INK }}>{c.name}</span>
+                  <ChevronDown className="h-5 w-5 shrink-0" style={{ color: GREEN, transform: isOpen ? "rotate(180deg)" : "none" }} />
+                </button>
+                {isOpen && <p className="pb-6 pr-10 text-[15px] leading-relaxed" style={{ color: "rgba(31,35,40,0.78)" }}>{c.body}</p>}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* 8 ---------------------------------------------------- how we can help */
+export function HowWeCanHelp() {
+  const steps = [
+    { n: "1", head: "Take the free assessment", body: "Eight minutes of questions about your symptoms, your cycle and your history." },
+    { n: "2", head: "Get the right test", body: "We choose the hormones that answer your question, and you collect the sample at home." },
+    { n: "3", head: "Understand the result", body: "A doctor-written report and a care plan, with a specialist call on the Advanced Test." },
+  ]
+  return (
+    <section className="mt-16 w-full">
+      <div className="mx-auto max-w-[1200px] px-5 sm:px-10">
+        <h2 className="font-[family-name:var(--font-playfair)] text-[30px] leading-tight sm:text-[38px]" style={{ color: INK }}>
+          How FertiTerra can help you
+        </h2>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {steps.map((s) => (
+            <div key={s.n} className="rounded-3xl p-7" style={{ background: MINT }}>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full text-[15px] font-semibold" style={{ background: GREEN, color: "#fff" }}>{s.n}</span>
+              <h3 className="mt-4 text-[17px] font-semibold" style={{ color: INK }}>{s.head}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed" style={{ color: "rgba(31,35,40,0.75)" }}>{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

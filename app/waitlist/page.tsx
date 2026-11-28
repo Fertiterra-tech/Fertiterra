@@ -62,7 +62,7 @@ export default function WaitlistPage() {
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           {/* left, the ask */}
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-[#E6FF70] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#1F3D33]">
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#1F3D33] px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#FAF7F2]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#1F3D33]" aria-hidden="true" />
               Coming soon
             </p>
@@ -162,7 +162,7 @@ export default function WaitlistPage() {
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="mt-5 inline-flex h-14 w-full sm:mt-6 items-center justify-center rounded-full bg-[#E6FF70] text-[17px] font-semibold text-[#1F3D33] transition-colors hover:bg-[#d8f455] disabled:opacity-60"
+                    className="mt-5 inline-flex h-14 w-full sm:mt-6 items-center justify-center rounded-full bg-[#1F3D33] text-[17px] font-semibold text-[#FAF7F2] transition-colors hover:bg-[#d8f455] disabled:opacity-60"
                   >
                     {status === "sending" ? "Saving..." : "Join the waitlist"}
                   </button>
@@ -181,7 +181,7 @@ export default function WaitlistPage() {
 
           {/* right, what it does */}
           <aside className="rounded-3xl bg-[#1F3D33] p-7 text-[#FAF7F2] sm:p-9">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#E6FF70]">Inside the app</p>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#FAF7F2]">Inside the app</p>
             <h2 className="mt-4 font-[family-name:var(--font-playfair)] text-[26px] leading-snug sm:text-[30px]">
               What you will be able to do
             </h2>
@@ -193,7 +193,7 @@ export default function WaitlistPage() {
                 ["03", "Reach a FertiTerra doctor from your phone", "Book a private video call when a result needs a conversation."],
               ].map(([number, title, body]) => (
                 <li key={number} className="flex gap-4">
-                  <span className="mt-0.5 font-[family-name:var(--font-playfair)] text-[15px] text-[#E6FF70]">{number}</span>
+                  <span className="mt-0.5 font-[family-name:var(--font-playfair)] text-[15px] text-[#FAF7F2]">{number}</span>
                   <span>
                     <span className="block text-[17px] font-medium leading-snug">{title}</span>
                     <span className="mt-1 block text-[15px] leading-relaxed text-[#FAF7F2]/65">{body}</span>

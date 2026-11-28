@@ -5,9 +5,10 @@ import Link from "next/link"
 import { FertiTerraLogo } from "@/components/fertiterra-logo"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/auth-context"
-import { Menu, X, ShoppingBag, Linkedin, Instagram } from "lucide-react"
+import { Menu, X, ShoppingBag, Linkedin, Instagram, UserCircle } from "lucide-react"
 
 export function Header() {
+  // ft-tests-sheet-v8
   const { user, profile, isAdmin, signOut } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
@@ -28,46 +29,246 @@ export function Header() {
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
+
+  // ft-sheet-v9: Escape closes an open dropdown
+  useEffect(() => {
+    if (!activeDropdown) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveDropdown(null) }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [activeDropdown])
+
+  // ft-nav-v4-hertility-structure
+  type NavLink = { label: string; href: string; badge?: string }
+  type NavGroup = { heading?: string; links: NavLink[] }
+  type NavMenu = { id: string; label: string; groups: NavGroup[] }
+
+  const NAV_MENUS: NavMenu[] = [
+    {
+      id: "tests",
+      label: "Tests",
+      groups: [
+        {
+          links: [
+            { label: "Trying to conceive", href: "/test-kits/trying-to-conceive" },
+            { label: "Experiencing symptoms", href: "/test-kits/experiencing-symptoms" },
+            { label: "Planning ahead", href: "/test-kits/planning-ahead" },
+            { label: "Struggling to conceive", href: "/learn/struggling-to-conceive" },
+            { label: "Just curious", href: "/test-kits/just-curious" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "appointments",
+      label: "Appointments",
+      groups: [
+        {
+          links: [
+            { label: "Fertility Advisor", href: "/appointments/advisor-call" },
+            { label: "Hormone and Symptom Consultation", href: "/appointments/hormone-symptom-consultation" },
+            { label: "Pelvic Ultrasound Scan", href: "/appointments/ultrasound", badge: "Most popular" },
+            { label: "Private Gynaecologist Consultation", href: "/appointments/gynaecologist" },
+            { label: "Counselling", href: "/appointments/counselling" },
+            { label: "Nutrition Consultation", href: "/appointments/nutrition" },
+            { label: "Menopause Consultation", href: "/appointments/menopause-specialist" },
+            { label: "Skin Consultation", href: "/appointments/skin-consultation" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "treatments",
+      label: "Treatments",
+      groups: [
+        {
+          links: [
+            { label: "IVF support", href: "/treatments/ivf-support" },
+            { label: "Egg freezing", href: "/treatments/egg-freezing" },
+            { label: "Starting an LGBTQIA+ family", href: "/treatments/lgbtqia-family" },
+            { label: "Trusted clinics", href: "/treatments/trusted-clinics" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "symptoms",
+      label: "Symptoms",
+      groups: [
+        {
+          heading: "Symptoms",
+          links: [
+            { label: "Fatigue & low energy", href: "/blog/fatigue-low-energy" },
+            { label: "Mood & mental health", href: "/blog/mood-mental-health" },
+            { label: "Skin & hair changes", href: "/blog/skin-hair-changes" },
+            { label: "Painful & irregular cycles", href: "/blog/painful-irregular-cycles" },
+          ],
+        },
+        {
+          heading: "Conditions",
+          links: [
+            { label: "PCOS", href: "/blog/pcos" },
+            { label: "Endometriosis", href: "/blog/endometriosis" },
+            { label: "Fibroids", href: "/blog/fibroids" },
+            { label: "PMS & PMDD", href: "/blog/pms-pmdd" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "learn",
+      label: "Learn",
+      groups: [
+        {
+          heading: "Knowledge Centre",
+          links: [
+            { label: "Articles", href: "/blog" },
+            { label: "Guides & how-to's", href: "/learn/guides" },
+            { label: "Webinars & events", href: "/learn/webinars" },
+            { label: "Real stories", href: "/learn/real-stories" },
+            { label: "Glossary", href: "/learn/glossary" },
+            { label: "Get started kit", href: "/learn/get-started-kit" },
+          ],
+        },
+        {
+          heading: "About FertiTerra",
+          links: [
+            { label: "Founder's story", href: "/about/founders-story" },
+            { label: "Meet the team", href: "/about/team" },
+            { label: "Research", href: "/about/research" },
+            { label: "Diversity and inclusion", href: "/about/diversity-inclusion" },
+            { label: "Refer a friend", href: "/waitlist" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "employers",
+      label: "Workplace",
+      groups: [
+        {
+          heading: "About",
+          links: [
+            { label: "What we do", href: "/workplace" },
+            { label: "Pricing", href: "/workplace/pricing" },
+            { label: "Our mission", href: "/workplace/mission" },
+            { label: "Contact us", href: "/workplace/contact" },
+          ],
+        },
+        {
+          heading: "Solutions",
+          links: [
+            { label: "For HR leaders", href: "/workplace/employee-benefits" },
+            { label: "For insurers", href: "/workplace/for-insurers" },
+            { label: "For brokers", href: "/workplace/for-brokers" },
+          ],
+        },
+        {
+          heading: "Resources",
+          links: [
+            { label: "Case studies", href: "/workplace/case-studies" },
+            { label: "Guides and articles", href: "/workplace/resources" },
+          ],
+        },
+      ],
+    },
+  ]
+
+
+      // ft-sheet-v9: every dropdown shares the Tests sheet layout. One card per menu.
+      type NavCard = { eyebrow: string; body: string; label: string; href: string }
+      const NAV_CARDS: Record<string, NavCard> = {
+        tests: {
+          eyebrow: "Not sure where to start?",
+          body: "Tell us what brought you here and we'll let you know how we can help.",
+          label: "Start here",
+          href: "/screening",
+        },
+        appointments: {
+          eyebrow: "Not sure who to see?",
+          body: "A Fertility Advisor can talk you through which appointment fits what you are dealing with.",
+          label: "Speak to an advisor",
+          href: "/appointments/advisor-call",
+        },
+        treatments: {
+          eyebrow: "Thinking about treatment?",
+          body: "Get your results first, so every clinic you speak to is quoting against the same information.",
+          label: "See the test",
+          href: "/test-kits",
+        },
+        symptoms: {
+          eyebrow: "Not sure what is causing it?",
+          body: "A hormone and fertility test shows what your levels are doing, instead of guessing from symptoms.",
+          label: "See the test",
+          href: "/test-kits",
+        },
+        learn: {
+          eyebrow: "Start your assessment",
+          body: "Get personalised next steps built around your symptoms and goals in about eight minutes.",
+          label: "Start my free assessment",
+          href: "/screening",
+        },
+        employers: {
+          eyebrow: "Looking to support your team?",
+          body: "Tell us your headcount and we will come back with a plan and a price in writing.",
+          label: "Get in touch",
+          href: "/workplace/contact",
+        },
+        workplace: {
+          eyebrow: "Looking to support your team?",
+          body: "Tell us your headcount and we will come back with a plan and a price in writing.",
+          label: "Get in touch",
+          href: "/workplace/contact",
+        },
+      }
+    
+  const Chevron = ({ open }: { open?: boolean }) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={`h-4 w-4 opacity-60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+      aria-hidden="true"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  )
+
   return (
     <header className="sticky top-0 z-40 w-full text-[#1F2328]">
       {/* Announcement bar */}
-      <div className="w-full bg-[#1F3D33] px-4 py-2 text-center text-[13px] leading-snug text-white/90 sm:py-2.5 sm:text-[14px]">
-        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-1">
-          <span>See what is inside your Advanced Hormone and Fertility Test report.</span>
-          <span className="hidden text-white/35 sm:inline" aria-hidden="true">|</span>
+      <div className="w-full bg-[#1F3D33] px-4 py-2.5 text-center text-white sm:py-3">
+        <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <span className="text-[13px] leading-snug text-white/90 sm:text-[14px]">
+            See what is inside your Advanced Hormone and Fertility Test report.{" "}
+            <Link href="/sample-report" className="font-semibold underline underline-offset-4 decoration-[#FAF7F2]/70 hover:decoration-[#FAF7F2]">
+              Take a look
+            </Link>
+          </span>
+          <span className="hidden h-5 w-px bg-white/25 sm:inline-block" aria-hidden="true" />
           <Link
             href="/waitlist"
-            className="inline-flex items-center gap-1.5 whitespace-nowrap font-medium text-[#E6FF70] transition-opacity hover:opacity-80"
+            className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-[#1F3D33] px-4 py-1.5 text-[13px] font-bold tracking-[0.01em] text-[#FAF7F2] shadow-[0_0_0_0_rgba(250,247,242,0.55)] transition-all hover:shadow-[0_0_0_6px_rgba(250,247,242,0.22)] sm:text-[14px]"
           >
-            <span className="sm:hidden">App coming soon</span>
-            <span className="hidden sm:inline">The app is coming soon. Join the waitlist</span>
-          </Link>
-          <Link
-            href="/sample-report"
-            className="inline-flex items-center gap-1.5 whitespace-nowrap font-medium text-[#E6FF70] transition-opacity hover:opacity-80"
-          >
-            Take a look
-            <span aria-hidden="true" className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full border border-[#E6FF70] text-[11px] leading-none">
-              &rarr;
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1F3D33]/50" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#1F3D33]" />
             </span>
+            <span className="sm:hidden">App coming soon. Join the waitlist</span>
+            <span className="hidden sm:inline">The app is coming soon. Be first in: join the waitlist</span>
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
           </Link>
-          <div className="ml-3 hidden items-center gap-3.5 sm:flex">
-            <a
-              href="https://www.linkedin.com/company/fertiterra-technologies/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/75 transition-colors hover:text-[#E6FF70]"
-              aria-label="Follow us on LinkedIn"
-            >
+          <div className="ml-1 hidden items-center gap-3.5 sm:flex">
+            <a href="https://www.linkedin.com/company/fertiterra-technologies/" target="_blank" rel="noopener noreferrer" className="text-white/75 transition-colors hover:text-[#FAF7F2]" aria-label="Follow us on LinkedIn">
               <Linkedin className="h-4 w-4" />
             </a>
-            <a
-              href="https://www.instagram.com/fertiterra_technologies?igsh=MXMyZmN3cGRraTJzcg=="
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/75 transition-colors hover:text-[#E6FF70]"
-              aria-label="Follow us on Instagram"
-            >
+            <a href="https://www.instagram.com/fertiterra_technologies?igsh=MXMyZmN3cGRraTJzcg==" target="_blank" rel="noopener noreferrer" className="text-white/75 transition-colors hover:text-[#FAF7F2]" aria-label="Follow us on Instagram">
               <Instagram className="h-4 w-4" />
             </a>
           </div>
@@ -84,494 +285,82 @@ export function Header() {
         {/* Right side - Navigation, Cart, Login, Signup */}
         <div className="flex items-center gap-8">
           {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-7 lg:flex xl:gap-8">
-            <div className="relative dropdown-container">
-              <button
-                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
-                onClick={() => setActiveDropdown(activeDropdown === "hormones" ? null : "hormones")}
-              >
-                Hormones & Fertility
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 opacity-60"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
+          <nav className="hidden items-center gap-7 lg:flex xl:gap-8" aria-label="Main">
+            {NAV_MENUS.map((menu) => {
+              const open = activeDropdown === menu.id
+              return (
+                <div key={menu.id} className="relative dropdown-container">
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
+                    onClick={() => setActiveDropdown(open ? null : menu.id)}
+                  >
+                    {menu.label}
+                    <Chevron open={open} />
+                  </button>
+                                  </div>
+              )
+            })}
+          {(() => {
+                const menu = NAV_MENUS.find((m) => m.id === activeDropdown)
+                if (!menu) return null
+                const card = NAV_CARDS[menu.id] ?? { eyebrow: "Not sure where to start?", body: "Tell us what brought you here and we'll let you know how we can help.", label: "Start here", href: "/screening" }
+                const multi = menu.groups.length > 1
+                return (
+                  <>
+                    <div
+                      aria-hidden="true"
+                      onClick={() => setActiveDropdown(null)}
+                      className="absolute left-0 top-full z-40 h-[200vh] w-full bg-black/40"
+                    />
+                    <div data-ft-sheet className="dropdown-container absolute left-0 right-0 top-full z-50 border-t border-[#1F2328]/10 bg-[#FAF7F2] shadow-[0_24px_48px_-16px_rgba(31,61,51,0.28)]">
+                      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-5 pb-[34px] pt-[31px] sm:px-10 lg:flex-row lg:items-start lg:justify-between lg:px-20">
+                        <div className={multi ? "grid flex-1 gap-x-16 gap-y-6 pt-[14px] lg:max-w-[820px] " + (menu.groups.length > 2 ? "lg:grid-cols-3" : "lg:grid-cols-2") : "pt-[14px]"}>
+                          {menu.groups.map((group, gi) => (
+                            <div key={gi}>
+                              {group.heading && (
+                                <p className="mb-1 text-[12px] font-semibold uppercase leading-[20px] tracking-[0.1em] text-[#1F3D33]/70">{group.heading}</p>
+                              )}
+                              <ul>
+                                {group.links.map((l) => (
+                                  <li key={l.label}>
+                                    <Link
+                                      href={l.href}
+                                      onClick={() => setActiveDropdown(null)}
+                                      className="flex items-center py-[10px] text-[18px] leading-[25px] text-[#1F2328] transition-colors hover:text-[#1F3D33]"
+                                    >
+                                      {l.label}
+                                      {l.badge && (
+                                        <span className="ml-3 rounded-full bg-[#1F3D33] px-2 py-0.5 text-[11px] font-semibold leading-[16px] text-white">{l.badge}</span>
+                                      )}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+    
+                        <div className="flex w-full shrink-0 flex-col rounded-2xl bg-[#E4EDE6] px-7 pb-12 pt-[55px] lg:h-[274px] lg:w-[357px]">
+                          <p className="mb-[10px] text-[12px] font-semibold uppercase leading-[20px] tracking-[0.1em] text-[#1F2328]/80">
+                            {card.eyebrow}
+                          </p>
+                          <p className="text-[15px] leading-[25px] text-[#1F2328]/80">{card.body}</p>
+                          <Link
+                            href={card.href}
+                            onClick={() => setActiveDropdown(null)}
+                            className="mt-auto flex h-[46px] w-full items-center justify-center rounded-full bg-[#1F3D33] text-[16px] font-semibold text-[#FAF7F2] transition-opacity hover:opacity-90"
+                          >
+                            {card.label}
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
 
-              <div
-                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "hormones" ? "block" : "hidden"}`}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Buy an at-home test</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/test-kits/hormone-fertility" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Test
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Book an appointment</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/appointments/advisor-call" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Advisor Call
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/ultrasound" className="text-sm hover:text-rose-500 block">
-                          Pelvic Ultrasound Scan
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/gynaecologist" className="text-sm hover:text-rose-500 block">
-                          Private Gynaecologist Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/nutrition" className="text-sm hover:text-rose-500 block">
-                          Fertility Nutrition Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/counselling" className="text-sm hover:text-rose-500 block">
-                          Fertility Counselling
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/egg-freezing" className="text-sm hover:text-rose-500 block">
-                          Egg Freezing
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Learn</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/learn/planning-future-children" className="text-sm hover:text-rose-500 block">
-                          Planning future children
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/trying-to-conceive" className="text-sm hover:text-rose-500 block">
-                          Trying to conceive
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/struggling-to-conceive" className="text-sm hover:text-rose-500 block">
-                          Struggling to conceive
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/lgbtqia-family" className="text-sm hover:text-rose-500 block">
-                          Starting an LGBTQIA+ family
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/get-started-kit" className="text-sm hover:text-rose-500 block">
-                          Get started kit
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <h3 className="font-medium text-gray-900 mb-2">Not sure where to start?</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      Tell us what brought you here and we'll let you know how we can help.
-                    </p>
-                    <Link href="/quiz" className="text-sm font-medium text-rose-500 hover:text-rose-600">
-                      Start here
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative dropdown-container">
-              <button
-                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
-                onClick={() => setActiveDropdown(activeDropdown === "symptoms" ? null : "symptoms")}
-              >
-                Symptoms
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 opacity-60"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-
-              <div
-                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "symptoms" ? "block" : "hidden"}`}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Buy an at-home test</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/test-kits/hormone-fertility" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Test
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Book an appointment</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/appointments/advisor-call" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Advisor Call
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/ultrasound" className="text-sm hover:text-rose-500 block">
-                          Pelvic Ultrasound Scan
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/gynaecologist" className="text-sm hover:text-rose-500 block">
-                          Private Gynaecologist Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/menopause-specialist" className="text-sm hover:text-rose-500 block">
-                          Menopause Specialist Consultation
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Learn</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/learn/experiencing-symptoms" className="text-sm hover:text-rose-500 block">
-                          Experiencing symptoms
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/get-started-kit" className="text-sm hover:text-rose-500 block">
-                          Get started kit
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <h3 className="font-medium text-gray-900 mb-2">Not sure where to start?</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      Tell us what brought you here and we'll let you know how we can help.
-                    </p>
-                    <Link href="/quiz" className="text-sm font-medium text-rose-500 hover:text-rose-600">
-                      Start here
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative dropdown-container">
-              <button
-                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
-                onClick={() => setActiveDropdown(activeDropdown === "clinical" ? null : "clinical")}
-              >
-                Clinical Care
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 opacity-60"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-
-              <div
-                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "clinical" ? "block" : "hidden"}`}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">At-home test</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/test-kits/hormone-fertility" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Test
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Appointments</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/appointments/advisor-call" className="text-sm hover:text-rose-500 block">
-                          Hormone & Fertility Advisor Call
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/nutrition" className="text-sm hover:text-rose-500 block">
-                          Fertility Nutrition Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/counselling" className="text-sm hover:text-rose-500 block">
-                          Fertility Counselling
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Treatments</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/appointments/ultrasound" className="text-sm hover:text-rose-500 block">
-                          Pelvic Ultrasound Scan
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/gynaecologist" className="text-sm hover:text-rose-500 block">
-                          Private Gynaecologist Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/menopause-specialist" className="text-sm hover:text-rose-500 block">
-                          Menopause Specialist Consultation
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/egg-freezing" className="text-sm hover:text-rose-500 block">
-                          Egg Freezing
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/appointments/skin-consultation" className="text-sm hover:text-rose-500 block">
-                          Skin Consultation
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/trusted-clinics" className="text-sm hover:text-rose-500 block font-medium">
-                          Trusted Clinics
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/get-started-kit" className="text-sm hover:text-rose-500 block font-medium">
-                          Get started kit
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <h3 className="font-medium text-gray-900 mb-2">Not sure where to start?</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      Tell us what brought you here and we'll let you know how we can help.
-                    </p>
-                    <Link href="/quiz" className="text-sm font-medium text-rose-500 hover:text-rose-600">
-                      Start here
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative dropdown-container">
-              <button
-                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
-                onClick={() => setActiveDropdown(activeDropdown === "learn" ? null : "learn")}
-              >
-                Learn
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 opacity-60"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-
-              <div
-                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "learn" ? "block" : "hidden"}`}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">FertiTerra</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/about/founders-story" className="text-sm hover:text-rose-500 block">
-                          Founder's story
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/about/research" className="text-sm hover:text-rose-500 block">
-                          Research
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/about/team" className="text-sm hover:text-rose-500 block">
-                          Team
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/about/diversity-inclusion" className="text-sm hover:text-rose-500 block">
-                          Diversity and inclusion
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h3 className="font-medium text-gray-900 mb-2">Resources</h3>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link href="/knowledge-centre" className="text-sm hover:text-rose-500 block">
-                          Knowledge centre
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/guides" className="text-sm hover:text-rose-500 block">
-                          Guides
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/real-stories" className="text-sm hover:text-rose-500 block">
-                          Real stories
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/get-started-kit" className="text-sm hover:text-rose-500 block">
-                          Get started kit
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <h3 className="font-medium text-gray-900 mb-2">Not sure where to start?</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      Tell us what brought you here and we'll let you know how we can help.
-                    </p>
-                    <Link href="/quiz" className="text-sm font-medium text-rose-500 hover:text-rose-600">
-                      Start here
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative dropdown-container">
-              <button
-                className="flex items-center gap-1 text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]"
-                onClick={() => setActiveDropdown(activeDropdown === "shop" ? null : "shop")}
-              >
-                Shop
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-4 w-4 opacity-60"
-                >
-                  <path d="m6 9 6 6 6-6" />
-                </svg>
-              </button>
-
-              <div
-                className={`absolute left-0 top-full z-50 mt-3 w-80 rounded-xl border border-[#1F2328]/10 bg-white p-5 shadow-[0_18px_40px_-12px_rgba(31,61,51,0.22)] ${activeDropdown === "shop" ? "block" : "hidden"}`}
-              >
-                <div className="space-y-4">
-                  <div>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link
-                          href="/test-kits/hormone-fertility"
-                          className="text-sm hover:text-rose-500 block font-medium"
-                        >
-                          Hormone & Fertility Test
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/merch" className="text-sm hover:text-rose-500 block font-medium">
-                          FertiTerra Merch
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/shop/gift-cards" className="text-sm hover:text-rose-500 block font-medium">
-                          Gift cards
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/learn/get-started-kit" className="text-sm hover:text-rose-500 block font-medium">
-                          Get started kit
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-gray-50 p-3 rounded-md">
-                    <h3 className="font-medium text-gray-900 mb-2">Not sure where to start?</h3>
-                    <p className="text-sm text-gray-600 mb-2">
-                      Tell us what brought you here and we'll let you know how we can help.
-                    </p>
-                    <Link href="/quiz" className="text-sm font-medium text-rose-500 hover:text-rose-600">
-                      Start here
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <Link href="/for-employers" className="text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]">
-              For Employers
-            </Link>
           </nav>
 
           {/* Cart, Login, and CTA */}
@@ -604,9 +393,7 @@ export function Header() {
               </div>
             ) : (
               <div className="hidden md:flex items-center gap-4">
-                <Link href="/login" className="text-[15px] font-medium text-[#1F2328] transition-colors hover:text-[#1F3D33]">
-                  Login
-                </Link>
+                <Link href="/login" aria-label="Log in" className="flex h-12 w-12 items-center justify-center text-[#1F2328] transition-colors hover:text-[#1F3D33] lg:h-auto lg:w-auto"><UserCircle className="h-[28px] w-[28px] lg:h-[24px] lg:w-[24px]" strokeWidth={1.5} /></Link>
                 <Link href="/screening">
                   <Button className="h-11 rounded-lg bg-[#1F2328] px-5 text-[15px] font-medium text-white shadow-none transition-colors hover:bg-[#1F3D33]">
                     Start now
@@ -636,48 +423,12 @@ export function Header() {
           <nav aria-label="Mobile" className="border-t border-[#1F2328]/25">
             {/* ft-mobile-menu-v3 */}
             {[
-              { id: "tests", label: "Tests", items: [
-                { label: "Advanced Hormone and Fertility Test", href: "/test-kits/hormone-fertility" },
-                { label: "All at-home tests", href: "/test-kits" },
-              ] },
-              { id: "appointments", label: "Appointments", items: [
-                { label: "Fertility Advisor Call", href: "/appointments/advisor-call" },
-                { label: "Private Gynaecologist", href: "/appointments/gynaecologist" },
-                { label: "Pelvic Ultrasound Scan", href: "/appointments/ultrasound" },
-                { label: "Nutrition Consultation", href: "/appointments/nutrition" },
-                { label: "Menopause Specialist", href: "/appointments/menopause-specialist" },
-                { label: "Counselling", href: "/appointments/counselling" },
-                { label: "Egg Freezing", href: "/appointments/egg-freezing" },
-                { label: "Skin Consultation", href: "/appointments/skin-consultation" },
-              ] },
-              { id: "treatments", label: "Treatments", items: [
-                { label: "All treatments and care", href: "/treatments" },
-                { label: "Egg Freezing", href: "/appointments/egg-freezing" },
-                { label: "IVF support", href: "/consultation" },
-                { label: "Counselling", href: "/appointments/counselling" },
-                { label: "Nutrition support", href: "/appointments/nutrition" },
-                { label: "Menopause care", href: "/appointments/menopause-specialist" },
-              ] },
-              { id: "symptoms", label: "Symptoms", items: [
-                { label: "All symptoms we help with", href: "/symptoms" },
-                { label: "PCOS", href: "/symptoms" },
-                { label: "Endometriosis", href: "/symptoms" },
-                { label: "Fibroids", href: "/symptoms" },
-                { label: "Irregular periods", href: "/symptoms" },
-                { label: "Male fertility", href: "/symptoms" },
-              ] },
-              { id: "learn", label: "Learn", items: [
-                { label: "Knowledge Centre", href: "/knowledge-centre" },
-                { label: "Trying to conceive", href: "/learn/trying-to-conceive" },
-                { label: "Struggling to conceive", href: "/learn/struggling-to-conceive" },
-                { label: "Planning for future children", href: "/learn/planning-for-future-children" },
-                { label: "LGBTQIA+ family building", href: "/learn/lgbtqia-family" },
-                { label: "Get started kit", href: "/learn/get-started-kit" },
-              ] },
-              { id: "shop", label: "Shop", items: [
-                { label: "All products", href: "/shop" },
-                { label: "Merchandise", href: "/shop/merch" },
-              ] },
+              { id: "tests", label: "Tests", items: [ ...NAV_MENUS.find((m) => m.id === "tests")!.groups.flatMap((g) => g.links) ] },
+              { id: "appointments", label: "Appointments", items: [ ...NAV_MENUS.find((m) => m.id === "appointments")!.groups.flatMap((g) => g.links) ] },
+              { id: "treatments", label: "Treatments", items: [ ...NAV_MENUS.find((m) => m.id === "treatments")!.groups.flatMap((g) => g.links) ] },
+              { id: "symptoms", label: "Symptoms", items: [ ...NAV_MENUS.find((m) => m.id === "symptoms")!.groups.flatMap((g) => g.links) ] },
+              { id: "learn", label: "Learn", items: [ ...NAV_MENUS.find((m) => m.id === "learn")!.groups.flatMap((g) => g.links) ] },
+              { id: "employers", label: "Workplace", items: [ ...NAV_MENUS.find((m) => m.id === "employers")!.groups.flatMap((g) => g.links) ] },
             ].map((section) => {
               const open = expandedSection === section.id
               return (

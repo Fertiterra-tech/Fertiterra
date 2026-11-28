@@ -1113,7 +1113,7 @@
   }
 
   .support-accordion__item.is-open .support-accordion__dot {
-    background: #e6ff70;
+    background: #1F3D33;
     box-shadow: 0 0 12px rgba(230, 255, 112, 0.6);
   }
 
@@ -1242,8 +1242,8 @@
     margin: 56px auto 0;
     border-radius: 12px;
     padding: 0 36px;
-    background: #e6ff70;
-    color: #1f2328;
+    background: #1F3D33;
+    color: #FAF7F2;
     font-size: 17px;
     font-weight: 600;
     line-height: 1.2;
@@ -1556,8 +1556,8 @@
     margin-top: 32px;
     padding: 16px 32px;
     border-radius: 999px;
-    background: #e6ff70;
-    color: #1f3d33;
+    background: #1F3D33;
+    color: #FAF7F2;
     font-size: 16px;
     font-weight: 600;
     line-height: 1;
@@ -1783,9 +1783,9 @@
     bottom: 12px;
     left: 12px;
     border-radius: 6px;
-    background: #e6ff70;
+    background: #1F3D33;
     padding: 5px 10px;
-    color: #1f3d33;
+    color: #FAF7F2;
     font-size: 13px;
     font-weight: 500;
     line-height: 1.2;

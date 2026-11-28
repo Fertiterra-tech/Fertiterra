@@ -1,0 +1,153 @@
+import { Header } from "@/components/header"
+import { SiteFooter } from "@/components/site-footer"
+import Link from "next/link"
+import { SymptomByline, SymptomsIntro, WhatIsImbalance, ImbalanceVsCondition, OtherSymptoms, WhatToDoNext, ManagingSymptoms, HowWeCanHelp } from "@/components/ft/symptom-sections"
+
+export const metadata = {
+  title: "Symptoms we help you understand | FertiTerra",
+  description: "Start with what you are feeling. The 8-minute assessment matches your symptoms to the right test, appointment or specialist, so you are not guessing.",
+}
+
+export default function Page() {
+  return (
+    <div className="min-h-screen bg-[#FAF7F2]">
+      <Header />
+      <main className="mx-auto w-full max-w-[1440px] px-6 py-14 sm:px-8 lg:px-20 lg:py-20">
+        <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#1F3D33]/70">FertiTerra</p>
+        <h1 className="mt-4 max-w-[20ch] font-[family-name:var(--font-playfair)] text-[34px] leading-[1.12] tracking-[-0.01em] text-[#1F2328] sm:text-[44px] lg:text-[56px]">
+          Symptoms we help you understand
+        </h1>
+        <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-[#1F2328]/75 sm:text-[19px]">
+          Start with what you are feeling. The 8-minute assessment matches your symptoms to the right test, appointment or specialist, so you are not guessing.
+        </p>
+
+        {/* ft-sections-v2: intro band */}
+        <SymptomByline />
+        <SymptomsIntro />
+
+        <section className="mt-16">
+          <h2 className="font-[family-name:var(--font-playfair)] text-[26px] leading-tight text-[#1F2328] sm:text-[30px]">Cycle and hormones</h2>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Irregular periods</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Cycles that are short, long or hard to predict.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Hormonal imbalance</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Mood, skin, weight or energy changes that do not settle.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Ovulation disorders</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Signs that ovulation is not happening regularly.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Thyroid and fertility</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Thyroid function and what it means for conception.</span>
+          </Link>
+        </div>
+        </section>
+        <section className="mt-16">
+          <h2 className="font-[family-name:var(--font-playfair)] text-[26px] leading-tight text-[#1F2328] sm:text-[30px]">Conditions</h2>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">PCOS</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Polycystic ovary syndrome and its effect on cycles and fertility.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Endometriosis</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Pain around your period that disrupts normal days.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Fibroids</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Non-cancerous growths and the symptoms they cause.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Pelvic pain</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Ongoing pain that has not been explained.</span>
+          </Link>
+        </div>
+        </section>
+        <section className="mt-16">
+          <h2 className="font-[family-name:var(--font-playfair)] text-[26px] leading-tight text-[#1F2328] sm:text-[30px]">Trying to conceive</h2>
+
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Link
+            href="/test-kits/hormone-fertility"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Fertility assessment</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Understand your ovarian reserve and hormone picture.</span>
+          </Link>
+          <Link
+            href="/screening"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Male fertility</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Fertility is not only a female question. Male testing is part of the picture.</span>
+          </Link>
+          <Link
+            href="/learn/planning-future-children"
+            className="group flex min-h-[132px] flex-col justify-between rounded-2xl border border-[#1F2328]/10 bg-white/70 p-6 transition-colors hover:border-[#1F3D33]/40 hover:bg-white"
+          >
+            <span className="font-[family-name:var(--font-playfair)] text-[21px] leading-snug text-[#1F2328]">Planning ahead</span>
+            <span className="mt-3 text-[15px] leading-relaxed text-[#1F2328]/65">Check where you stand before you start trying.</span>
+          </Link>
+        </div>
+        </section>
+        <p className="mt-12 max-w-[62ch] text-[15px] leading-relaxed text-[#1F2328]/60">
+          This page helps you find the right next step. It is not a diagnosis. Your results and a clinician review
+          are what confirm what is happening.
+        </p>
+        <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <Link
+            href="/screening"
+            className="inline-flex h-[56px] items-center justify-center rounded-xl bg-[#1F2328] px-7 text-[17px] font-medium text-white transition-colors hover:bg-[#1F3D33]"
+          >
+            Start my free assessment
+          </Link>
+          <Link
+            href="/consultation"
+            className="inline-flex h-[56px] items-center justify-center rounded-xl border border-[#1F2328]/25 px-7 text-[17px] font-medium text-[#1F2328] transition-colors hover:border-[#1F2328]"
+          >
+            Speak to an expert
+          </Link>
+        </div>
+      
+        {/* ft-sections-v2: explainer sections */}
+        <WhatIsImbalance />
+        <ImbalanceVsCondition />
+        <OtherSymptoms />
+        <WhatToDoNext />
+        <ManagingSymptoms />
+        <HowWeCanHelp />
+      </main>
+      <SiteFooter />
+    </div>
+  )
+}

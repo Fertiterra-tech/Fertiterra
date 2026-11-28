@@ -1,6 +1,8 @@
 import { Header } from "@/components/header"
 import { SiteFooter } from "@/components/site-footer"
 import Link from "next/link"
+import { SymptomByline, SymptomsIntro, WhatIsImbalance, ImbalanceVsCondition, OtherSymptoms, WhatToDoNext, ManagingSymptoms, HowWeCanHelp } from "@/components/ft/symptom-sections"
+import { SymptomByline, SymptomsIntro, WhatIsImbalance, ImbalanceVsCondition, OtherSymptoms, WhatToDoNext, ManagingSymptoms, HowWeCanHelp } from "@/components/ft/symptom-sections"
 
 export const metadata = {
   title: "Symptoms we help you understand | FertiTerra",
@@ -19,6 +21,14 @@ export default function Page() {
         <p className="mt-5 max-w-[58ch] text-[17px] leading-relaxed text-[#1F2328]/75 sm:text-[19px]">
           Start with what you are feeling. The 8-minute assessment matches your symptoms to the right test, appointment or specialist, so you are not guessing.
         </p>
+
+        {/* ft-sections-v2: intro band */}
+        <SymptomByline />
+        <SymptomsIntro />
+
+        {/* ft-symptom: intro band */}
+        <SymptomByline />
+        <SymptomsIntro />
 
         <section className="mt-16">
           <h2 className="font-[family-name:var(--font-playfair)] text-[26px] leading-tight text-[#1F2328] sm:text-[30px]">Cycle and hormones</h2>
@@ -133,6 +143,22 @@ export default function Page() {
             Speak to an expert
           </Link>
         </div>
+      
+        {/* ft-sections-v2: explainer sections */}
+        <WhatIsImbalance />
+        <ImbalanceVsCondition />
+        <OtherSymptoms />
+        <WhatToDoNext />
+        <ManagingSymptoms />
+        <HowWeCanHelp />
+      
+        {/* ft-symptom: explainer sections */}
+        <WhatIsImbalance />
+        <ImbalanceVsCondition />
+        <OtherSymptoms />
+        <WhatToDoNext />
+        <ManagingSymptoms />
+        <HowWeCanHelp />
       </main>
       <SiteFooter />
     </div>

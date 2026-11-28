@@ -1,0 +1,80 @@
+$ next dev
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 10.9s (857 modules)
+ GET / 200 in 3521ms
+ ○ Compiling /test-kits/trying-to-conceive ...
+ ✓ Compiled /test-kits/trying-to-conceive in 4.3s (812 modules)
+ GET /test-kits/trying-to-conceive 200 in 3698ms
+ ✓ Compiled /test-kits/experiencing-symptoms in 206ms (814 modules)
+ GET /test-kits/experiencing-symptoms 200 in 315ms
+ ✓ Compiled /test-kits/planning-ahead in 215ms (816 modules)
+ GET /test-kits/planning-ahead 200 in 322ms
+ ✓ Compiled /test-kits/perimenopausal in 379ms (818 modules)
+ GET /test-kits/perimenopausal 200 in 487ms
+ ✓ Compiled /test-kits/just-curious in 272ms (820 modules)
+ GET /test-kits/just-curious 200 in 364ms
+ GET / 200 in 1174ms
+ GET / 200 in 1178ms
+ GET / 200 in 392ms
+ GET /test-kits/trying-to-conceive 200 in 572ms
+ GET / 200 in 396ms
+ ✓ Compiled in 3.3s (826 modules)
+ GET / 200 in 1089ms
+ ✓ Compiled in 452ms (398 modules)
+ ✓ Compiled in 743ms (826 modules)
+ GET / 200 in 1010ms
+ GET /test-kits/trying-to-conceive 200 in 199ms
+ ○ Compiling /test-kits/experiencing-symptoms ...
+ ✓ Compiled /test-kits/experiencing-symptoms in 507ms (430 modules)
+ GET /test-kits/experiencing-symptoms 200 in 759ms
+ GET /test-kits/trying-to-conceive 200 in 378ms
+ ✓ Compiled /test-kits/planning-ahead in 143ms (432 modules)
+ GET /test-kits/planning-ahead 200 in 309ms
+ ○ Compiling /test-kits/perimenopausal ...
+ ✓ Compiled /test-kits/perimenopausal in 528ms (434 modules)
+ GET /test-kits/perimenopausal 200 in 780ms
+ ○ Compiling /test-kits ...
+ ✓ Compiled /test-kits in 2.1s (844 modules)
+ GET /test-kits/planning-ahead 200 in 224ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 685ms (807 modules)
+ GET /stories 404 in 161ms
+ GET /test-kits/planning-ahead 200 in 214ms
+ ✓ Compiled / in 230ms (449 modules)
+ ○ Compiling /appointments/advisor-call ...
+ ✓ Compiled /appointments/advisor-call in 1814ms (866 modules)
+ GET /test-kits/trying-to-conceive 200 in 211ms
+ ✓ Compiled in 2.9s (865 modules)
+ ⚠ Fast Refresh had to perform a full reload when /Fertiterra/components/header.tsx","ids":["Header"]}, /Fertiterra/components/site-footer.tsx","ids":["SiteFooter"]}, /Fertiterra/node_modules/.pnpm/next@14.2.35_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/client/link.js","ids":["*"]} changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled (851 modules)
+ GET /appointments/advisor-call 200 in 538ms
+ GET /appointments/advisor-call 200 in 124ms
+ ✓ Compiled /appointments/hormone-symptom-consultation in 409ms (853 modules)
+ ○ Compiling /appointments/menopause-specialist ...
+ ✓ Compiled /appointments/menopause-specialist in 528ms (853 modules)
+ ✓ Compiled /treatments in 512ms (841 modules)
+ ○ Compiling /learn/lgbtqia-family ...
+ ✓ Compiled /learn/lgbtqia-family in 1739ms (830 modules)
+ ✓ Compiled in 4.4s (842 modules)
+ GET /learn/lgbtqia-family 200 in 307ms
+ GET /learn/lgbtqia-family 200 in 150ms
+ ○ Compiling /treatments/ivf-support ...
+ ✓ Compiled /treatments/ivf-support in 643ms (833 modules)
+ ✓ Compiled /treatments/lgbtqia-family in 322ms (835 modules)
+ ✓ Compiled /treatments/trusted-clinics in 431ms (835 modules)
+ ✓ Compiled in 1117ms (422 modules)
+ ✓ Compiled in 670ms (837 modules)
+ GET /treatments/trusted-clinics 200 in 356ms
+ ○ Compiling /for-employers ...
+ ✓ Compiled /for-employers in 2.2s (877 modules)
+ GET /for-employers 200 in 199ms
+ ✓ Compiled in 1685ms (867 modules)
+ ✓ Compiled in 434ms (440 modules)
+ ✓ Compiled in 2.3s (867 modules)
+ ✓ Compiled in 2.4s (867 modules)
